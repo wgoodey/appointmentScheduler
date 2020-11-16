@@ -1,16 +1,23 @@
-package com.whitneygoodey.appointmentSchedulerControllers;
+package com.whitneygoodey.appointmentScheduler;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class LoginFormController {
+
+    private Stage stage;
 
     @FXML
     Label badLoginLabel;
@@ -33,6 +40,7 @@ public class LoginFormController {
      * Sets region information and
      */
     public void initialize() {
+
         //Load resource bundle
         ResourceBundle bundle;
         Locale locale = Locale.getDefault();
@@ -89,5 +97,19 @@ public class LoginFormController {
     //need to pass user credentials for this? I don't think so.
     public void openMainWindow() {
         System.out.println("Welcome to the city of baby sandwiches!");
+
+        try {
+            //TODO figure out how to open in the same window
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Customer Scheduler");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }

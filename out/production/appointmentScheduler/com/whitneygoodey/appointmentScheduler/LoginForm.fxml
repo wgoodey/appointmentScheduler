@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="250" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whitneygoodey.appointmentSchedulerControllers.LoginFormController">
+<BorderPane prefHeight="250" prefWidth="400" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.whitneygoodey.appointmentScheduler.LoginFormController">
    <top>
       <Label fx:id="badLoginLabel" opacity="0.00" text="Login failed.&#10;Check credentials and try again." textAlignment="CENTER" textFill="#ca0000" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -23,16 +23,6 @@
                   <Insets top="5.0" />
                </GridPane.margin></Button>
          </children>
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
       </GridPane>
    </center>
    <bottom>

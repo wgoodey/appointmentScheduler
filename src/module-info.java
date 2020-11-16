@@ -3,6 +3,6 @@ module appointmentScheduler {
     requires javafx.controls;
 
     opens com.whitneygoodey.appointmentScheduler;
-    opens com.whitneygoodey.appointmentSchedulerControllers;
+//    opens com.whitneygoodey.appointmentSchedulerControllers;
 //    opens com.whitneygoodey.appointmentSchedulerViews;
 }
