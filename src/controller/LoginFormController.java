@@ -1,5 +1,6 @@
-package com.whitneygoodey.appointmentScheduler;
+package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,27 +18,28 @@ import java.util.ResourceBundle;
 
 public class LoginFormController {
 
-    private Stage stage;
+    Stage stage;
+    Parent scene;
 
     @FXML
-    Label badLoginLabel;
+    private Label badLoginLabel;
     @FXML
-    Label regionLabel;
+    private Label regionLabel;
     @FXML
-    Label usernameLabel;
+    private Label usernameLabel;
     @FXML
-    Label passwordLabel;
+    private Label passwordLabel;
     @FXML
-    TextField usernameField;
+    private TextField usernameField;
     @FXML
-    PasswordField passwordField;
+    private PasswordField passwordField;
     @FXML
-    Button loginButton;
+    private Button loginButton;
 
     Boolean credentialMatch = false;
 
     /**
-     * Sets region information and
+     * Sets region information and translates text.
      */
     public void initialize() {
 
@@ -62,9 +64,9 @@ public class LoginFormController {
     }
 
     /**
-     * Check login credentials.
+     * Checks login credentials and opens the application's main window.
      */
-    public void login() {
+    public void login(ActionEvent event) throws IOException {
 
         //get username and password
         String username = usernameField.getText().toLowerCase();
@@ -87,28 +89,14 @@ public class LoginFormController {
             badLoginLabel.setOpacity(100.00);
 //            passwordField.clear();
         } else {
-            openMainWindow();
-        }
-    }
+            System.out.println("Welcome to the city of baby sandwiches!");
 
-    /**
-     * Opens the application's main window.
-     */
-    //need to pass user credentials for this? I don't think so.
-    public void openMainWindow() {
-        System.out.println("Welcome to the city of baby sandwiches!");
-
-        try {
-            //TODO figure out how to open in the same window
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Customer Scheduler");
-            stage.setScene(new Scene(root));
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            stage.close();
+            scene = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Scheduler");
             stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

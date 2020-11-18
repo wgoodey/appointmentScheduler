@@ -1,4 +1,4 @@
-package com.whitneygoodey.appointmentScheduler;
+package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,31 +9,30 @@ import java.util.Optional;
 
 public class CustomerFormController {
 
+    @FXML
+    private TextField customerID;
+    @FXML
+    private TextField name;
+    @FXML
+    private ComboBox country;
+    @FXML
+    private TextField address;
+    @FXML
+    private TextField postalCode;
+    @FXML
+    private ComboBox state_province;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TextField email;
+    @FXML
+    private ComboBox customerContact;
+
 
     @FXML
-    TextField custID;
+    private Button addButton;
     @FXML
-    TextField name;
-    @FXML
-    ComboBox country;
-    @FXML
-    TextField address;
-    @FXML
-    TextField postalCode;
-    @FXML
-    ComboBox state_province;
-    @FXML
-    TextField phone;
-    @FXML
-    TextField email;
-    @FXML
-    ComboBox custContact;
-
-
-    @FXML
-    Button addButton;
-    @FXML
-    Button cancelButton;
+    private Button cancelButton;
 
 
 
