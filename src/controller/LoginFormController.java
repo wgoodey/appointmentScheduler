@@ -84,7 +84,6 @@ public class LoginFormController {
             }
         }
 
-
         if (!credentialMatch) {
             badLoginLabel.setOpacity(100.00);
 //            passwordField.clear();

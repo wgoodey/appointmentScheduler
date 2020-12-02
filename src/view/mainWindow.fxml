@@ -38,7 +38,8 @@
                         <TableColumn fx:id="customerIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
                         <TableColumn fx:id="nameCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Name" />
                         <TableColumn fx:id="addressCol" editable="false" prefWidth="100.0" text="Address" />
-                        <TableColumn fx:id="stateCol" editable="false" prefWidth="75.0" text="State/Prov" />
+                        <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
+                        <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
                         <TableColumn fx:id="phoneCol" editable="false" prefWidth="80.0" text="Phone" />
                     </columns>
 
@@ -51,7 +52,8 @@
                 <Button fx:id="newButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonClick" text="New..." />
                 <Button fx:id="modifyButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonClick" text="Modify" />
                 <Button fx:id="deleteButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleButtonClick" text="Delete" />
-            </buttons></ButtonBar>
+            </buttons>
+        </ButtonBar>
 
 
         <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
