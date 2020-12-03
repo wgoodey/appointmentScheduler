@@ -42,6 +42,17 @@ public class Country {
         return divisions;
     }
 
+    //TODO loop through countries and add each division
+    //pull divisions from locally stored list
+    public ObservableList<String> getDivisionNames() {
+        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+
+        for (int i = 0; i < getDivisions().size(); i++) {
+            divisionNames.add(divisions.get(i).getName());
+        }
+        return divisionNames;
+    }
+
     //TODO modify so it pulls this from the database
     public void addDivision(Division division) {
         divisions.add(division);

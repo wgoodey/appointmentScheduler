@@ -3,9 +3,6 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 public class Customer {
 
     private int customerID;
@@ -15,16 +12,10 @@ public class Customer {
     private String postalCode;
     private String division;
     private String phone;
-    private String createdBy;
-    private String lastUpdatedBy;
-    //Mysql DATETIME
-    private LocalDate createDate;
-    //MYSQL TIMESTAMP
-    private LocalDateTime lastUpdate;
     private ObservableList<Appointment> myAppointments = FXCollections.observableArrayList();
 
 
-    public Customer(int customerID, String name, String country, String address, String postalCode, String division, String phone, String createdBy, String lastUpdatedBy, LocalDate createDate, LocalDateTime lastUpdate) {
+    public Customer(int customerID, String name, String address, String division, String postalCode, String country, String phone) {
         this.customerID = customerID;
         this.name = name;
         this.country = country;
@@ -32,10 +23,6 @@ public class Customer {
         this.postalCode = postalCode;
         this.division = division;
         this.phone = phone;
-        this.createdBy = createdBy;
-        this.lastUpdatedBy = lastUpdatedBy;
-        this.createDate = createDate;
-        this.lastUpdate = lastUpdate;
     }
 
     public int getCustomerID() {
@@ -92,38 +79,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-    public LocalDate getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDate createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(LocalDateTime lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     public ObservableList<Appointment> getMyAppointments() {

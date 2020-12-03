@@ -26,9 +26,9 @@
                         </font>
                     </Label>
                     <TextField fx:id="searchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
-               <BorderPane.margin>
-                  <Insets bottom="10.0" />
-               </BorderPane.margin>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" />
+                    </BorderPane.margin>
                 </HBox>
             </top>
             <center>
@@ -39,6 +39,7 @@
                         <TableColumn fx:id="nameCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Name" />
                         <TableColumn fx:id="addressCol" editable="false" prefWidth="100.0" text="Address" />
                         <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
+                        <TableColumn fx:id="postalCol" editable="false" prefWidth="75.0" text="Postal" />
                         <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
                         <TableColumn fx:id="phoneCol" editable="false" prefWidth="80.0" text="Phone" />
                     </columns>

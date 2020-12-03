@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import model.Customer;
 import model.Lists;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class CustomerFormController {
@@ -30,10 +28,7 @@ public class CustomerFormController {
     @FXML
     private TextField textPhone;
     @FXML
-    private TextField textEmail;
-    @FXML
     private ComboBox<String> comboCustomerContact;
-
 
     @FXML
     private Button addButton;
@@ -47,34 +42,46 @@ public class CustomerFormController {
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
 
-        //figure out how to refer to divisions inside of allCountries list
-        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getCountryDivisionNames("France"));
-//        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getDivisionNames());
-        comboDivision.setItems(divisions);
-        comboDivision.getItems().addAll();
+    }
+
+    public void initialize(Customer selectedCustomer) {
+        initialize();
+
+        //set fields
+        textCustomerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        textName.setText(selectedCustomer.getName());
+        textAddress.setText(selectedCustomer.getAddress());
+        textPostalCode.setText(selectedCustomer.getPostalCode());
+        textPhone.setText(selectedCustomer.getPhone());
+        comboCountry.getSelectionModel().select(selectedCustomer.getCountry());
+        comboDivision.getSelectionModel().select(selectedCustomer.getDivision());
+        buildDivBox();
+
     }
 
     public void save(ActionEvent click) {
-        //TODO save to database
-        boolean flag = false;
 
-
-        //TODO figure out how to pull auto-generated ID
         int customerID;
         String name = textName.getText().trim();
-        String address = textName.getText().trim();
-        String postalCode = textName.getText().trim();
         String country = comboCountry.getValue();
+        String address = textAddress.getText().trim();
+        String postalCode = textPostalCode.getText().trim();
         String division = comboDivision.getValue();
-        String phone = textName.getText().trim();
-        String createdBy = "";
-        String lastUpdatedBy = "";
-        //for testing only
-        LocalDate createDate = LocalDate.now();
-        LocalDateTime lastUpdate = LocalDateTime.now();
+        String phone = textPhone.getText().trim();
 
-        Customer tempCustomer = new Customer(1, name, address, postalCode, phone, country, division,createdBy, lastUpdatedBy, createDate, lastUpdate);
-        Lists.addCustomer(tempCustomer);
+
+        if (!textCustomerID.getText().isEmpty()) {
+            customerID = Integer.parseInt(textCustomerID.getText());
+            Lists.updateCustomer(Lists.getCustomerIndex(customerID), new Customer(customerID, name, address, division, postalCode, country, phone));
+        }
+        else {
+            //TODO figure out how to deal with auto-generated ID in database
+            //temporarily generate random ID between 10 and 100
+            customerID = (int)(Math.random() * (100 - 10 + 1) + 10);
+            Lists.addCustomer(new Customer(customerID, name, address, division, postalCode, country, phone));
+        }
+
+        //TODO save to database
         //close window
         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
     }
@@ -91,5 +98,12 @@ public class CustomerFormController {
         }
     }
 
+    public void buildDivBox() {
+        //TODO look in Lists for country and get divisions
+        String selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
+        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getCountry(selectedCountry).getDivisionNames());
+        comboDivision.setItems(divisions);
+        comboDivision.getItems().addAll();
+    }
 
 }

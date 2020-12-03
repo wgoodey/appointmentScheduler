@@ -10,8 +10,6 @@ import model.Customer;
 import model.Division;
 import model.Lists;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -26,10 +24,7 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-//test data
-        Lists.addCustomer(new Customer(1,"d","d","12","32","ds",
-                "503-432-5865", "","1", LocalDate.now(), LocalDateTime.now()));
-
+        //test data
         Country usa = new Country(1, "USA");
         Country france = new Country(2, "France");
 
@@ -40,12 +35,17 @@ public class Main extends Application {
         Lists.addCountry(usa);
         Lists.addCountry(france);
 
+        Lists.addCustomer(new Customer(1,"Whitney","9912 SW Conestoga Drive APT 217","Oregon","97008","USA",
+                "503-432-5865"));
+        Lists.addCustomer(new Customer(2,"Name","address","Nice","post","France",
+                "phone"));
+
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
         primaryStage.setTitle("Login");
 
         //Load resource bundle

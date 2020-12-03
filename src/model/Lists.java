@@ -59,6 +59,7 @@ public class Lists {
         return countryNames;
     }
 
+//    //TODO loop through countries and add each division
 //    //pull divisions from locally stored list
 //    public static ObservableList<String> getDivisionNames() {
 //        ObservableList<Division> divisions = FXCollections.observableArrayList(allCountries.getDivisions());
@@ -66,6 +67,18 @@ public class Lists {
 //
 //        for (int i = 0; i < divisions.size(); i++) {
 //            divisionNames.add(divisions.get(i).getName());
+//        }
+//        return divisionNames;
+//    }
+//
+//    //pulls divisions from locally stored list
+//    public static ObservableList<String> filterDivisions(String key) {
+//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+//        //loop through divisions list
+//        for (int i = 0; i < allDivisions.size(); i++) {
+//            if (key.equals(allDivisions.get(i).getCountryName())) {
+//                divisionNames.add(allDivisions.get(i).getName());
+//            }
 //        }
 //        return divisionNames;
 //    }
@@ -115,6 +128,16 @@ public class Lists {
         int index;
         for(index = 0; index<Lists.getAllAppointments().size(); index++) {
             if(id == Lists.allAppointments.get(index).getAppointmentID()) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    public static int getCountryIndex(String name) {
+        int index;
+        for(index = 0; index<Lists.getAllCustomers().size(); index++) {
+            if(Lists.allCountries.get(index).getName().equals(name)) {
                 return index;
             }
         }
