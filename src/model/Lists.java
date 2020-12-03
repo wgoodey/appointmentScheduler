@@ -59,16 +59,16 @@ public class Lists {
         return countryNames;
     }
 
-    //pull divisions from locally stored list
-    public static ObservableList<String> getDivisionNames() {
-        ObservableList<Division> divisions = FXCollections.observableArrayList(Country.getDivisions());
-        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-
-        for (int i = 0; i < divisions.size(); i++) {
-            divisionNames.add(divisions.get(i).getName());
-        }
-        return divisionNames;
-    }
+//    //pull divisions from locally stored list
+//    public static ObservableList<String> getDivisionNames() {
+//        ObservableList<Division> divisions = FXCollections.observableArrayList(allCountries.getDivisions());
+//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+//
+//        for (int i = 0; i < divisions.size(); i++) {
+//            divisionNames.add(divisions.get(i).getName());
+//        }
+//        return divisionNames;
+//    }
 
     public static ObservableList<String> getCountryDivisionNames(String countryName) {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
@@ -161,11 +161,11 @@ public class Lists {
         allAppointments.add(appointment);
     }
 
-    public void updateCustomer(int index, Customer customer) {
+    public static void updateCustomer(int index, Customer customer) {
         allCustomers.set(index, customer);
     }
 
-    public void updateAppointment(int index, Appointment appointment) {
+    public static void updateAppointment(int index, Appointment appointment) {
         allAppointments.set(index, appointment);
     }
 
