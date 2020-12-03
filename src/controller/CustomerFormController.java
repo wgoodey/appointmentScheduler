@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 import model.Customer;
 import model.Lists;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class CustomerFormController {
@@ -30,8 +28,6 @@ public class CustomerFormController {
     @FXML
     private TextField textPhone;
     @FXML
-    private TextField textEmail;
-    @FXML
     private ComboBox<String> comboCustomerContact;
 
 
@@ -47,36 +43,35 @@ public class CustomerFormController {
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
 
-        //figure out how to refer to divisions inside of allCountries list
-        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getCountryDivisionNames("France"));
-//        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getDivisionNames());
-        comboDivision.setItems(divisions);
-        comboDivision.getItems().addAll();
+
     }
 
     public void save(ActionEvent click) {
         //TODO save to database
         boolean flag = false;
 
-
         //TODO figure out how to pull auto-generated ID
         int customerID;
         String name = textName.getText().trim();
-        String address = textName.getText().trim();
-        String postalCode = textName.getText().trim();
         String country = comboCountry.getValue();
+        String address = textAddress.getText().trim();
+        String postalCode = textPostalCode.getText().trim();
         String division = comboDivision.getValue();
-        String phone = textName.getText().trim();
-        String createdBy = "";
-        String lastUpdatedBy = "";
-        //for testing only
-        LocalDate createDate = LocalDate.now();
-        LocalDateTime lastUpdate = LocalDateTime.now();
+        String phone = textPhone.getText().trim();
 
-        Customer tempCustomer = new Customer(1, name, address, postalCode, phone, country, division,createdBy, lastUpdatedBy, createDate, lastUpdate);
+        Customer tempCustomer = new Customer(1, name, address, division, postalCode, country, phone);
         Lists.addCustomer(tempCustomer);
         //close window
         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
+
+        //TODO testing
+        System.out.println(tempCustomer.getCustomerID());
+        System.out.println(tempCustomer.getName());
+        System.out.println(tempCustomer.getAddress());
+        System.out.println(tempCustomer.getDivision());
+        System.out.println(tempCustomer.getPostalCode());
+        System.out.println(tempCustomer.getCountry());
+        System.out.println(tempCustomer.getPhone());
     }
 
     public void cancel(ActionEvent click) {
@@ -91,5 +86,10 @@ public class CustomerFormController {
         }
     }
 
+    public void buildDivBox(ActionEvent event) {
+        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.filterDivisions(comboCountry.getValue()));
+        comboDivision.setItems(divisions);
+        comboDivision.getItems().addAll();
+    }
 
 }

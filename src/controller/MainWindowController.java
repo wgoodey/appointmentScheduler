@@ -24,19 +24,21 @@ public class MainWindowController {
     @FXML
     private TextField searchBar;
     @FXML
-    private TableView customerTable;
+    private TableView<Customer> customerTable;
     @FXML
-    private TableColumn customerIDCol;
+    private TableColumn<Customer, Integer> customerIDCol;
     @FXML
-    private TableColumn nameCol;
+    private TableColumn<Customer, String> nameCol;
     @FXML
-    private TableColumn addressCol;
+    private TableColumn<Customer, String> countryCol;
     @FXML
-    private TableColumn divisionCol;
+    private TableColumn<Customer, String> addressCol;
     @FXML
-    private TableColumn countryCol;
+    private TableColumn<Customer, String> postalCol;
     @FXML
-    private TableColumn phoneCol;
+    private TableColumn<Customer, String> divisionCol;
+    @FXML
+    private TableColumn<Customer, String> phoneCol;
     @FXML
     private Button newButton;
     @FXML
@@ -54,12 +56,12 @@ public class MainWindowController {
     @FXML
     public void initialize() {
         //set tableView for all customers in the list
-        loadCustomerTable(customerTable, customerIDCol, nameCol, addressCol, countryCol, divisionCol, phoneCol);
+        loadCustomerTable(customerTable, customerIDCol, nameCol, countryCol, addressCol, postalCol, divisionCol, phoneCol);
 
         //wrap observable list in a filtered list
         FilteredList<Customer> filteredCustomers = new FilteredList<>(Lists.getAllCustomers(), p -> true);
 
-        //configure listener for parts searchbar
+        //configure listener for customer searchbar
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredCustomers.setPredicate(customer -> {
                 if((newValue == null) || (newValue.isEmpty())) {
@@ -88,16 +90,18 @@ public class MainWindowController {
     public void loadCustomerTable(TableView<Customer> customerTable,
                                          TableColumn<Customer, Integer> customerIDCol,
                                          TableColumn<Customer, String> nameCol,
-                                         TableColumn<Customer, String> addressCol,
                                          TableColumn<Customer, String> countryCol,
-                                         TableColumn<Customer, String> stateCol,
+                                         TableColumn<Customer, String> addressCol,
+                                         TableColumn<Customer, String> postalCol,
+                                         TableColumn<Customer, String> divisionCol,
                                          TableColumn<Customer, String> phoneCol)    {
 
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
-        stateCol.setCellValueFactory(new PropertyValueFactory<>("division"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
         customerTable.setPlaceholder(new Label("No customers found."));

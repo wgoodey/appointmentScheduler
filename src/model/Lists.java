@@ -8,12 +8,17 @@ public class Lists {
     private static final ObservableList <Customer> allCustomers = FXCollections.observableArrayList();
     private static final ObservableList <Appointment> allAppointments = FXCollections.observableArrayList();
     private static final ObservableList <Country> allCountries = FXCollections.observableArrayList();
-//    private static final ObservableList <Division> allDivisions = FXCollections.observableArrayList();
+    private static final ObservableList <Division> allDivisions = FXCollections.observableArrayList();
 
 
     //TEMPORARY?
     public static void addCountry(Country country) {
         allCountries.add(country);
+    }
+
+    //TODO modify so it pulls this from the database
+    public static void addDivision(Division division) {
+        allDivisions.add(division);
     }
 
     /**
@@ -37,6 +42,10 @@ public class Lists {
         return allCountries;
     }
 
+    public static ObservableList<Division> getAllDivisions() {
+        return allDivisions;
+    }
+
     public static Country getCountry (String name) {
         Country match;
         for(int i = 0; i < getAllCountries().size(); i++) {
@@ -47,6 +56,7 @@ public class Lists {
         }
         return null;
     }
+
     /**
      * @return the allCountries ObservableList
      */
@@ -60,32 +70,21 @@ public class Lists {
     }
 
     //pull divisions from locally stored list
-    public static ObservableList<String> getDivisionNames() {
-        ObservableList<Division> divisions = FXCollections.observableArrayList(Country.getDivisions());
+    public static ObservableList<String> getAllDivisionNames() {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
 
-        for (int i = 0; i < divisions.size(); i++) {
-            divisionNames.add(divisions.get(i).getName());
+        for (int i = 0; i < allDivisions.size(); i++) {
+            divisionNames.add(allDivisions.get(i).getName());
         }
         return divisionNames;
     }
 
-    public static ObservableList<String> getCountryDivisionNames(String countryName) {
+    public static ObservableList<String> filterDivisions(String key) {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
-        System.out.println("Search term: " + countryName);
-        //loop through countries list
-        for (int i = 0; i < getAllCountries().size(); i++) {
-            System.out.println("Country " + i + ": " + getAllCountries().get(i).getName());
-            //if countryName matches, copy country. then loop through divisions.
-            if (getAllCountries().get(i).getName().equals(countryName)) {
-                System.out.println(countryName +" = " + getAllCountries().get(i).getName());
-                Country match = getAllCountries().get(i);
-                System.out.println("Match = " + match.getName());
-                //loop through divisions list and add
-                for (int j = 0; j < match.getDivisions().size(); j++) {
-                    System.out.println("Division " + j + ": " + match.getDivisions().get(j).getName());
-                    divisionNames.add(match.getDivisions().get(j).getName());
-                }
+        //loop through divisions list
+        for (int i = 0; i < allDivisions.size(); i++) {
+            if (key.equals(allDivisions.get(i).getCountryName())) {
+                divisionNames.add(allDivisions.get(i).getName());
             }
         }
         return divisionNames;

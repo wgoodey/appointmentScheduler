@@ -1,20 +1,25 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 public class Division {
 
     int ID;
     String name;
-    String created_By;
-    String lastUpdatedBy;
-    LocalDate createDate;
-    LocalDateTime Last_Update;
+    private int countryID;
+    private String countryName;
 
-    public Division(int ID, String name) {
+    public Division(int ID, String name, Country country) {
         this.ID = ID;
         this.name = name;
+        this.countryID = country.getID();
+        this.countryName = country.getName();
+    }
+
+    //copy constructor
+    public Division(Division copy) {
+        this.ID = copy.getID();
+        this.name = copy.getName();
+        this.ID = copy.getCountryID();
+        this.name = copy.getCountryName();
     }
 
     public int getID() {
@@ -31,5 +36,21 @@ public class Division {
 
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    public int getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 }
