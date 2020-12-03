@@ -30,7 +30,6 @@ public class CustomerFormController {
     @FXML
     private ComboBox<String> comboCustomerContact;
 
-
     @FXML
     private Button addButton;
     @FXML
@@ -61,11 +60,8 @@ public class CustomerFormController {
     }
 
     public void save(ActionEvent click) {
-        //TODO save to database
-        boolean flag = false;
 
-        //TODO figure out how to pull auto-generated ID
-        int customerID = Integer.parseInt(textCustomerID.getText());
+        int customerID;
         String name = textName.getText().trim();
         String country = comboCountry.getValue();
         String address = textAddress.getText().trim();
@@ -73,8 +69,19 @@ public class CustomerFormController {
         String division = comboDivision.getValue();
         String phone = textPhone.getText().trim();
 
-        Customer tempCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
-        Lists.addCustomer(tempCustomer);
+
+        if (!textCustomerID.getText().isEmpty()) {
+            customerID = Integer.parseInt(textCustomerID.getText());
+            Lists.updateCustomer(Lists.getCustomerIndex(customerID), new Customer(customerID, name, address, division, postalCode, country, phone));
+        }
+        else {
+            //TODO figure out how to deal with auto-generated ID in database
+            //temporarily generate random ID between 10 and 100
+            customerID = (int)(Math.random() * (100 - 10 + 1) + 10);
+            Lists.addCustomer(new Customer(customerID, name, address, division, postalCode, country, phone));
+        }
+
+        //TODO save to database
         //close window
         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
     }

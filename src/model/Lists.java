@@ -79,6 +79,7 @@ public class Lists {
         return divisionNames;
     }
 
+    //pulls divisions from locally stored list
     public static ObservableList<String> filterDivisions(String key) {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
         //loop through divisions list
@@ -90,14 +91,6 @@ public class Lists {
         return divisionNames;
     }
 
-    public static ObservableList<String> buildDivisions() {
-        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-        //loop through divisions list
-        for (int i = 0; i < allDivisions.size(); i++) {
-            divisionNames.add(allDivisions.get(i).getName());
-        }
-        return divisionNames;
-    }
 
     /**
      *
@@ -169,7 +162,7 @@ public class Lists {
         allAppointments.add(appointment);
     }
 
-    public void updateCustomer(int index, Customer customer) {
+    public static void updateCustomer(int index, Customer customer) {
         allCustomers.set(index, customer);
     }
 
