@@ -43,6 +43,20 @@ public class CustomerFormController {
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
 
+    }
+
+    public void initialize(Customer selectedCustomer) {
+        initialize();
+
+        //set fields
+        textCustomerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
+        textName.setText(selectedCustomer.getName());
+        textAddress.setText(selectedCustomer.getAddress());
+        textPostalCode.setText(selectedCustomer.getPostalCode());
+        textPhone.setText(selectedCustomer.getPhone());
+        comboCountry.getSelectionModel().select(selectedCustomer.getCountry());
+        comboDivision.getSelectionModel().select(selectedCustomer.getDivision());
+        buildDivBox();
 
     }
 
@@ -51,7 +65,7 @@ public class CustomerFormController {
         boolean flag = false;
 
         //TODO figure out how to pull auto-generated ID
-        int customerID;
+        int customerID = Integer.parseInt(textCustomerID.getText());
         String name = textName.getText().trim();
         String country = comboCountry.getValue();
         String address = textAddress.getText().trim();
@@ -59,19 +73,10 @@ public class CustomerFormController {
         String division = comboDivision.getValue();
         String phone = textPhone.getText().trim();
 
-        Customer tempCustomer = new Customer(1, name, address, division, postalCode, country, phone);
+        Customer tempCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
         Lists.addCustomer(tempCustomer);
         //close window
         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
-
-        //TODO testing
-        System.out.println(tempCustomer.getCustomerID());
-        System.out.println(tempCustomer.getName());
-        System.out.println(tempCustomer.getAddress());
-        System.out.println(tempCustomer.getDivision());
-        System.out.println(tempCustomer.getPostalCode());
-        System.out.println(tempCustomer.getCountry());
-        System.out.println(tempCustomer.getPhone());
     }
 
     public void cancel(ActionEvent click) {
@@ -86,7 +91,7 @@ public class CustomerFormController {
         }
     }
 
-    public void buildDivBox(ActionEvent event) {
+    public void buildDivBox() {
         ObservableList<String> divisions = FXCollections.observableArrayList(Lists.filterDivisions(comboCountry.getValue()));
         comboDivision.setItems(divisions);
         comboDivision.getItems().addAll();

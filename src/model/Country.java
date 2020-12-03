@@ -11,7 +11,6 @@ public class Country {
         this.name = name;
     }
 
-
     public int getID() {
         return ID;
     }

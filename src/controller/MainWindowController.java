@@ -145,9 +145,12 @@ public class MainWindowController {
 
     //TODO pass customer for editing
     private void openCustomerForm(Customer selectedCustomer) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/view/customerForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/customerForm.fxml"));
+        root = fxmlLoader.load();
+        CustomerFormController controller = fxmlLoader.getController();
+        controller.initialize(selectedCustomer);
         Stage stage = new Stage();
-        stage.setTitle("Add New Customer");
+        stage.setTitle("Modify customer " + selectedCustomer.getName());
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();

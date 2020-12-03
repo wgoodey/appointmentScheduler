@@ -90,6 +90,15 @@ public class Lists {
         return divisionNames;
     }
 
+    public static ObservableList<String> buildDivisions() {
+        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+        //loop through divisions list
+        for (int i = 0; i < allDivisions.size(); i++) {
+            divisionNames.add(allDivisions.get(i).getName());
+        }
+        return divisionNames;
+    }
+
     /**
      *
      * @param id

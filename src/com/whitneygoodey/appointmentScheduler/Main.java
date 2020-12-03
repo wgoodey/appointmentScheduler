@@ -25,12 +25,11 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         //test data
-
         Country usa = new Country(1, "USA");
         Country france = new Country(2, "France");
-
         Lists.addCountry(usa);
         Lists.addCountry(france);
+
         Lists.addDivision(new Division(1, "Oregon", usa));
         Lists.addDivision(new Division(2, "Washington", usa));
         Lists.addDivision(new Division(3, "Nice", france));
@@ -46,7 +45,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
+        //TODO change back to loginForm
+        Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
         primaryStage.setTitle("Login");
 
         //Load resource bundle

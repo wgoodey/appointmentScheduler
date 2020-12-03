@@ -14,14 +14,6 @@ public class Division {
         this.countryName = country.getName();
     }
 
-    //copy constructor
-    public Division(Division copy) {
-        this.ID = copy.getID();
-        this.name = copy.getName();
-        this.ID = copy.getCountryID();
-        this.name = copy.getCountryName();
-    }
-
     public int getID() {
         return ID;
     }
