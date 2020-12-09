@@ -12,6 +12,7 @@ public class Customer {
     private String postalCode;
     private String division;
     private String phone;
+    private String contact;
     private ObservableList<Appointment> myAppointments = FXCollections.observableArrayList();
 
 
@@ -23,6 +24,47 @@ public class Customer {
         this.postalCode = postalCode;
         this.division = division;
         this.phone = phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (customerID != customer.customerID) return false;
+        if (!name.equals(customer.name)) return false;
+        if (!country.equals(customer.country)) return false;
+        if (!address.equals(customer.address)) return false;
+        if (!postalCode.equals(customer.postalCode)) return false;
+        if (!division.equals(customer.division)) return false;
+        if (!phone.equals(customer.phone)) return false;
+        return myAppointments.equals(customer.myAppointments);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = customerID;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + country.hashCode();
+        result = 31 * result + address.hashCode();
+        result = 31 * result + postalCode.hashCode();
+        result = 31 * result + division.hashCode();
+        result = 31 * result + phone.hashCode();
+        result = 31 * result + myAppointments.hashCode();
+        return result;
+    }
+
+    public Customer(Customer copy) {
+        this.customerID = copy.getCustomerID();
+        this.name = copy.getName();
+        this.country = copy.getCountry();
+        this.address = copy.getAddress();
+        this.postalCode = copy.getPostalCode();
+        this.division = copy.getDivision();
+        this.phone = copy.getPhone();
+        this.myAppointments.addAll(copy.getMyAppointments());
     }
 
     public int getCustomerID() {
@@ -81,16 +123,55 @@ public class Customer {
         this.phone = phone;
     }
 
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = phone;
+    }
+
     public ObservableList<Appointment> getMyAppointments() {
         return myAppointments;
     }
 
-    private void setAppointment(Appointment appointment) {
+    public void setAppointment(Appointment appointment) {
         myAppointments.add(appointment);
     }
 
-    private void cancelAppointment(Appointment appointment) {
-        myAppointments.remove(appointment);
+
+    /**
+     * Deletes an appointment from the allAppointments list.
+     * @param selectedAppointment the appointment to delete
+     * @return
+     */
+    public boolean deleteAppointment(Appointment selectedAppointment) {
+        for(Appointment appointment : myAppointments) {
+            if (appointment.equals(selectedAppointment)) {
+                myAppointments.remove(appointment);
+                return true;
+            }
+        }
+        return false;
     }
+
+    public void updateAppointment(int index, Appointment appointment) {
+        myAppointments.set(index, appointment);
+    }
+
+//    /**
+//     *
+//     * @param id
+//     * @return
+//     */
+//    public static int getAppointmentIndex(int id) {
+//        int index;
+//        for(index = 0; index< myAppointments().size(); index++) {
+//            if(id == myAppointments.get(index).getAppointmentID()) {
+//                return index;
+//            }
+//        }
+//        return -1;
+//    }
 
 }

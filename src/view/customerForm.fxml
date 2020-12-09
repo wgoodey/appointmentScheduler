@@ -32,7 +32,7 @@
 
         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
             <buttons>
-                <Button fx:id="addButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />
+                <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />
                 <Button fx:id="cancelButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" text="Cancel" />
             </buttons>
         </ButtonBar>

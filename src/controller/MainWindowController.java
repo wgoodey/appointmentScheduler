@@ -150,7 +150,7 @@ public class MainWindowController {
         CustomerFormController controller = fxmlLoader.getController();
         controller.initialize(selectedCustomer);
         Stage stage = new Stage();
-        stage.setTitle("Modify customer " + selectedCustomer.getName());
+        stage.setTitle("Modify customer ");
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();

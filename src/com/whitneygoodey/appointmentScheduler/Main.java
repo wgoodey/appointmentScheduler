@@ -5,11 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Country;
-import model.Customer;
-import model.Division;
-import model.Lists;
+import model.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -26,19 +26,50 @@ public class Main extends Application {
     public void init() throws Exception {
         //test data
         Country usa = new Country(1, "USA");
-        Country france = new Country(2, "France");
+        Country uk = new Country(2, "UK");
+        Country canada = new Country(3, "Canada");
 
-        usa.addDivision(new Division(1, "Oregon"));
-        usa.addDivision(new Division(2, "Washington"));
-        france.addDivision(new Division(1, "Nice"));
-        france.addDivision(new Division(2, "Toulouse"));
+        usa.addDivision(new Division(36, "Oregon", ZoneId.of("America/Los_Angeles")));
+        usa.addDivision(new Division(46, "Washington", ZoneId.of("America/Los_Angeles")));
+        uk.addDivision(new Division(104, "Northern Ireland", ZoneId.of("Europe/London")));
+        uk.addDivision(new Division(103, "England", ZoneId.of("Europe/London")));
+        uk.addDivision(new Division(102, "Wales", ZoneId.of("Europe/London")));
+        uk.addDivision(new Division(101, "Scotland", ZoneId.of("Europe/London")));
+        canada.addDivision(new Division(71, "Yukon", ZoneId.of("America/Dawson")));
+        canada.addDivision(new Division(68, "Québec", ZoneId.of("America/Dawson")));
         Lists.addCountry(usa);
-        Lists.addCountry(france);
+        Lists.addCountry(uk);
+        Lists.addCountry(canada);
 
         Lists.addCustomer(new Customer(1,"Whitney","9912 SW Conestoga Drive APT 217","Oregon","97008","USA",
                 "503-432-5865"));
-        Lists.addCustomer(new Customer(2,"Name","address","Nice","post","France",
+        Lists.addCustomer(new Customer(2,"Name","address","Wales","post","UK",
                 "phone"));
+
+        ZoneId zoneId = ZoneId.of("America/Los_Angeles");
+        ZonedDateTime startTime = ZonedDateTime.of(LocalDateTime.now(), zoneId);
+        ZonedDateTime endTime = startTime.plusSeconds(3600);
+
+
+        Lists.getAllCustomers().get(0).setAppointment(new Appointment(1, 1, "title", "description", startTime, endTime));
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getAppointmentID());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getCustomerID());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getTitle());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getDescription());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getStart());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getEnd());
+
+        startTime = ZonedDateTime.of(2020,12,8,17,30,0,0,zoneId);
+        endTime = startTime.plusSeconds(500);
+
+        Lists.getAllCustomers().get(0).setAppointment(new Appointment(2, 1, "Fun Times", "sleeping", startTime, endTime));
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getAppointmentID());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getCustomerID());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getTitle());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getDescription());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getStart());
+        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getEnd());
+
 
     }
 

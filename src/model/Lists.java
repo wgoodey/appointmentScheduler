@@ -6,14 +6,27 @@ import javafx.collections.ObservableList;
 public class Lists {
 
     private static final ObservableList <Customer> allCustomers = FXCollections.observableArrayList();
-    private static final ObservableList <Appointment> allAppointments = FXCollections.observableArrayList();
     private static final ObservableList <Country> allCountries = FXCollections.observableArrayList();
-//    private static final ObservableList <Division> allDivisions = FXCollections.observableArrayList();
 
 
-    //TEMPORARY?
+
     public static void addCountry(Country country) {
         allCountries.add(country);
+    }
+
+    /**
+     * Deletes a country from the allCountries list.
+     * @param selectedCountry the country to delete
+     * @return
+     */
+    public boolean deleteCountry(Country selectedCountry) {
+        for(Country appointment : allCountries) {
+            if (appointment.equals(selectedCountry)) {
+                allCountries.remove(appointment);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -23,18 +36,24 @@ public class Lists {
         return allCustomers;
     }
 
-    /**
-     * @return the allAppointments ObservableList
-     */
-    public static ObservableList<Appointment> getAllAppointments() {
-        return allAppointments;
-    }
 
     /**
      * @return the allCountries ObservableList
      */
     public static ObservableList<Country> getAllCountries() {
         return allCountries;
+    }
+
+    /**
+     * @return the allCountries ObservableList
+     */
+    public static ObservableList<String> getAllCountryNames() {
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+
+        for (int i = 0; i < getAllCountries().size(); i++) {
+            countryNames.add(allCountries.get(i).getName());
+        }
+        return countryNames;
     }
 
     public static Country getCountry (String name) {
@@ -46,62 +65,6 @@ public class Lists {
             }
         }
         return null;
-    }
-    /**
-     * @return the allCountries ObservableList
-     */
-    public static ObservableList<String> getCountryNames() {
-        ObservableList<String> countryNames = FXCollections.observableArrayList();
-
-        for (int i = 0; i < getAllCountries().size(); i++) {
-            countryNames.add(allCountries.get(i).getName());
-        }
-        return countryNames;
-    }
-
-//    //TODO loop through countries and add each division
-//    //pull divisions from locally stored list
-//    public static ObservableList<String> getDivisionNames() {
-//        ObservableList<Division> divisions = FXCollections.observableArrayList(allCountries.getDivisions());
-//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-//
-//        for (int i = 0; i < divisions.size(); i++) {
-//            divisionNames.add(divisions.get(i).getName());
-//        }
-//        return divisionNames;
-//    }
-//
-//    //pulls divisions from locally stored list
-//    public static ObservableList<String> filterDivisions(String key) {
-//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-//        //loop through divisions list
-//        for (int i = 0; i < allDivisions.size(); i++) {
-//            if (key.equals(allDivisions.get(i).getCountryName())) {
-//                divisionNames.add(allDivisions.get(i).getName());
-//            }
-//        }
-//        return divisionNames;
-//    }
-
-    public static ObservableList<String> getCountryDivisionNames(String countryName) {
-        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-        System.out.println("Search term: " + countryName);
-        //loop through countries list
-        for (int i = 0; i < getAllCountries().size(); i++) {
-            System.out.println("Country " + i + ": " + getAllCountries().get(i).getName());
-            //if countryName matches, copy country. then loop through divisions.
-            if (getAllCountries().get(i).getName().equals(countryName)) {
-                System.out.println(countryName +" = " + getAllCountries().get(i).getName());
-                Country match = getAllCountries().get(i);
-                System.out.println("Match = " + match.getName());
-                //loop through divisions list and add
-                for (int j = 0; j < match.getDivisions().size(); j++) {
-                    System.out.println("Division " + j + ": " + match.getDivisions().get(j).getName());
-                    divisionNames.add(match.getDivisions().get(j).getName());
-                }
-            }
-        }
-        return divisionNames;
     }
 
     /**
@@ -119,20 +82,6 @@ public class Lists {
         return -1;
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    public static int getAppointmentIndex(int id) {
-        int index;
-        for(index = 0; index<Lists.getAllAppointments().size(); index++) {
-            if(id == Lists.allAppointments.get(index).getAppointmentID()) {
-                return index;
-            }
-        }
-        return -1;
-    }
 
     public static int getCountryIndex(String name) {
         int index;
@@ -159,37 +108,12 @@ public class Lists {
         return false;
     }
 
-    /**
-     * Deletes an appointment from the allAppointments list.
-     * @param selectedAppointment the appointment to delete
-     * @return
-     */
-    public static boolean deleteAppointment(Appointment selectedAppointment) {
-        for(Appointment appointment : allAppointments) {
-            if (appointment == selectedAppointment) {
-                allAppointments.remove(appointment);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
     public static void addCustomer(Customer customer) {
         allCustomers.add(customer);
     }
 
-    public static void addAppointment(Appointment appointment) {
-        allAppointments.add(appointment);
-    }
-
     public static void updateCustomer(int index, Customer customer) {
         allCustomers.set(index, customer);
-    }
-
-    public static void updateAppointment(int index, Appointment appointment) {
-        allAppointments.set(index, appointment);
     }
 
 }

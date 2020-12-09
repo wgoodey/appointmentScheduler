@@ -1,7 +1,6 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 
 public class Appointment {
 
@@ -16,29 +15,58 @@ public class Appointment {
     private String createdBy;
     private String lastUpdatedBy;
     //Mysql DATETIME type
-    private LocalDate start;
+    private ZonedDateTime start;
     //Mysql DATETIME type
-    private LocalDate end;
+    private ZonedDateTime end;
+    private ZoneId timeZone;
+
+    //TODO finalize types here
     //Mysql DATETIME type
-    private LocalDate createDate;
+    private LocalDateTime createDate;
     //MYSQL TIMESTAMP
     private LocalTime lastUpdate;
 
-    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, String createdBy, String lastUpdatedBy, LocalDate start, LocalDate end, LocalDate createDate, LocalTime lastUpdate) {
+
+//    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, String createdBy, String lastUpdatedBy, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, LocalTime lastUpdate) {
+//        this.appointmentID = appointmentID;
+//        this.customerID = customerID;
+//        this.contactID = contactID;
+//        this.userID = userID;
+//        this.title = title;
+//        this.description = description;
+//        this.location = location;
+//        this.type = type;
+//        this.createdBy = createdBy;
+//        this.lastUpdatedBy = lastUpdatedBy;
+//        this.start = start;
+//        this.end = end;
+//        this.createDate = createDate;
+//        this.lastUpdate = lastUpdate;
+//    }
+
+    public Appointment(int appointmentID, int customerID, String title, String description, ZonedDateTime start, ZonedDateTime end) {
+        Customer customer = Lists.getAllCustomers().get(Lists.getCustomerIndex(customerID));
+
+        Country country = Lists.getCountry(customer.getCountry());
+        Division division = country.getDivision(customer.getDivision());
+        ZoneId timeZone = division.getTimeZone();
+
+//        String zoneName = country.getDivision(customer.getCountry()).getTimeZone();
+
         this.appointmentID = appointmentID;
         this.customerID = customerID;
-        this.contactID = contactID;
-        this.userID = userID;
         this.title = title;
         this.description = description;
-        this.location = location;
-        this.type = type;
-        this.createdBy = createdBy;
-        this.lastUpdatedBy = lastUpdatedBy;
         this.start = start;
         this.end = end;
-        this.createDate = createDate;
-        this.lastUpdate = lastUpdate;
+        //copy timeZone from customer->country->division instead of passing it?
+        this.timeZone = timeZone;
+    }
+
+    //TODO remove once database auto-gen is working
+    private void createID() {
+        //temporarily generate random ID between 10 and 100
+        customerID = (int)(Math.random() * (100 - 10 + 1) + 10);
     }
 
     public int getAppointmentID() {
@@ -121,27 +149,35 @@ public class Appointment {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public LocalDate getStart() {
+    public ZonedDateTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(ZonedDateTime start) {
         this.start = start;
     }
 
-    public LocalDate getEnd() {
+    public ZonedDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(ZonedDateTime end) {
         this.end = end;
     }
 
-    public LocalDate getCreateDate() {
+    public ZoneId getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(ZoneId timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 

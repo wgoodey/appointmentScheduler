@@ -19,7 +19,7 @@ public class Country {
     public Country(Country copy) {
         this.ID = copy.getID();
         this.name = copy.getName();
-        this.divisions.addAll(copy.getDivisions());
+        this.divisions.addAll(copy.getAllDivisions());
     }
 
     public int getID() {
@@ -38,19 +38,46 @@ public class Country {
         this.name = name;
     }
 
-    public ObservableList<Division> getDivisions() {
+    public ObservableList<Division> getAllDivisions() {
         return divisions;
     }
 
-    //TODO loop through countries and add each division
     //pull divisions from locally stored list
     public ObservableList<String> getDivisionNames() {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
 
-        for (int i = 0; i < getDivisions().size(); i++) {
+        for (int i = 0; i < getAllDivisions().size(); i++) {
             divisionNames.add(divisions.get(i).getName());
         }
         return divisionNames;
+    }
+
+    public Division getDivision(String divisionName) {
+        for(Division division : divisions) {
+            if (division.getName() == divisionName) {
+                return division;
+            }
+        }
+        return null;
+    }
+
+//    public ObservableList<String> getDivisionNames() {
+//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
+//
+//        for (Division division : divisions) {
+//            divisionNames.add(division.getName());
+//        }
+//        return divisionNames;
+//    }
+
+    public boolean deleteDivision(Division selectedDivision) {
+        for(Division division : divisions) {
+            if (division.equals(selectedDivision)) {
+                divisions.remove(division);
+                return true;
+            }
+        }
+        return false;
     }
 
     //TODO modify so it pulls this from the database
