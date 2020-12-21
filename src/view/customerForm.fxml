@@ -26,10 +26,6 @@
         <Label text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <TextField fx:id="textPhone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-
-        <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-        <ComboBox fx:id="comboCustomerContact" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-
         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
             <buttons>
                 <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />

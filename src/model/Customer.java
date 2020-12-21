@@ -12,7 +12,6 @@ public class Customer {
     private String postalCode;
     private String division;
     private String phone;
-    private String contact;
     private ObservableList<Appointment> myAppointments = FXCollections.observableArrayList();
 
 
@@ -121,14 +120,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = phone;
     }
 
     public ObservableList<Appointment> getMyAppointments() {

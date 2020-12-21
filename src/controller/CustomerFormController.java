@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import model.Customer;
 import model.Lists;
 
+import java.util.Collections;
 import java.util.Optional;
 
 public class CustomerFormController {
@@ -27,17 +28,15 @@ public class CustomerFormController {
     private ComboBox<String> comboDivision;
     @FXML
     private TextField textPhone;
-    @FXML
-    private ComboBox<String> comboCustomerContact;
 
     private Customer tempCustomer;
 
     public void initialize() {
         //set country combobox
         ObservableList<String> countries = FXCollections.observableArrayList(Lists.getAllCountryNames());
+//        Collections.sort(countries);
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
-        //TODO set contact combobox
 
     }
 
@@ -55,13 +54,11 @@ public class CustomerFormController {
         textPhone.setText(selectedCustomer.getPhone());
         comboCountry.getSelectionModel().select(selectedCustomer.getCountry());
         comboDivision.getSelectionModel().select(selectedCustomer.getDivision());
-        comboCustomerContact.getSelectionModel().select(selectedCustomer.getContact());
         buildDivBox();
 
     }
 
     public void save(ActionEvent click) {
-        //TODO save contact
         //TODO write checks for data entered and format exceptions
 
         int customerID;
@@ -72,11 +69,15 @@ public class CustomerFormController {
         String division = comboDivision.getValue();
         String phone = textPhone.getText().trim();
 
-
         if (!textCustomerID.getText().isEmpty()) {
             customerID = Integer.parseInt(textCustomerID.getText());
-            Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
+        } else {
+            customerID = -1;
+        }
+        //TODO change to constructor that includes create/update info
+        Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
 
+        if (customerID != -1) {
             //check that no changes have been made
             if (tempCustomer.equals(newCustomer)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -87,20 +88,15 @@ public class CustomerFormController {
             } else {
                 Lists.updateCustomer(Lists.getCustomerIndex(customerID), newCustomer);
             }
-            //close window
-            ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
-        }
-
-        //TODO not saving new customers that don't match a duplicate
-        else {
-            //TODO check to make sure customer with that name doesn't exist already
+        } else { //if customerID = -1
+            //iterate through all customers to check for customer with that name
             for (int i = 0; i < Lists.getAllCustomers().size(); i++) {
                 Customer existingCustomer = Lists.getAllCustomers().get(i);
                 if (name.equals(Lists.getAllCustomers().get(i).getName())) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Matching customer found");
                     alert.setHeaderText(
-                            "Potential duplicate customer - a customer with this name already exists in the database." + '\n' +
+                            "Potential duplicate customer - at least one customer with this name already exists in the database." + '\n' +
                             "ID: " + existingCustomer.getCustomerID() + '\n' +
                             "Name: " + existingCustomer.getName() + '\n' +
                             "Country: " + existingCustomer.getCountry() + '\n' +
@@ -112,19 +108,22 @@ public class CustomerFormController {
                     alert.setContentText("Press Okay to create new customer or Cancel to discard.");
                     Optional<ButtonType> result = alert.showAndWait();
 
-                    if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                        //TODO figure out how to deal with auto-generated ID in database
-                        //temporarily generate random ID between 10 and 100
-                        customerID = (int)(Math.random() * (100 - 10 + 1) + 10);
-                        Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
-                        Lists.addCustomer(newCustomer);
+                    if (result.isPresent() && (result.get() == ButtonType.CANCEL)) {
                         //close window
                         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
+                        return;
                     }
                     break;
                 }
             }
+            //add new customer to the list if no matches are found
+            //TODO figure out how to deal with auto-generated ID in database
+            //temporarily generate random ID between 10 and 100
+            newCustomer.setCustomerID((int)(Math.random() * (100 - 10 + 1) + 10));
+            Lists.addCustomer(newCustomer);
+            //close window
         }
+        ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
 
         //TODO save to database
 
@@ -146,6 +145,7 @@ public class CustomerFormController {
         //TODO look in Lists for country and get divisions
         String selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
         ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getCountry(selectedCountry).getDivisionNames());
+        Collections.sort(divisions);
         comboDivision.setItems(divisions);
         comboDivision.getItems().addAll();
     }

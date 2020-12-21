@@ -3,15 +3,26 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Collections;
+
 public class Lists {
 
     private static final ObservableList <Customer> allCustomers = FXCollections.observableArrayList();
     private static final ObservableList <Country> allCountries = FXCollections.observableArrayList();
-
+    private static final ObservableList <Contact> allContacts = FXCollections.observableArrayList();
+    private static final ObservableList <User> allUsers = FXCollections.observableArrayList();
 
 
     public static void addCountry(Country country) {
         allCountries.add(country);
+    }
+
+    public static void addContact(Contact contact) {
+        allContacts.add(contact);
+    }
+
+    public static void addUser(User user) {
+        allUsers.add(user);
     }
 
     /**
@@ -53,6 +64,7 @@ public class Lists {
         for (int i = 0; i < getAllCountries().size(); i++) {
             countryNames.add(allCountries.get(i).getName());
         }
+        Collections.sort(countryNames);
         return countryNames;
     }
 

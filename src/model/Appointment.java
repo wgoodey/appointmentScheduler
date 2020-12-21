@@ -12,56 +12,54 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
+    //Mysql DATETIME type
+    private LocalDateTime startTime;
+    //Mysql DATETIME type
+    private LocalDateTime endTime;
     private String createdBy;
-    private String lastUpdatedBy;
-    //Mysql DATETIME type
-    private ZonedDateTime start;
-    //Mysql DATETIME type
-    private ZonedDateTime end;
+    private LocalDateTime createDateTime;
+    private String lastUpdateBy;
+    private LocalDateTime lastUpdate;
+
+    //use ZonedDateTime instead of LocalDateTime?
     private ZoneId timeZone;
 
-    //TODO finalize types here
-    //Mysql DATETIME type
-    private LocalDateTime createDate;
-    //MYSQL TIMESTAMP
-    private LocalTime lastUpdate;
-
-
-//    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, String createdBy, String lastUpdatedBy, LocalDateTime start, LocalDateTime end, LocalDateTime createDate, LocalTime lastUpdate) {
-//        this.appointmentID = appointmentID;
-//        this.customerID = customerID;
-//        this.contactID = contactID;
-//        this.userID = userID;
-//        this.title = title;
-//        this.description = description;
-//        this.location = location;
-//        this.type = type;
-//        this.createdBy = createdBy;
-//        this.lastUpdatedBy = lastUpdatedBy;
-//        this.start = start;
-//        this.end = end;
-//        this.createDate = createDate;
-//        this.lastUpdate = lastUpdate;
-//    }
-
-    public Appointment(int appointmentID, int customerID, String title, String description, ZonedDateTime start, ZonedDateTime end) {
-        Customer customer = Lists.getAllCustomers().get(Lists.getCustomerIndex(customerID));
-
-        Country country = Lists.getCountry(customer.getCountry());
-        Division division = country.getDivision(customer.getDivision());
-        ZoneId timeZone = division.getTimeZone();
-
-//        String zoneName = country.getDivision(customer.getCountry()).getTimeZone();
+    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String createdBy, LocalDateTime createDateTime, String lastUpdateBy, LocalDateTime lastUpdate) {
 
         this.appointmentID = appointmentID;
         this.customerID = customerID;
+        this.contactID = contactID;
+        this.userID = userID;
         this.title = title;
         this.description = description;
-        this.start = start;
-        this.end = end;
-        //copy timeZone from customer->country->division instead of passing it?
-        this.timeZone = timeZone;
+        this.location = location;
+        this.type = type;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.createdBy = createdBy;
+        this.createDateTime = createDateTime;
+        this.lastUpdateBy = lastUpdateBy;
+        this.lastUpdate = lastUpdate;
     }
+
+//    public Appointment(int appointmentID, int customerID, String title, String description, ZonedDateTime startTime, ZonedDateTime endTime) {
+//        Customer customer = Lists.getAllCustomers().get(Lists.getCustomerIndex(customerID));
+//
+//        Country country = Lists.getCountry(customer.getCountry());
+//        Division division = country.getDivision(customer.getDivision());
+//        ZoneId timeZone = division.getTimeZone();
+//
+////        String zoneName = country.getDivision(customer.getCountry()).getTimeZone();
+//
+//        this.appointmentID = appointmentID;
+//        this.customerID = customerID;
+//        this.title = title;
+//        this.description = description;
+//        this.startTime = startTime;
+//        this.endTime = endTime;
+//        //copy timeZone from customer->country->division instead of passing it?
+//        this.timeZone = timeZone;
+//    }
 
     //TODO remove once database auto-gen is working
     private void createID() {
@@ -133,6 +131,22 @@ public class Appointment {
         this.type = type;
     }
 
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -141,28 +155,28 @@ public class Appointment {
         this.createdBy = createdBy;
     }
 
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
     }
 
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
-    public ZonedDateTime getStart() {
-        return start;
+    public String getLastUpdateBy() {
+        return lastUpdateBy;
     }
 
-    public void setStart(ZonedDateTime start) {
-        this.start = start;
+    public void setLastUpdateBy(String lastUpdateBy) {
+        this.lastUpdateBy = lastUpdateBy;
     }
 
-    public ZonedDateTime getEnd() {
-        return end;
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setEnd(ZonedDateTime end) {
-        this.end = end;
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     public ZoneId getTimeZone() {
@@ -171,21 +185,5 @@ public class Appointment {
 
     public void setTimeZone(ZoneId timeZone) {
         this.timeZone = timeZone;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalTime getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(LocalTime lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 }
