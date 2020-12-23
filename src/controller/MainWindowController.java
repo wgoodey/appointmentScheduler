@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
-import model.Lists;
+import model.Data;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -59,7 +59,7 @@ public class MainWindowController {
         loadCustomerTable(customerTable, customerIDCol, nameCol, countryCol, addressCol, postalCol, divisionCol, phoneCol);
 
         //wrap observable list in a filtered list
-        FilteredList<Customer> filteredCustomers = new FilteredList<>(Lists.getAllCustomers(), p -> true);
+        FilteredList<Customer> filteredCustomers = new FilteredList<>(Data.getAllCustomers(), p -> true);
 
         //configure listener for customer searchbar
         searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -128,7 +128,7 @@ public class MainWindowController {
             alert.setContentText("Press Okay to confirm or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                Lists.deleteCustomer(selectedCustomer);
+                Data.deleteCustomer(selectedCustomer);
             }
 
         }

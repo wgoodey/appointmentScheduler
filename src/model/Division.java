@@ -31,16 +31,24 @@ public class Division {
         return ID;
     }
 
-    public void setID(int newID) {
-        this.ID = newID;
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String newName) {
-        this.name = newName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ZoneId getTimeZone() {
@@ -49,5 +57,37 @@ public class Division {
 
     public void setTimeZone(ZoneId timeZone) {
         this.timeZone = timeZone;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public String getLastUpdateBy() {
+        return lastUpdateBy;
+    }
+
+    public void setLastUpdateBy(String lastUpdateBy) {
+        this.lastUpdateBy = lastUpdateBy;
+    }
+
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

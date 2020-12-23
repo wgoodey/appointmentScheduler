@@ -7,11 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.database.DBConnection;
 import model.database.DBLoadData;
-import model.database.DBQuery;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -62,6 +60,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        //FIXME set to load loginForm
+//        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
         primaryStage.setTitle("Login");
 
@@ -73,8 +73,9 @@ public class Main extends Application {
                     || Locale.getDefault().getLanguage().equals("ja")) {
                 primaryStage.setTitle(bundle.getString("Login"));
             }
-        } catch (MissingResourceException e) {
+        } catch (MissingResourceException throwables) {
 //            e.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
 
         primaryStage.setScene(new Scene(root));
@@ -85,10 +86,8 @@ public class Main extends Application {
     public static void main(String[] args) throws SQLException {
         //connect to database
         Connection connection = DBConnection.startConnection();
-        DBQuery.setStatement(connection);
-        Statement statement = DBQuery.getStatement();
 
-        DBLoadData.loadAll(statement);
+        DBLoadData.loadAll(connection);
 
         launch(args);
 

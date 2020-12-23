@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Data;
+import model.User;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -75,18 +77,21 @@ public class LoginFormController {
         username = username.substring(0, Math.min(username.length(), 30));
         password = password.substring(0, Math.min(password.length(), 30));
 
-        //TODO write code to check credentials
-        //if username matches User_Name in database check password
-        if (username.equals("")) {
-            //check password against Password
-            if (password.equals("")) {
-                credentialMatch = true;
+
+        //iterate through user list
+        for (User user : Data.getAllUsers()) {
+            if (username.equals(user.getUsername())) {
+                if (password.equals(user.getPassword())) {
+                    credentialMatch = true;
+                    Data.setCurrentUser(user);
+                }
             }
         }
 
         if (!credentialMatch) {
             badLoginLabel.setOpacity(100.00);
-//            passwordField.clear();
+            passwordField.clear();
+            passwordField.requestFocus();
         } else {
             System.out.println("Welcome to the city of baby sandwiches!");
 

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Customer;
-import model.Lists;
+import model.Data;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -33,7 +33,7 @@ public class CustomerFormController {
 
     public void initialize() {
         //set country combobox
-        ObservableList<String> countries = FXCollections.observableArrayList(Lists.getAllCountryNames());
+        ObservableList<String> countries = FXCollections.observableArrayList(Data.getAllCountryNames());
 //        Collections.sort(countries);
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
@@ -86,13 +86,13 @@ public class CustomerFormController {
                 alert.showAndWait();
 
             } else {
-                Lists.updateCustomer(Lists.getCustomerIndex(customerID), newCustomer);
+                Data.updateCustomer(Data.getCustomerIndex(customerID), newCustomer);
             }
         } else { //if customerID = -1
             //iterate through all customers to check for customer with that name
-            for (int i = 0; i < Lists.getAllCustomers().size(); i++) {
-                Customer existingCustomer = Lists.getAllCustomers().get(i);
-                if (name.equals(Lists.getAllCustomers().get(i).getName())) {
+            for (int i = 0; i < Data.getAllCustomers().size(); i++) {
+                Customer existingCustomer = Data.getAllCustomers().get(i);
+                if (name.equals(Data.getAllCustomers().get(i).getName())) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Matching customer found");
                     alert.setHeaderText(
@@ -120,7 +120,7 @@ public class CustomerFormController {
             //TODO figure out how to deal with auto-generated ID in database
             //temporarily generate random ID between 10 and 100
             newCustomer.setCustomerID((int)(Math.random() * (100 - 10 + 1) + 10));
-            Lists.addCustomer(newCustomer);
+            Data.addCustomer(newCustomer);
             //close window
         }
         ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
@@ -144,7 +144,7 @@ public class CustomerFormController {
     public void buildDivBox() {
         //TODO look in Lists for country and get divisions
         String selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
-        ObservableList<String> divisions = FXCollections.observableArrayList(Lists.getCountry(selectedCountry).getDivisionNames());
+        ObservableList<String> divisions = FXCollections.observableArrayList(Data.getCountry(selectedCountry).getDivisionNames());
         Collections.sort(divisions);
         comboDivision.setItems(divisions);
         comboDivision.getItems().addAll();
