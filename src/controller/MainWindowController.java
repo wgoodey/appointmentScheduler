@@ -12,8 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Data;
+import model.database.DBConnection;
+import model.database.DBDelete;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class MainWindowController {
@@ -108,7 +111,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleButtonClick(ActionEvent event) throws IOException {
+    private void handleButtonClick(ActionEvent event) throws IOException, SQLException {
         Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
         Object clickedButton = event.getSource();
 
@@ -128,7 +131,10 @@ public class MainWindowController {
             alert.setContentText("Press Okay to confirm or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                Data.deleteCustomer(selectedCustomer);
+                //delete selected customer from database and if successful, delete from allCustomers
+                if(DBDelete.deleteCustomer(DBConnection.getConnection(), selectedCustomer)) {
+                    Data.deleteCustomer(selectedCustomer);
+                }
             }
 
         }

@@ -16,15 +16,11 @@ public class Appointment {
     private LocalDateTime startTime;
     //Mysql DATETIME type
     private LocalDateTime endTime;
-    private String createdBy;
-    private LocalDateTime createDateTime;
-    private String lastUpdateBy;
-    private LocalDateTime lastUpdate;
 
     //use ZonedDateTime instead of LocalDateTime?
     private ZoneId timeZone;
 
-    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String createdBy, LocalDateTime createDateTime, String lastUpdateBy, LocalDateTime lastUpdate) {
+    public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime) {
 
         this.appointmentID = appointmentID;
         this.customerID = customerID;
@@ -36,30 +32,7 @@ public class Appointment {
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.createdBy = createdBy;
-        this.createDateTime = createDateTime;
-        this.lastUpdateBy = lastUpdateBy;
-        this.lastUpdate = lastUpdate;
     }
-
-//    public Appointment(int appointmentID, int customerID, String title, String description, ZonedDateTime startTime, ZonedDateTime endTime) {
-//        Customer customer = Lists.getAllCustomers().get(Lists.getCustomerIndex(customerID));
-//
-//        Country country = Lists.getCountry(customer.getCountry());
-//        Division division = country.getDivision(customer.getDivision());
-//        ZoneId timeZone = division.getTimeZone();
-//
-////        String zoneName = country.getDivision(customer.getCountry()).getTimeZone();
-//
-//        this.appointmentID = appointmentID;
-//        this.customerID = customerID;
-//        this.title = title;
-//        this.description = description;
-//        this.startTime = startTime;
-//        this.endTime = endTime;
-//        //copy timeZone from customer->country->division instead of passing it?
-//        this.timeZone = timeZone;
-//    }
 
     //TODO remove once database auto-gen is working
     private void createID() {
@@ -145,38 +118,6 @@ public class Appointment {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreateDateTime() {
-        return createDateTime;
-    }
-
-    public void setCreateDateTime(LocalDateTime createDateTime) {
-        this.createDateTime = createDateTime;
-    }
-
-    public String getLastUpdateBy() {
-        return lastUpdateBy;
-    }
-
-    public void setLastUpdateBy(String lastUpdateBy) {
-        this.lastUpdateBy = lastUpdateBy;
-    }
-
-    public LocalDateTime getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(LocalDateTime lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     public ZoneId getTimeZone() {

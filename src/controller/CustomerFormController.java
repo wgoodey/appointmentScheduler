@@ -8,7 +8,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Data;
+import model.database.DBConnection;
+import model.database.DBInsert;
+import model.database.DBSelect;
+import model.database.DBUpdate;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -58,7 +63,7 @@ public class CustomerFormController {
 
     }
 
-    public void save(ActionEvent click) {
+    public void save(ActionEvent click) throws SQLException {
         //TODO write checks for data entered and format exceptions
 
         int customerID;
@@ -74,7 +79,7 @@ public class CustomerFormController {
         } else {
             customerID = -1;
         }
-        //TODO change to constructor that includes create/update info
+
         Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
 
         if (customerID != -1) {
@@ -86,7 +91,10 @@ public class CustomerFormController {
                 alert.showAndWait();
 
             } else {
-                Data.updateCustomer(Data.getCustomerIndex(customerID), newCustomer);
+                //update in database and allCustomers list
+                if (DBUpdate.updateCustomer(DBConnection.getConnection(), newCustomer)) {
+                    Data.updateCustomer(Data.getCustomerIndex(customerID), newCustomer);
+                }
             }
         } else { //if customerID = -1
             //iterate through all customers to check for customer with that name
@@ -116,16 +124,19 @@ public class CustomerFormController {
                     break;
                 }
             }
-            //add new customer to the list if no matches are found
-            //TODO figure out how to deal with auto-generated ID in database
-            //temporarily generate random ID between 10 and 100
-            newCustomer.setCustomerID((int)(Math.random() * (100 - 10 + 1) + 10));
-            Data.addCustomer(newCustomer);
-            //close window
-        }
-        ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
 
-        //TODO save to database
+            //insert new customer into database if no matches are found
+            DBInsert.insertCustomer(DBConnection.getConnection(), newCustomer);
+
+            //pull ID from most recent DB entry
+            newCustomer.setCustomerID(DBSelect.getNewCustomerID(DBConnection.getConnection(), newCustomer));
+
+            //add new customer to allCustomers
+            Data.addCustomer(newCustomer);
+
+        }
+        //close window
+        ((Stage)(((Button)click.getSource()).getScene().getWindow())).close();
 
     }
 

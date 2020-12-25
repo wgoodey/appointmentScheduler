@@ -6,19 +6,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DBInsertData {
+public class DBInsert {
 
-    public static void insertCountry(Connection connection, Country country) throws SQLException {
+    public static boolean insertCountry(Connection connection, Country country) throws SQLException {
 
-        String insertStatement = "INSERT INTO countries(Country, Create_Date, Created_By, Last_Updated_By) " +
-                                 "VALUES (?,?,?,?)";
+        String insertStatement = "INSERT INTO countries(Country, Created_By, Last_Updated_By) " +
+                                 "VALUES (?,?,?)";
 
         DBQuery.setPreparedStatement(connection, insertStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
         //record data
         String countryName = country.getName();
-        //FIXME get user from login
         String created_By = Data.getCurrentUser().getUsername();
         String last_Updated_By = Data.getCurrentUser().getUsername();
 
@@ -27,21 +26,28 @@ public class DBInsertData {
         preparedStatement.setString(2, created_By);
         preparedStatement.setString(3, last_Updated_By);
 
-        //execute PreparedStatement
-        preparedStatement.execute();
+        try {
+            //execute prepared statement
+            preparedStatement.execute();
+            return true;
 
+        } catch (Exception throwables) {
+//            e.printStackTrace();
+            System.out.println(throwables.getMessage());
+        }
+
+        return false;
     }
 
-    public static void insertDivision(Connection connection, Division division) throws SQLException {
+    public static boolean insertDivision(Connection connection, Division division) throws SQLException {
         String insertStatement = "INSERT INTO first_level_divisions(Division, Created_By, Last_Updated_By, COUNTRY_ID) " +
-                "VALUES (?,?,?,?)";
+                                 "VALUES (?,?,?,?)";
 
         DBQuery.setPreparedStatement(connection, insertStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
         //record data
         String divisionName = division.getName();
-        //FIXME get user from login
         String created_By = Data.getCurrentUser().getUsername();
         String last_Updated_By = Data.getCurrentUser().getUsername();
         int countryID = division.getCountryID();
@@ -52,12 +58,20 @@ public class DBInsertData {
         preparedStatement.setString(3, last_Updated_By);
         preparedStatement.setString(4, String.valueOf(countryID));
 
-        //execute prepared statement
-        preparedStatement.execute();
+        try {
+            //execute prepared statement
+            preparedStatement.execute();
+            return true;
 
+        } catch (Exception throwables) {
+//            e.printStackTrace();
+            System.out.println(throwables.getMessage());
+        }
+
+        return false;
     }
 
-    public static void insertCustomer(Connection connection, Customer customer) throws SQLException {
+    public static boolean insertCustomer(Connection connection, Customer customer) throws SQLException {
         String insertStatement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Created_By, Last_Updated_By, Division_ID) " +
                                  "VALUES (?,?,?,?,?,?,?)";
 
@@ -69,7 +83,6 @@ public class DBInsertData {
         String address = customer.getAddress();
         String postal = customer.getPostalCode();
         String phone = customer.getPhone();
-        //FIXME get user from login
         String created_By = Data.getCurrentUser().getUsername();
         String last_Updated_By = Data.getCurrentUser().getUsername();
         String divisionID = String.valueOf(Data.getDivisionID(customer.getCountry(), customer.getDivision()));
@@ -83,11 +96,20 @@ public class DBInsertData {
         preparedStatement.setString(6, last_Updated_By);
         preparedStatement.setString(7, divisionID);
 
-        //execute prepared statement
-        preparedStatement.execute();
+        try {
+            //execute prepared statement
+            preparedStatement.execute();
+            return true;
+
+        } catch (Exception throwables) {
+//            e.printStackTrace();
+            System.out.println(throwables.getMessage());
+        }
+
+        return false;
     }
 
-    public static void insertAppointment(Connection connection, Appointment appointment) throws SQLException {
+    public static boolean insertAppointment(Connection connection, Appointment appointment) throws SQLException {
         String insertStatement = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
                                  "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -101,8 +123,8 @@ public class DBInsertData {
         String type = appointment.getType();
         String start = DBQuery.getSQLFormattedDateTime(appointment.getStartTime());
         String end = DBQuery.getSQLFormattedDateTime(appointment.getEndTime());
-        String created_By = appointment.getCreatedBy();
-        String last_Updated_By = appointment.getLastUpdateBy();
+        String created_By = Data.getCurrentUser().getUsername();
+        String last_Updated_By = Data.getCurrentUser().getUsername();
         String customerID = String.valueOf(appointment.getCustomerID());
         String userID = String.valueOf(appointment.getUserID());
         String contactID = String.valueOf(appointment.getContactID());
@@ -120,10 +142,16 @@ public class DBInsertData {
         preparedStatement.setString(10, userID);
         preparedStatement.setString(11, contactID);
 
-        preparedStatement.execute();
+        try {
+            //execute prepared statement
+            preparedStatement.execute();
+            return true;
 
+        } catch (Exception throwables) {
+//            e.printStackTrace();
+            System.out.println(throwables.getMessage());
+        }
 
+        return false;
     }
-
-
 }

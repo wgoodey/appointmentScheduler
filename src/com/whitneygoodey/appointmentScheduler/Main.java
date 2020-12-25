@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Data;
 import model.database.DBConnection;
-import model.database.DBLoadData;
+import model.database.DBLoad;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -85,16 +85,16 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
         //connect to database
-        Connection connection = DBConnection.startConnection();
+        DBConnection.startConnection();
 
-        DBLoadData.loadAll(connection);
+        DBLoad.loadAll(DBConnection.getConnection());
+
+        //TODO remove me when switched back to login form
+        Data.setCurrentUser(Data.getAllUsers().get(0));
 
         launch(args);
 
         DBConnection.closeConnection();
     }
-
-
-
 
 }

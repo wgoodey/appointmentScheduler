@@ -43,4 +43,10 @@ public class DBConnection {
             e.printStackTrace();
         }
     }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+
 }

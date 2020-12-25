@@ -13,6 +13,7 @@ public class Data {
     private static final ObservableList <Contact> allContacts = FXCollections.observableArrayList();
     private static final ObservableList <User> allUsers = FXCollections.observableArrayList();
 
+
     /**
      * @return the current user of the program.
      */
@@ -126,7 +127,6 @@ public class Data {
      */
     public static int getDivisionID(String country, String name) {
         Country myCountry = getCountry(country);
-        System.out.println(myCountry.getName());
         for (Division division : myCountry.getAllDivisions()) {
             if (division.getName().equals(name)) {
                 return division.getID();
