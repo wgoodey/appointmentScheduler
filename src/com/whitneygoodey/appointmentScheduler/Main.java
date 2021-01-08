@@ -63,6 +63,7 @@ public class Main extends Application {
         //FIXME set to load loginForm
 //        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentForm.fxml"));
         primaryStage.setTitle("Login");
 
         //Load resource bundle

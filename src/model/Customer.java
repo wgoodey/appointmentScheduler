@@ -25,6 +25,17 @@ public class Customer {
         this.phone = phone;
     }
 
+    public Customer(Customer copy) {
+        this.customerID = copy.getCustomerID();
+        this.name = copy.getName();
+        this.country = copy.getCountry();
+        this.address = copy.getAddress();
+        this.postalCode = copy.getPostalCode();
+        this.division = copy.getDivision();
+        this.phone = copy.getPhone();
+        this.myAppointments.addAll(copy.getMyAppointments());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,17 +64,6 @@ public class Customer {
         result = 31 * result + phone.hashCode();
         result = 31 * result + myAppointments.hashCode();
         return result;
-    }
-
-    public Customer(Customer copy) {
-        this.customerID = copy.getCustomerID();
-        this.name = copy.getName();
-        this.country = copy.getCountry();
-        this.address = copy.getAddress();
-        this.postalCode = copy.getPostalCode();
-        this.division = copy.getDivision();
-        this.phone = copy.getPhone();
-        this.myAppointments.addAll(copy.getMyAppointments());
     }
 
     public int getCustomerID() {
@@ -126,8 +126,10 @@ public class Customer {
         return myAppointments;
     }
 
-    public void setAppointment(Appointment appointment) {
+    public void addAppointment(Appointment appointment) {
         myAppointments.add(appointment);
+        //TODO remove this line?
+        Data.addAppointment(appointment);
     }
 
 

@@ -8,10 +8,21 @@ import java.util.Collections;
 public class Data {
 
     private static User currentUser;
-    private static final ObservableList <Customer> allCustomers = FXCollections.observableArrayList();
-    private static final ObservableList <Country> allCountries = FXCollections.observableArrayList();
-    private static final ObservableList <Contact> allContacts = FXCollections.observableArrayList();
-    private static final ObservableList <User> allUsers = FXCollections.observableArrayList();
+    private static final ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static final ObservableList<Country> allCountries = FXCollections.observableArrayList();
+    private static final ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+    private static final ObservableList<User> allUsers = FXCollections.observableArrayList();
+
+
+    private static final ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+
+    public static void addAppointment(Appointment appointment) {
+        allAppointments.add(appointment);
+    }
+
+    public static ObservableList<Appointment> getAppointmentsList() {
+        return allAppointments;
+    }
 
 
     /**
@@ -44,11 +55,19 @@ public class Data {
         return allCountries;
     }
 
+    public static ObservableList<Contact> getAllContacts() {
+        return allContacts;
+    }
+
     /**
      * @return the allUsers ObservableList
      */
     public static ObservableList<User> getAllUsers() {
         return allUsers;
+    }
+
+    public static ObservableList<Appointment> getAllAppointments() {
+        return allAppointments;
     }
 
     /**
@@ -195,6 +214,21 @@ public class Data {
      */
     public static void updateCustomer(int index, Customer customer) {
         allCustomers.set(index, customer);
+    }
+
+    /**
+     * Deletes an appointment from the allAppointments list.
+     * @param selectedAppointment the appointment to delete
+     * @return
+     */
+    public boolean deleteAppointment(Appointment selectedAppointment) {
+        for(Appointment appointment : Data.getAllAppointments()) {
+            if (appointment.equals(selectedAppointment)) {
+                Data.getAllAppointments().remove(appointment);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

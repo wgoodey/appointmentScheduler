@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentFormController">
+    <children>
+        <Label minWidth="-Infinity" text="Customer:" GridPane.rowIndex="1" />
+        <ComboBox fx:id="comboCustomer" minWidth="150.0" onAction="#setCustomerID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+      <HBox prefWidth="200.0" GridPane.columnSpan="2147483647">
+
+         <children>
+              <Label text="Appointment ID:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets right="5.0" top="5.0" />
+               </padding></Label>
+              <TextField fx:id="textAppointmentID" disable="true" editable="false" focusTraversable="false" maxWidth="-Infinity" prefWidth="75.0" promptText="Auto-Gen">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
+              <Label text="Customer ID:">
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+              <TextField fx:id="textCustomerID" disable="true" editable="false" focusTraversable="false" maxWidth="-Infinity" prefWidth="75.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></TextField>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="5.0" />
+         </GridPane.margin>
+      </HBox>
+
+
+
+
+        <Label text="Title:" GridPane.rowIndex="2" />
+        <TextField fx:id="textTitle" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Type:" GridPane.rowIndex="3" />
+        <TextField fx:id="textType" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Location:" GridPane.rowIndex="4" />
+        <TextField fx:id="textLocation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Contact:" GridPane.rowIndex="5" />
+        <ComboBox fx:id="comboContact" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+
+        <Label text="Date" GridPane.rowIndex="6" />
+        <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+        <Label text="Start:" GridPane.rowIndex="7" />
+
+        <HBox maxHeight="20.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
+            <children>
+                <ComboBox fx:id="comboStart" maxWidth="75.0" />
+                <Label minWidth="-Infinity" text="AM">
+                    <padding>
+                        <Insets left="10.0" right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Label>
+                <RadioButton fx:id="radioStartAM" selected="true">
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="startToggle" />
+               </toggleGroup></RadioButton>
+                <Label minWidth="-Infinity" text="PM">
+                    <padding>
+                        <Insets left="5.0" right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Label>
+                <RadioButton fx:id="radioStartPM" toggleGroup="$startToggle">
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></RadioButton>
+            </children>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></HBox>
+
+        <Label text="End:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <HBox maxHeight="20.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
+            <children>
+                <ComboBox fx:id="comboEnd" maxWidth="75.0">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin></ComboBox>
+                <Label minWidth="-Infinity" text="AM">
+                    <padding>
+                        <Insets left="10.0" right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Label>
+                <RadioButton fx:id="radioEndAM" selected="true">
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="endToggle" />
+               </toggleGroup></RadioButton>
+                <Label minWidth="-Infinity" text="PM">
+                    <padding>
+                        <Insets left="5.0" right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Label>
+                <RadioButton fx:id="radioEndPM" toggleGroup="$endToggle">
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></RadioButton>
+            </children>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin></HBox>
+
+        <Label minWidth="-Infinity" text="Description:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextArea fx:id="textDescription" maxWidth="-Infinity" prefHeight="100.0" prefWidth="275.0" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="5" />
+
+        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
+            <buttons>
+                <Button fx:id="buttonSave" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />
+                <Button fx:id="buttonCancel" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" text="Cancel" />
+            </buttons>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+        </ButtonBar>
+
+
+
+
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+    </rowConstraints>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</GridPane>

@@ -160,7 +160,7 @@ public class DBLoad {
                 ResultSet result = statement.getResultSet();
 
                 while (result.next()) {
-                    //read data from database and
+                    //read data from database and add to customer's appointments
                     int appointmentID = result.getInt("Appointment_ID");
                     int customerID = result.getInt("Customer_ID");
                     int contactID = result.getInt("Contact_ID");
@@ -175,7 +175,7 @@ public class DBLoad {
 
                     //create new appointment and add it to the myAppointments list for the customer
                     Appointment appointment = new Appointment(appointmentID, customerID, contactID, userID, title, description, location, type, startTime, endTime);
-                    customer.setAppointment(appointment);
+                    customer.addAppointment(appointment);
                 }
             } catch (SQLException throwables) {
                 System.out.println(throwables.getMessage());

@@ -1,6 +1,7 @@
 package model;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Appointment {
 
@@ -12,9 +13,7 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
-    //Mysql DATETIME type
     private LocalDateTime startTime;
-    //Mysql DATETIME type
     private LocalDateTime endTime;
 
     //use ZonedDateTime instead of LocalDateTime?
@@ -108,6 +107,11 @@ public class Appointment {
         return startTime;
     }
 
+    public String getStart() {
+        DateTimeFormatter table = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return startTime.format(table);
+    }
+
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
@@ -116,8 +120,22 @@ public class Appointment {
         return endTime;
     }
 
+    public String getEnd() {
+        DateTimeFormatter table = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return endTime.format(table);
+    }
+
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getCustomerName(int id) {
+        for(Customer customer : Data.getAllCustomers()) {
+            if (getCustomerID() == id) {
+                return customer.getName();
+            }
+        }
+        return null;
     }
 
     public ZoneId getTimeZone() {

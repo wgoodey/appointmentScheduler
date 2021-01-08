@@ -39,26 +39,25 @@ public class CustomerFormController {
     public void initialize() {
         //set country combobox
         ObservableList<String> countries = FXCollections.observableArrayList(Data.getAllCountryNames());
-//        Collections.sort(countries);
         comboCountry.setItems(countries);
         comboCountry.getItems().addAll();
 
     }
 
-    public void initialize(Customer selectedCustomer) {
+    public void initialize(Customer customer) {
         initialize();
 
-        tempCustomer = new Customer(selectedCustomer);
+        tempCustomer = new Customer(customer);
 
         //populate fields
         //TODO
-        textCustomerID.setText(String.valueOf(selectedCustomer.getCustomerID()));
-        textName.setText(selectedCustomer.getName());
-        textAddress.setText(selectedCustomer.getAddress());
-        textPostalCode.setText(selectedCustomer.getPostalCode());
-        textPhone.setText(selectedCustomer.getPhone());
-        comboCountry.getSelectionModel().select(selectedCustomer.getCountry());
-        comboDivision.getSelectionModel().select(selectedCustomer.getDivision());
+        textCustomerID.setText(String.valueOf(customer.getCustomerID()));
+        textName.setText(customer.getName());
+        textAddress.setText(customer.getAddress());
+        textPostalCode.setText(customer.getPostalCode());
+        textPhone.setText(customer.getPhone());
+        comboCountry.getSelectionModel().select(customer.getCountry());
+        comboDivision.getSelectionModel().select(customer.getDivision());
         buildDivBox();
 
     }
