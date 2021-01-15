@@ -1,9 +1,9 @@
 package model;
 
 public class Contact {
-    private int contactID;
-    private String name;
-    private String email;
+    private final int contactID;
+    private final String name;
+    private final String email;
 
     public Contact(int contactID, String name, String email) {
         this.contactID = contactID;

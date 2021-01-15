@@ -5,6 +5,7 @@ import model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 public class DBInsert {
 
@@ -116,13 +117,17 @@ public class DBInsert {
         DBQuery.setPreparedStatement(connection, insertStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
+        //convert times to UTC
+        ZonedDateTime starting = appointment.getStartTime().withZoneSameInstant(Data.getUTC());
+        ZonedDateTime ending = appointment.getEndTime().withZoneSameInstant(Data.getUTC());
+
         //record data
         String title = appointment.getTitle();
         String description = appointment.getDescription();
         String location = appointment.getLocation();
         String type = appointment.getType();
-        String start = DBQuery.getSQLFormattedDateTime(appointment.getStartTime());
-        String end = DBQuery.getSQLFormattedDateTime(appointment.getEndTime());
+        String start = DBQuery.getSQLFormattedTime(starting);
+        String end = DBQuery.getSQLFormattedTime(ending);
         String created_By = Data.getCurrentUser().getUsername();
         String last_Updated_By = Data.getCurrentUser().getUsername();
         String customerID = String.valueOf(appointment.getCustomerID());

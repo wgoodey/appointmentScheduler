@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DBQuery {
@@ -33,10 +33,10 @@ public class DBQuery {
         preparedStatement = connection.prepareStatement(sqlStatement);
     }
 
-    public static String getSQLFormattedDateTime(LocalDateTime localDateTime) {
+    public static String getSQLFormattedTime(ZonedDateTime zdt) {
         //get local time and format it for sql
         DateTimeFormatter dateTimeSQL = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        return localDateTime.format(dateTimeSQL);
+        return zdt.format(dateTimeSQL);
     }
 }

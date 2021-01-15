@@ -23,47 +23,11 @@ import java.util.ResourceBundle;
 public class Main extends Application {
 
     @Override
-    public void init() throws Exception {
-        //test data
-//        Lists.addCustomer(new Customer(1,"Whitney","9912 SW Conestoga Drive APT 217","Oregon","97008","USA",
-//                "503-432-5865"));
-//        Lists.addCustomer(new Customer(2,"Name","address","Wales","post","UK",
-//                "phone"));
-//
-//        ZoneId zoneId = ZoneId.of("America/Los_Angeles");
-//        ZonedDateTime startTime = ZonedDateTime.of(LocalDateTime.now(), zoneId);
-//        ZonedDateTime endTime = startTime.plusSeconds(3600);
-//
-//
-//        Lists.getAllCustomers().get(0).setAppointment(new Appointment(1, 1, "title", "description", startTime, endTime));
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getAppointmentID());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getCustomerID());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getTitle());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getDescription());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getStart());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(0).getEnd());
-//
-//        startTime = ZonedDateTime.of(2020,12,8,17,30,0,0,zoneId);
-//        endTime = startTime.plusSeconds(500);
-//
-//        Lists.getAllCustomers().get(0).setAppointment(new Appointment(2, 1, "Fun Times", "sleeping", startTime, endTime));
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getAppointmentID());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getCustomerID());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getTitle());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getDescription());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getStart());
-//        System.out.println(Lists.getAllCustomers().get(0).getMyAppointments().get(1).getEnd());
-
-
-    }
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
 
         //FIXME set to load loginForm
 //        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
-//        Parent root = FXMLLoader.load(getClass().getResource("/view/appointmentForm.fxml"));
         primaryStage.setTitle("Login");
 
         //Load resource bundle

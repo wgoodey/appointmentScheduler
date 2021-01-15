@@ -43,7 +43,7 @@
                               <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
                               <TableColumn fx:id="postalCol" editable="false" prefWidth="75.0" text="Postal" />
                               <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
-                              <TableColumn fx:id="phoneCol" editable="false" prefWidth="80.0" text="Phone" />
+                              <TableColumn fx:id="phoneCol" editable="false" text="Phone" />
                           </columns>
       
                       </TableView>
@@ -88,9 +88,9 @@
                          <TableColumn fx:id="locationCol" editable="false" prefWidth="75.0" text="Location" />
                          <TableColumn fx:id="contactCol" editable="false" prefWidth="75.0" text="Contact" />
                          <TableColumn fx:id="typeCol" editable="false" prefWidth="75.0" text="Type" />
-                         <TableColumn fx:id="startCol" editable="false" prefWidth="80.0" text="Start Time" />
+                         <TableColumn fx:id="startCol" editable="false" text="Start Time" />
                          <TableColumn fx:id="endCol" editable="false" prefWidth="75.0" text="End Time" />
-                         <TableColumn fx:id="custIDCol" editable="false" prefWidth="80.0" text="Customer ID" />
+                         <TableColumn fx:id="custIDCol" editable="false" text="Customer ID" />
                      </columns>
                   </TableView>
                </center>

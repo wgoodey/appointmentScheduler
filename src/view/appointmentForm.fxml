@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentFormController">
     <children>
@@ -150,13 +151,18 @@
                 <Insets />
             </GridPane.margin></HBox>
 
+        <Label fx:id="labelBusinessHours" text="Business Hours: " GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
+
         <Label minWidth="-Infinity" text="Description:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
         <TextArea fx:id="textDescription" maxWidth="-Infinity" prefHeight="100.0" prefWidth="275.0" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.rowSpan="5" />
 
         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="10">
             <buttons>
-                <Button fx:id="buttonSave" minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />
-                <Button fx:id="buttonCancel" minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" text="Cancel" />
+                <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#save" text="Save" />
+                <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#cancel" text="Cancel" />
             </buttons>
          <GridPane.margin>
             <Insets />

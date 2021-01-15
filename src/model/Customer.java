@@ -1,8 +1,5 @@
 package model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class Customer {
 
     private int customerID;
@@ -12,7 +9,6 @@ public class Customer {
     private String postalCode;
     private String division;
     private String phone;
-    private ObservableList<Appointment> myAppointments = FXCollections.observableArrayList();
 
 
     public Customer(int customerID, String name, String address, String division, String postalCode, String country, String phone) {
@@ -33,7 +29,6 @@ public class Customer {
         this.postalCode = copy.getPostalCode();
         this.division = copy.getDivision();
         this.phone = copy.getPhone();
-        this.myAppointments.addAll(copy.getMyAppointments());
     }
 
     @Override
@@ -49,8 +44,7 @@ public class Customer {
         if (!address.equals(customer.address)) return false;
         if (!postalCode.equals(customer.postalCode)) return false;
         if (!division.equals(customer.division)) return false;
-        if (!phone.equals(customer.phone)) return false;
-        return myAppointments.equals(customer.myAppointments);
+        return phone.equals(customer.phone);
     }
 
     @Override
@@ -62,9 +56,9 @@ public class Customer {
         result = 31 * result + postalCode.hashCode();
         result = 31 * result + division.hashCode();
         result = 31 * result + phone.hashCode();
-        result = 31 * result + myAppointments.hashCode();
         return result;
     }
+
 
     public int getCustomerID() {
         return customerID;
@@ -121,50 +115,5 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public ObservableList<Appointment> getMyAppointments() {
-        return myAppointments;
-    }
-
-    public void addAppointment(Appointment appointment) {
-        myAppointments.add(appointment);
-        //TODO remove this line?
-        Data.addAppointment(appointment);
-    }
-
-
-    /**
-     * Deletes an appointment from the allAppointments list.
-     * @param selectedAppointment the appointment to delete
-     * @return
-     */
-    public boolean deleteAppointment(Appointment selectedAppointment) {
-        for(Appointment appointment : myAppointments) {
-            if (appointment.equals(selectedAppointment)) {
-                myAppointments.remove(appointment);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void updateAppointment(int index, Appointment appointment) {
-        myAppointments.set(index, appointment);
-    }
-
-//    /**
-//     *
-//     * @param id
-//     * @return
-//     */
-//    public static int getAppointmentIndex(int id) {
-//        int index;
-//        for(index = 0; index< myAppointments().size(); index++) {
-//            if(id == myAppointments.get(index).getAppointmentID()) {
-//                return index;
-//            }
-//        }
-//        return -1;
-//    }
 
 }

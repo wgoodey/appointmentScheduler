@@ -121,9 +121,8 @@ public class DBUpdate {
         String description = appointment.getDescription();
         String location = appointment.getLocation();
         String type = appointment.getType();
-        //TODO figure out timezones
-        String start = DBQuery.getSQLFormattedDateTime(appointment.getStartTime());
-        String end = DBQuery.getSQLFormattedDateTime(appointment.getEndTime());
+        String start = DBQuery.getSQLFormattedTime(appointment.getStartTime());
+        String end = DBQuery.getSQLFormattedTime(appointment.getEndTime());
         String contactID = String.valueOf(appointment.getContactID());
         String userID = String.valueOf(appointment.getUserID());
         String lastUpdatedBy = Data.getCurrentUser().getUsername();

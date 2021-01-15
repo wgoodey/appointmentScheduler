@@ -18,11 +18,12 @@ import model.database.DBDelete;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainWindowController {
 
-    Stage stage;
     Parent root;
 
     @FXML
@@ -118,8 +119,6 @@ public class MainWindowController {
 
 
 
-
-        //TODO figure out why appointments listener doesn't work
         //set tableview for appointments
         loadAppointmentTable(appointmentTable, appIDCol, titleCol, descriptionCol, locationCol, contactCol, typeCol, startCol, endCol, custIDCol);
 
@@ -134,7 +133,11 @@ public class MainWindowController {
                 }
                 String lowerCase = newValue.toLowerCase();
 
-                if(lowerCase.equals(appointment.getAppointmentID())) {
+                if(appointment.getTitle().toLowerCase().contains(lowerCase)) {
+                    return true;
+                } else if (appointment.getLocation().toLowerCase().contains(lowerCase)) {
+                    return true;
+                } else if(appointment.getType().toLowerCase().contains(lowerCase)) {
                     return true;
                 } else if (String.valueOf((appointment.getCustomerID())).contains(lowerCase)) {
                     return true;
@@ -189,17 +192,19 @@ public class MainWindowController {
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startString"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endString"));
         custIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
         appointmentTable.setPlaceholder(new Label("No appointments found."));
 
+        //check for appointments
+        checkForAppointments();
     }
 
     @FXML
     private void handleCustomerButtonClick(ActionEvent event) throws IOException, SQLException {
-        Customer selectedCustomer = (Customer) customerTable.getSelectionModel().getSelectedItem();
+        Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
         Object clickedButton = event.getSource();
 
         if (clickedButton.equals(newCustomerButton)) {
@@ -211,17 +216,36 @@ public class MainWindowController {
         }
 
         else if (clickedButton.equals(deleteCustomerButton)) {
-            //TODO add alert
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete customer");
-            alert.setHeaderText("Delete customer " + selectedCustomer.getName() + "?");
+            alert.setHeaderText("Delete customer " + selectedCustomer.getName() + " and all associated appointments?");
             alert.setContentText("Press Okay to confirm or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
+
+                //remove all of customer's appointments from database
+                for (Appointment appointment : Data.getAllAppointments()) {
+                    if (appointment.getCustomerID() == selectedCustomer.getCustomerID()) {
+                        DBDelete.deleteAppointment(DBConnection.getConnection(), appointment);
+                    }
+                }
+
+                //remove customer's appointments from list
+                Data.getAllAppointments().removeIf(a -> a.getCustomerID() == selectedCustomer.getCustomerID());
+
                 //delete selected customer from database and if successful, delete from allCustomers
-                if(DBDelete.deleteCustomer(DBConnection.getConnection(), selectedCustomer)) {
+                if (DBDelete.deleteCustomer(DBConnection.getConnection(), selectedCustomer)) {
                     Data.deleteCustomer(selectedCustomer);
                 }
+
+                //Display message of successful deletion
+                Dialog<String> dialog = new Dialog<>();
+                String dialogMessage = "Customer named " + selectedCustomer.getName() + " successfully deleted.";
+                dialog.setTitle("Deleted customer");
+                dialog.setContentText(dialogMessage);
+                ButtonType okay = new ButtonType("Okay");
+                dialog.getDialogPane().getButtonTypes().add(okay);
+                dialog.showAndWait();
             }
 
         }
@@ -229,7 +253,7 @@ public class MainWindowController {
 
     @FXML
     private void handleAppointmentButtonClick(ActionEvent event) throws IOException, SQLException {
-        Appointment selectedAppointment = (Appointment) appointmentTable.getSelectionModel().getSelectedItem();
+        Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
         Object clickedButton = event.getSource();
 
         if (clickedButton.equals(newAppointmentButton)) {
@@ -241,18 +265,25 @@ public class MainWindowController {
         }
 
         else if (clickedButton.equals(deleteAppointmentButton)) {
-            //TODO add alert
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete appointment");
             alert.setHeaderText("Delete appointment " + selectedAppointment.getAppointmentID() + "?");
             alert.setContentText("Press Okay to confirm or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                //delete selected customer from database and if successful, delete from allCustomers
+                //delete selected appointment from database and if successful, delete from allAppointments
                 if(DBDelete.deleteAppointment(DBConnection.getConnection(), selectedAppointment)) {
                     //get customer from customerID in appointment and delete appointment in the list
-
+                    Data.deleteAppointment(selectedAppointment);
                 }
+
+                Dialog<String> dialog = new Dialog<>();
+                String dialogMessage = "Successfully deleted " + selectedAppointment.getType() + " appointment with ID " + selectedAppointment.getAppointmentID() + ".";
+                dialog.setTitle("Deleted appointment");
+                dialog.setContentText(dialogMessage);
+                ButtonType okay = new ButtonType("Okay");
+                dialog.getDialogPane().getButtonTypes().add(okay);
+                dialog.showAndWait();
             }
 
         }
@@ -300,5 +331,34 @@ public class MainWindowController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    private void checkForAppointments() {
+        ZonedDateTime now = ZonedDateTime.now();
+
+        AtomicReference<Appointment> first = new AtomicReference<>(Data.getAllAppointments().get(0));
+
+        Data.getAllAppointments().forEach(a -> {
+            if (a.getUserID() == Data.getCurrentUser().getUserID() &&
+                    a.getStartTime().isAfter(now)) {
+                if (a.getStartTime().isBefore(first.get().getStartTime())) {
+                    first.set(a);
+                }
+            }
+        });
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Upcoming appointments");
+        alert.setHeaderText("Upcoming appointments for user " + Data.getCurrentUser().getUsername() + ".");
+        alert.setContentText("You have no appointments scheduled in the next 15 minutes.");
+
+        if (first.get().getStartTime().isAfter(now) &&
+                first.get().getStartTime().isBefore(now.plusMinutes(15))) {
+            alert.setContentText("Your next appointment:\n" +
+                    "AppointmentID: " + first.get().getAppointmentID() + "\n\n" +
+                    "Scheduled time: " + first.get().getStartString());
+        }
+        alert.showAndWait();
+    }
+
 
 }

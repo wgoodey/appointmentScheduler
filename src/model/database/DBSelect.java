@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
 public class DBSelect {
 
@@ -56,6 +57,12 @@ public class DBSelect {
         DBQuery.setPreparedStatement(connection, selectStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
+        //convert times to UTC
+        ZonedDateTime localStart = appointment.getStartTime();
+        ZonedDateTime localEnd = appointment.getEndTime();
+        ZonedDateTime UTCStart = localStart.withZoneSameInstant(Data.getUTC());
+        ZonedDateTime UTCEnd = localEnd.withZoneSameInstant(Data.getUTC());
+
         //record data
         String customerID = String.valueOf(appointment.getCustomerID());
         String userID = String.valueOf(appointment.getUserID());
@@ -65,8 +72,8 @@ public class DBSelect {
         //key-value mapping
         preparedStatement.setString(1, customerID);
         preparedStatement.setString(2, userID);
-        preparedStatement.setString(3, start);
-        preparedStatement.setString(4, end);
+        preparedStatement.setString(3, DBQuery.getSQLFormattedTime(UTCStart));
+        preparedStatement.setString(4, DBQuery.getSQLFormattedTime(UTCEnd));
 
 
         try {

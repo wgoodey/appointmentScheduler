@@ -3,27 +3,25 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 
 public class Data {
 
     private static User currentUser;
+    private static final ZoneId userZoneID = ZoneId.systemDefault();
+    private static final ZoneId businessZone = ZoneId.of("America/New_York");
+    private static final ZoneId UTC = ZoneId.of("UTC");
+    private static final ZonedDateTime businessStart = ZonedDateTime.of(LocalDate.now(), LocalTime.of(8, 0), Data.getBusinessZone());
+    private static final ZonedDateTime businessEnd = ZonedDateTime.of(LocalDate.now(), LocalTime.of(22, 0), Data.getBusinessZone());
     private static final ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static final ObservableList<Country> allCountries = FXCollections.observableArrayList();
     private static final ObservableList<Contact> allContacts = FXCollections.observableArrayList();
     private static final ObservableList<User> allUsers = FXCollections.observableArrayList();
-
-
     private static final ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
-
-    public static void addAppointment(Appointment appointment) {
-        allAppointments.add(appointment);
-    }
-
-    public static ObservableList<Appointment> getAppointmentsList() {
-        return allAppointments;
-    }
-
 
     /**
      * @return the current user of the program.
@@ -38,6 +36,38 @@ public class Data {
      */
     public static void setCurrentUser(User currentUser) {
         Data.currentUser = currentUser;
+    }
+
+    /**
+     * Gets the user's current ZoneID
+     * @return the user's ZoneID
+     */
+    public static ZoneId getUserZoneID() {
+        return userZoneID;
+    }
+
+    /**
+     * Gets the ZoneID for business headquarters
+     * @return the EST ZoneID
+     */
+    public static ZoneId getBusinessZone() {
+        return businessZone;
+    }
+
+    public static ZonedDateTime getBusinessStart() {
+        return businessStart;
+    }
+
+    public static ZonedDateTime getBusinessEnd() {
+        return businessEnd;
+    }
+
+    /**
+     * Gets the ZoneID for Universal Coordinated Time
+     * @return the UTC ZoneID
+     */
+    public static ZoneId getUTC() {
+        return UTC;
     }
 
     /**
@@ -170,6 +200,21 @@ public class Data {
     }
 
     /**
+     * Returns the index of an appointment in the allAppointments observableList.
+     * @param id the id of the appointment
+     * @return the index of the appointment or -1 if not found
+     */
+    public static int getAppointmentIndex(int id) {
+        int index;
+        for(index = 0; index< Data.getAllAppointments().size(); index++) {
+            if(id == Data.allAppointments.get(index).getAppointmentID()) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Returns the index of a country in the allCountries observableList.
      * @param name the name of the country to look for
      * @return the index of the country if found or -1 if not
@@ -187,7 +232,7 @@ public class Data {
     /**
      * Deletes a customer from the allCustomers list.
      * @param selectedCustomer the customer to delete
-     * @return
+     * @return true if customer was deleted and false if not.
      */
     public static boolean deleteCustomer(Customer selectedCustomer) {
         for(Customer customer : allCustomers) {
@@ -219,9 +264,9 @@ public class Data {
     /**
      * Deletes an appointment from the allAppointments list.
      * @param selectedAppointment the appointment to delete
-     * @return
+     * @return true if appointment was deleted and false if not.
      */
-    public boolean deleteAppointment(Appointment selectedAppointment) {
+    public static boolean deleteAppointment(Appointment selectedAppointment) {
         for(Appointment appointment : Data.getAllAppointments()) {
             if (appointment.equals(selectedAppointment)) {
                 Data.getAllAppointments().remove(appointment);
@@ -231,4 +276,11 @@ public class Data {
         return false;
     }
 
+    public static void updateAppointment(int index, Appointment appointment) {
+        allAppointments.set(index, appointment);
+    }
+
+    public static void addAppointment(Appointment appointment) {
+        allAppointments.add(appointment);
+    }
 }

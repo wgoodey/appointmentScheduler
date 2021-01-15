@@ -2,12 +2,9 @@ package model.database;
 
 import model.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class DBLoad {
 
@@ -53,10 +50,7 @@ public class DBLoad {
             int countryID = result.getInt("COUNTRY_ID");
             String name = result.getString("Division");
 
-            //FIXME timeZone issue: should not be hardcoded
-            ZoneId timeZone = ZoneId.of("America/Los_Angeles");
-
-            Division division = new Division(ID, countryID, name, timeZone);
+            Division division = new Division(ID, countryID, name);
             country.addDivision(division);
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -95,12 +89,7 @@ public class DBLoad {
         }
     }
 
-    private static void getCreate_UpdateInfo (ResultSet result, String createdBy, LocalDateTime createDateTime, String lastUpdateBy, LocalDateTime lastUpdate) throws SQLException {
-        createdBy = result.getString("Created_By");
-        createDateTime = result.getTimestamp("Create_Date").toLocalDateTime();
-        lastUpdateBy = result.getString("Last_Updated_By");
-        lastUpdate = result.getTimestamp("Last_Update").toLocalDateTime();
-    }
+
 
     public static void loadContacts(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
@@ -170,12 +159,13 @@ public class DBLoad {
                     String location = result.getString("Location");
                     String type = result.getString("Type");
                     LocalDateTime startTime = result.getTimestamp("Start").toLocalDateTime();
+                    ZonedDateTime start = startTime.atZone(Data.getUserZoneID());
                     LocalDateTime endTime = result.getTimestamp("End").toLocalDateTime();
-                    ZoneId timeZone;
+                    ZonedDateTime end = endTime.atZone(Data.getUserZoneID());
 
                     //create new appointment and add it to the myAppointments list for the customer
-                    Appointment appointment = new Appointment(appointmentID, customerID, contactID, userID, title, description, location, type, startTime, endTime);
-                    customer.addAppointment(appointment);
+                    Appointment appointment = new Appointment(appointmentID, customerID, contactID, userID, title, description, location, type, start, end);
+                    Data.addAppointment(appointment);
                 }
             } catch (SQLException throwables) {
                 System.out.println(throwables.getMessage());

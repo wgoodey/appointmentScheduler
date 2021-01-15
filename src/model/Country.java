@@ -7,7 +7,7 @@ public class Country {
 
     private int ID;
     private String name;
-    private ObservableList<Division> divisions = FXCollections.observableArrayList();
+    private final ObservableList<Division> divisions = FXCollections.observableArrayList();
 
 
     public Country(int ID, String name) {
@@ -54,21 +54,13 @@ public class Country {
 
     public Division getDivision(String divisionName) {
         for(Division division : divisions) {
-            if (division.getName() == divisionName) {
+            if (division.getName().equals(divisionName)) {
                 return division;
             }
         }
         return null;
     }
 
-//    public ObservableList<String> getDivisionNames() {
-//        ObservableList<String> divisionNames = FXCollections.observableArrayList();
-//
-//        for (Division division : divisions) {
-//            divisionNames.add(division.getName());
-//        }
-//        return divisionNames;
-//    }
 
     public boolean deleteDivision(Division selectedDivision) {
         for(Division division : divisions) {

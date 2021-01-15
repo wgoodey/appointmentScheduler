@@ -50,7 +50,6 @@ public class CustomerFormController {
         tempCustomer = new Customer(customer);
 
         //populate fields
-        //TODO
         textCustomerID.setText(String.valueOf(customer.getCustomerID()));
         textName.setText(customer.getName());
         textAddress.setText(customer.getAddress());
@@ -63,8 +62,8 @@ public class CustomerFormController {
     }
 
     public void save(ActionEvent click) throws SQLException {
-        //TODO write checks for data entered and format exceptions
 
+        //collect data for customer
         int customerID;
         String name = textName.getText().trim();
         String country = comboCountry.getValue();
@@ -79,8 +78,20 @@ public class CustomerFormController {
             customerID = -1;
         }
 
+        //check that all fields are filled
+        if (name.isEmpty() || address.isEmpty() || postalCode.isEmpty() || division.isEmpty() || phone.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Missing data");
+            alert.setHeaderText("Unable to save customer.");
+            alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+            return;
+        }
+
+        //save data into customer
         Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
 
+        //if modifying a customer
         if (customerID != -1) {
             //check that no changes have been made
             if (tempCustomer.equals(newCustomer)) {
@@ -95,7 +106,8 @@ public class CustomerFormController {
                     Data.updateCustomer(Data.getCustomerIndex(customerID), newCustomer);
                 }
             }
-        } else { //if customerID = -1
+
+        } else { //if new customer (customerID = -1)
             //iterate through all customers to check for customer with that name
             for (int i = 0; i < Data.getAllCustomers().size(); i++) {
                 Customer existingCustomer = Data.getAllCustomers().get(i);
@@ -152,7 +164,6 @@ public class CustomerFormController {
     }
 
     public void buildDivBox() {
-        //TODO look in Lists for country and get divisions
         String selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
         ObservableList<String> divisions = FXCollections.observableArrayList(Data.getCountry(selectedCountry).getDivisionNames());
         Collections.sort(divisions);
