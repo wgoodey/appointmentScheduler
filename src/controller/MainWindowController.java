@@ -19,6 +19,7 @@ import model.database.DBDelete;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -46,6 +47,14 @@ public class MainWindowController {
     private TableColumn<Customer, String> phoneCol;
     @FXML
     private TextField appSearchBar;
+    @FXML
+    private ToggleGroup appFilter;
+    @FXML
+    private RadioButton radioAll;
+    @FXML
+    private RadioButton radioMonth;
+    @FXML
+    private RadioButton radioWeek;
     @FXML
     private TableView<Appointment> appointmentTable;
     @FXML
@@ -79,10 +88,15 @@ public class MainWindowController {
     @FXML
     private Button deleteAppointmentButton;
 
+    private DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-M");
+    private DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("yyyy-w");
+    private FilteredList<Appointment> filteredAppointments;
+    private SortedList<Appointment> sortedAppointments;
+
 
 
     /**
-     * Loads customer tableView into the main window.
+     * Loads customer tableView and appointment tableview into the main window.
      */
     @FXML
     public void initialize() {
@@ -123,7 +137,8 @@ public class MainWindowController {
         loadAppointmentTable(appointmentTable, appIDCol, titleCol, descriptionCol, locationCol, contactCol, typeCol, startCol, endCol, custIDCol);
 
         //wrap observable list in a filtered list
-        FilteredList<Appointment> filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> true);
+        filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> true);
+
 
         //configure listener for appointment searchbar
         appSearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -146,15 +161,18 @@ public class MainWindowController {
             });
         });
 
+
         //wrap the filtered list in a sorted list
-        SortedList<Appointment> sortedAppointments = new SortedList(filteredAppointments);
+        sortedAppointments = new SortedList(filteredAppointments);
         //bind sortedAppointments comparator to AppointmentTable comparator
         sortedAppointments.comparatorProperty().bind(appointmentTable.comparatorProperty());
         //add data to the TableView
         appointmentTable.setItems(sortedAppointments);
     }
 
-
+    /**
+     * Sets the TableView for the customer table.
+     */
     public void loadCustomerTable(TableView<Customer> customerTable,
                                   TableColumn<Customer, Integer> customerIDCol,
                                   TableColumn<Customer, String> nameCol,
@@ -162,7 +180,7 @@ public class MainWindowController {
                                   TableColumn<Customer, String> addressCol,
                                   TableColumn<Customer, String> postalCol,
                                   TableColumn<Customer, String> divisionCol,
-                                  TableColumn<Customer, String> phoneCol)    {
+                                  TableColumn<Customer, String> phoneCol) {
 
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -175,6 +193,9 @@ public class MainWindowController {
         customerTable.setPlaceholder(new Label("No customers found."));
     }
 
+    /**
+     * Sets the TableView for the appointments table.
+     */
     public void loadAppointmentTable(TableView<Appointment> appointmentTable,
                                      TableColumn<Appointment, Integer> appIDCol,
                                      TableColumn<Appointment, String> titleCol,
@@ -202,6 +223,12 @@ public class MainWindowController {
         checkForAppointments();
     }
 
+    /**
+     * Event handler that handles button clicks on the customer button bar.
+     * @param event The button that is clicked in the user interface.
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     private void handleCustomerButtonClick(ActionEvent event) throws IOException, SQLException {
         Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
@@ -251,6 +278,12 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Event handler that handles button clicks on the appointment button bar.
+     * @param event The button that is clicked in the user interface.
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     private void handleAppointmentButtonClick(ActionEvent event) throws IOException, SQLException {
         Appointment selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
@@ -289,7 +322,10 @@ public class MainWindowController {
         }
     }
 
-    
+    /**
+     * Loads the customer form where the user can enter data to create a new customer.
+     * @throws IOException
+     */
     private void openCustomerForm() throws IOException {
         root = FXMLLoader.load(getClass().getResource("/view/customerForm.fxml"));
         Stage stage = new Stage();
@@ -299,6 +335,11 @@ public class MainWindowController {
         stage.show();
     }
 
+    /**
+     * Loads the customer form and populates it with data from an existing customer in order to make modifications.
+     * @param selectedCustomer the customer to be modified.
+     * @throws IOException
+     */
     private void openCustomerForm(Customer selectedCustomer) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/customerForm.fxml"));
         root = fxmlLoader.load();
@@ -311,6 +352,10 @@ public class MainWindowController {
         stage.show();
     }
 
+    /**
+     * Loads the appointment form where the user can enter data to create a new appointment.
+     * @throws IOException
+     */
     private void openAppointmentForm() throws IOException {
         root = FXMLLoader.load(getClass().getResource("/view/appointmentForm.fxml"));
         Stage stage = new Stage();
@@ -320,18 +365,26 @@ public class MainWindowController {
         stage.show();
     }
 
+    /**
+     * Loads the appointment form and populates it with data from an existing appointment in order to make modifications.
+     * @param selectedAppointment the appointment to be modified.
+     * @throws IOException
+     */
     private void openAppointmentForm(Appointment selectedAppointment) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/appointmentForm.fxml"));
         root = fxmlLoader.load();
         AppointmentFormController controller = fxmlLoader.getController();
         controller.initialize(selectedAppointment);
         Stage stage = new Stage();
-        stage.setTitle("Modify customer");
+        stage.setTitle("Modify appointment");
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
     }
 
+    /**
+     * Checks to see if there is an appointment scheduled for the current user in the next 15 minutes and displays an alert notifying the user of the results.
+     */
     private void checkForAppointments() {
         ZonedDateTime now = ZonedDateTime.now();
 
@@ -361,4 +414,23 @@ public class MainWindowController {
     }
 
 
+    /**
+     * Checks the setting in the main window and filters the appointments in the table according to user setting (All, appointments for the current month, and appointments for the current week.
+     */
+    public void setFilteredAppointments() {
+
+        filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> true);
+        sortedAppointments = new SortedList(filteredAppointments);
+
+        if (appFilter.getSelectedToggle().equals(radioMonth)) {
+            //current month's appointments
+            filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> p.getStartTime().format(monthFormatter).equals(ZonedDateTime.now().format(monthFormatter)));
+            sortedAppointments = new SortedList(filteredAppointments);
+        } else if (appFilter.getSelectedToggle().equals(radioWeek)) {
+            //current week's appointments
+            filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> p.getStartTime().format(weekFormatter).equals(ZonedDateTime.now().format(weekFormatter)));
+            sortedAppointments = new SortedList(filteredAppointments);
+        }
+        appointmentTable.setItems(sortedAppointments);
+    }
 }

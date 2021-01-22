@@ -67,7 +67,8 @@ public class LoginFormController {
     }
 
     /**
-     * Checks login credentials and opens the application's main window.
+     * Checks login credentials and opens the application's main window if login is successful. If attempted login fails, an error message is printed in the UI.
+     * @param event the login button that was clicked.
      */
     public void login(ActionEvent event) throws IOException {
 
@@ -122,6 +123,12 @@ public class LoginFormController {
         }
     }
 
+    /**
+     * Records login attempts to a text file.
+     * @param username the username entered in the form for for a login attempt.
+     * @param success true if user has successfully logged in or false if not.
+     * @throws IOException
+     */
     private void logActivity(String username, boolean success) throws IOException {
         //file printing variables
         FileWriter fw = new FileWriter("login_activity.txt", true);

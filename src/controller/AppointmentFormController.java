@@ -64,7 +64,9 @@ public class AppointmentFormController {
     DateTimeFormatter hoursFormat = DateTimeFormatter.ofPattern("h:mm a");
     DateTimeFormatter hoursAndZoneFormat = DateTimeFormatter.ofPattern("h:mm a z");
 
-
+    /**
+     * Sets the comboboxes for customers, contacts, and appointment times in the appointment form and prints the local business hours into the interface.
+     */
     public void initialize() {
 
         //set customer combobox
@@ -110,6 +112,10 @@ public class AppointmentFormController {
 
     }
 
+    /**
+     * Populates the fields with the data for the selected appointment.
+     * @param appointment
+     */
     public void initialize(Appointment appointment) {
         String customerName = "";
         for (Customer customer : Data.getAllCustomers()) {
@@ -137,7 +143,6 @@ public class AppointmentFormController {
         textDescription.setText(appointment.getDescription());
 
 
-
         datePicker.setValue(LocalDate.parse(appointment.getStartTime().format(dateFormat)));
 
         comboStart.setValue(appointment.getStartTime().format(timeFormat));
@@ -155,7 +160,7 @@ public class AppointmentFormController {
     }
 
     /**
-     *
+     * Saves the current data entered in the form to the database and adds the appointment to the appointment list.
      * @param click the button in the UI that was clicked.
      */
     @FXML

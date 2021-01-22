@@ -36,6 +36,9 @@ public class CustomerFormController {
 
     private Customer tempCustomer;
 
+    /**
+     * Sets the combobox for the country in the customer form.
+     */
     public void initialize() {
         //set country combobox
         ObservableList<String> countries = FXCollections.observableArrayList(Data.getAllCountryNames());
@@ -44,8 +47,11 @@ public class CustomerFormController {
 
     }
 
+    /**
+     * Populates the fields for the selected customer.
+     * @param customer
+     */
     public void initialize(Customer customer) {
-        initialize();
 
         tempCustomer = new Customer(customer);
 
@@ -61,6 +67,11 @@ public class CustomerFormController {
 
     }
 
+    /**
+     * Saves the current data entered in the form to the database and adds the customer to the customer list.
+     * @param click the button in the UI that was clicked.
+     * @throws SQLException
+     */
     public void save(ActionEvent click) throws SQLException {
 
         //collect data for customer
@@ -151,6 +162,10 @@ public class CustomerFormController {
 
     }
 
+    /**
+     * Displays a confirmation alert. Discards entered data if confirmed or returns to the form if not.
+     * @param click the button in the UI that was clicked.
+     */
     public void cancel(ActionEvent click) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Modify Customer");
@@ -163,6 +178,9 @@ public class CustomerFormController {
         }
     }
 
+    /**
+     * Sets the first level division box based on the country selected in the form.
+     */
     public void buildDivBox() {
         String selectedCountry = comboCountry.getSelectionModel().getSelectedItem();
         ObservableList<String> divisions = FXCollections.observableArrayList(Data.getCountry(selectedCountry).getDivisionNames());

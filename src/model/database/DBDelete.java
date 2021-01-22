@@ -11,6 +11,13 @@ import java.sql.SQLException;
 
 public class DBDelete {
 
+    /**
+     * Deletes a country from the database.
+     * @param connection the Connection to the MySQL database.
+     * @param country the country to be deleted.
+     * @return true if successfully deleted and false if not.
+     * @throws SQLException
+     */
     public static boolean deleteCountry(Connection connection, Country country) throws SQLException {
         String deleteStatement = "DELETE FROM countries WHERE Country_ID = ?";
 
@@ -36,6 +43,13 @@ public class DBDelete {
         return false;
     }
 
+    /**
+     * Deletes a division from the database.
+     * @param connection the Connection to the MySQL database.
+     * @param division the division to be deleted.
+     * @return true if successfully deleted and false if not.
+     * @throws SQLException
+     */
     public static boolean deleteDivision(Connection connection, Division division) throws SQLException {
         String deleteStatement = "DELETE FROM first_level_divisions WHERE Division_ID = ?";
 
@@ -61,6 +75,13 @@ public class DBDelete {
         return false;
     }
 
+    /**
+     * Deletes a customer from the database.
+     * @param connection the Connection to the MySQL database.
+     * @param customer the customer to be deleted.
+     * @return true if successfully deleted and false if not.
+     * @throws SQLException
+     */
     public static boolean deleteCustomer(Connection connection, Customer customer) throws SQLException {
         String deleteStatement = "DELETE FROM customers WHERE Customer_ID = ?";
 
@@ -86,6 +107,13 @@ public class DBDelete {
         return false;
     }
 
+    /**
+     * Deletes an appointment from the database.
+     * @param connection the Connection to the MySQL database.
+     * @param appointment the appointment to be deleted.
+     * @return true if successfully deleted and false if not.
+     * @throws SQLException
+     */
     public static boolean deleteAppointment(Connection connection, Appointment appointment) throws SQLException {
         String deleteStatement = "DELETE FROM appointments WHERE Appointment_ID = ?";
 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class DBConnection {
 
     //JDBC URL components
@@ -21,6 +22,11 @@ public class DBConnection {
     private static final String username = "U06Fa5";
     private static final String password = "53688746693";
 
+
+    /**
+     * Creates a Connection to the database.
+     * @return the Connection to the MySQL database.
+     */
     public static Connection startConnection() {
         try {
             Class.forName(MySQLJDBCDriver);
@@ -35,6 +41,9 @@ public class DBConnection {
         return connection;
     }
 
+    /**
+     * Closes the Connection to the MySQL database.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -44,6 +53,10 @@ public class DBConnection {
         }
     }
 
+    /**
+     * gets the connection.
+     * @return
+     */
     public static Connection getConnection() {
         return connection;
     }

@@ -54,10 +54,18 @@ public class Data {
         return businessZone;
     }
 
+    /**
+     * Get the start of business hours in the location of business headquarters.
+     * @return
+     */
     public static ZonedDateTime getBusinessStart() {
         return businessStart;
     }
 
+    /**
+     * Get the end of business hours in the location of business headquarters.
+     * @return
+     */
     public static ZonedDateTime getBusinessEnd() {
         return businessEnd;
     }
@@ -276,10 +284,19 @@ public class Data {
         return false;
     }
 
+    /**
+     * Update an appointment in the aAllAppointments list.
+     * @param index the index of the appointment to update.
+     * @param appointment the new appointment to replace it with.
+     */
     public static void updateAppointment(int index, Appointment appointment) {
         allAppointments.set(index, appointment);
     }
 
+    /**
+     * Add an appointment to the allAppointments list.
+     * @param appointment the appointment to add.
+     */
     public static void addAppointment(Appointment appointment) {
         allAppointments.add(appointment);
     }

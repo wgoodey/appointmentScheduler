@@ -8,6 +8,13 @@ import java.sql.SQLException;
 
 public class DBUpdate {
 
+    /**
+     * Updates a country in the countries table of the MySQL database.
+     * @param connection the Connection for the MySQL database.
+     * @param country the country to update in the database.
+     * @return true if successful and false if not.
+     * @throws SQLException
+     */
     public static boolean updateCountry(Connection connection, Country country) throws SQLException {
         String updateStatement = "UPDATE countries " +
                                  "SET Country = ?, Last_Updated_By = ? " +
@@ -38,6 +45,13 @@ public class DBUpdate {
         return false;
     }
 
+    /**
+     * Updates a division in the first_level_divisions table of the MySQL database.
+     * @param connection the Connection for the MySQL database.
+     * @param division the division to update in the database.
+     * @return true if successful and false if not.
+     * @throws SQLException
+     */
     public static boolean updateDivision(Connection connection, Division division) throws SQLException {
         String updateStatement = "UPDATE first_level_divisions " +
                                  "SET Division = ?, Last_Updated_By = ? " +
@@ -70,6 +84,13 @@ public class DBUpdate {
         return false;
     }
 
+    /**
+     * Updates a customer in the customers table of the MySQL database.
+     * @param connection the Connection for the MySQL database.
+     * @param customer the customer to update in the database.
+     * @return true if successful and false if not.
+     * @throws SQLException
+     */
     public static boolean updateCustomer(Connection connection, Customer customer) throws SQLException {
         String updateStatement = "Update customers " +
                                  "SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Updated_By = ?, Division_ID = ?" +
@@ -108,6 +129,13 @@ public class DBUpdate {
         return false;
     }
 
+    /**
+     * Updates an appointment in the appointments table of the MySQL database.
+     * @param connection the Connection for the MySQL database.
+     * @param appointment the appointment to update in the database.
+     * @return true if successful and false if not.
+     * @throws SQLException
+     */
     public static boolean  updateAppointment(Connection connection, Appointment appointment) throws SQLException {
         String updateStatement = "Update appointments " +
                                  "SET title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Contact_ID = ?, User_ID = ?, Last_Updated_By = ? " +

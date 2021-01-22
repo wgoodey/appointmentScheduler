@@ -12,6 +12,13 @@ import java.time.ZonedDateTime;
 
 public class DBSelect {
 
+    /**
+     * Queries a newly inserted customer from the customers table in the MySQL database;
+     * @param connection the Connection for the MySQL database.
+     * @param customer the customer that was inserted.
+     * @return the customerID;
+     * @throws SQLException
+     */
     public static int getNewCustomerID(Connection connection, Customer customer) throws SQLException {
         String selectStatement = "SELECT * " +
                                  "FROM customers " +
@@ -49,6 +56,13 @@ public class DBSelect {
         return customer.getCustomerID();
     }
 
+    /**
+     * Queries a newly inserted appointment from the appointments table in the MySQL database;
+     * @param connection the Connection for the MySQL database.
+     * @param appointment the customer that was inserted.
+     * @return the appointmentID;
+     * @throws SQLException
+     */
     public static int getNewAppointmentID(Connection connection, Appointment appointment) throws SQLException {
         String selectStatement = "SELECT * " +
                                  "FROM appointments " +

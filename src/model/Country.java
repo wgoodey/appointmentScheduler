@@ -9,40 +9,52 @@ public class Country {
     private String name;
     private final ObservableList<Division> divisions = FXCollections.observableArrayList();
 
-
+    /**
+     * Constructor for the country class.
+     * @param ID
+     * @param name
+     */
     public Country(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }
 
-    public Country(String name) {
-        this.name = name;
-    }
-
-    //copy constructor
-    public Country(Country copy) {
-        this.ID = copy.getID();
-        this.name = copy.getName();
-        this.divisions.addAll(copy.getAllDivisions());
-    }
-
+    /**
+     * Get the ID of the country.
+     * @return
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Get the name of the country.
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name of the country.
+     * @return
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the observableList of the divisions for the country.
+     * @return the list of divisions for the country.
+     */
     public ObservableList<Division> getAllDivisions() {
         return divisions;
     }
 
-    //pull divisions from locally stored list
+    /**
+     * Get the observableList of the division names for the country.
+     * @return a list of the division names only.
+     */
     public ObservableList<String> getDivisionNames() {
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
 
@@ -52,27 +64,11 @@ public class Country {
         return divisionNames;
     }
 
-    public Division getDivision(String divisionName) {
-        for(Division division : divisions) {
-            if (division.getName().equals(divisionName)) {
-                return division;
-            }
-        }
-        return null;
-    }
 
-
-    public boolean deleteDivision(Division selectedDivision) {
-        for(Division division : divisions) {
-            if (division.equals(selectedDivision)) {
-                divisions.remove(division);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
+    /**
+     * Adds a division to the countries divisions list.
+     * @param division the division to add.
+     */
     public void addDivision(Division division) {
         divisions.add(division);
     }

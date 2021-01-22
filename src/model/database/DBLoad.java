@@ -8,6 +8,11 @@ import java.time.ZonedDateTime;
 
 public class DBLoad {
 
+    /**
+     * Queries the countries table in the database and loads all results into the Data.AllCountries list.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadCountries(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
         Statement statement = DBQuery.getStatement();
@@ -44,6 +49,12 @@ public class DBLoad {
         }
     }
 
+    /**
+     * Queries the first_level_divisions table in the database and loads all results into the Country.divisions list.
+     * @param result the results of the query.
+     * @param country the country for which first level divisions are being loaded.
+     * @throws SQLException
+     */
     private static void loadDivisions(ResultSet result, Country country) throws SQLException {
         try {
             int ID = result.getInt("Division_ID");
@@ -57,6 +68,11 @@ public class DBLoad {
         }
     }
 
+    /**
+     * Queries the customers table in the database and loads all results into the Data.AllCustomers list.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadCustomers(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
         Statement statement = DBQuery.getStatement();
@@ -89,8 +105,11 @@ public class DBLoad {
         }
     }
 
-
-
+    /**
+     * Queries the contacts table in the database and loads all results into the Data.AllContacts list.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadContacts(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
         Statement statement = DBQuery.getStatement();
@@ -114,6 +133,11 @@ public class DBLoad {
         }
     }
 
+    /**
+     * Queries the users table in the database and loads all results into the Data.AllUsers list.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadUsers(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
         Statement statement = DBQuery.getStatement();
@@ -136,6 +160,11 @@ public class DBLoad {
         }
     }
 
+    /**
+     * Queries the appointments table in the database and loads all results into the Data.AllAppointments list.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadAppointments(Connection connection) throws SQLException {
         DBQuery.setStatement(connection);
         Statement statement = DBQuery.getStatement();
@@ -173,6 +202,11 @@ public class DBLoad {
         }
     }
 
+    /**
+     * Runs all the individual load methods.
+     * @param connection the Connection to the MySQL database.
+     * @throws SQLException
+     */
     public static void loadAll(Connection connection) throws SQLException {
         loadCountries(connection);
         loadCustomers(connection);

@@ -12,100 +12,123 @@
         <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
+        <RowConstraints />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints />
-        <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
     <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-         <children>
-              <BorderPane>
-                  <top>
-                      <HBox spacing="10.0" BorderPane.alignment="CENTER">
-                          <Label alignment="TOP_LEFT" minHeight="-Infinity" text="Customers">
-                              <font>
-                                  <Font size="18.0" />
-                              </font>
-                          </Label>
-                          <TextField fx:id="customerSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
-                          <BorderPane.margin>
-                              <Insets bottom="10.0" />
-                          </BorderPane.margin>
-                      </HBox>
-                  </top>
-                  <center>
-      
-                      <TableView fx:id="customerTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-                          <columns>
-                              <TableColumn fx:id="customerIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
-                              <TableColumn fx:id="nameCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Name" />
-                              <TableColumn fx:id="addressCol" editable="false" prefWidth="100.0" text="Address" />
-                              <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
-                              <TableColumn fx:id="postalCol" editable="false" prefWidth="75.0" text="Postal" />
-                              <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
-                              <TableColumn fx:id="phoneCol" editable="false" text="Phone" />
-                          </columns>
-      
-                      </TableView>
-                  </center>
-               <bottom>
-            
-                    <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                        <buttons>
-                            <Button fx:id="newCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="New..." />
-                            <Button fx:id="modifyCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="Modify" />
-                            <Button fx:id="deleteCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="Delete" />
-                        </buttons>
-                    </ButtonBar>
-               </bottom>
-              </BorderPane>
-         </children>
-      </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-         <children>
-            <BorderPane>
-               <top>
-                  <HBox spacing="10.0" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets bottom="10.0" />
-                     </BorderPane.margin>
-                     <children>
-                        <Label alignment="TOP_LEFT" minHeight="-Infinity" text="Appointments">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="appSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
-                     </children>
-                  </HBox>
-               </top>
-               <center>
-                  <TableView fx:id="appointmentTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-                     <columns>
-                         <TableColumn fx:id="appIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
-                         <TableColumn fx:id="titleCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Title" />
-                         <TableColumn fx:id="descriptionCol" editable="false" prefWidth="100.0" text="Description" />
-                         <TableColumn fx:id="locationCol" editable="false" prefWidth="75.0" text="Location" />
-                         <TableColumn fx:id="contactCol" editable="false" prefWidth="75.0" text="Contact" />
-                         <TableColumn fx:id="typeCol" editable="false" prefWidth="75.0" text="Type" />
-                         <TableColumn fx:id="startCol" editable="false" text="Start Time" />
-                         <TableColumn fx:id="endCol" editable="false" prefWidth="75.0" text="End Time" />
-                         <TableColumn fx:id="custIDCol" editable="false" text="Customer ID" />
-                     </columns>
-                  </TableView>
-               </center>
-               <bottom>
-                    <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                        <buttons>
-                            <Button fx:id="newAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="New..." />
-                            <Button fx:id="modifyAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="Modify" />
-                            <Button fx:id="deleteAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="Delete" />
-                        </buttons>
-                    </ButtonBar>
-               </bottom>
-            </BorderPane>
-         </children>
-      </VBox>
+      <MenuBar GridPane.columnSpan="2">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem id="menuReports" mnemonicParsing="false" text="Generate Reports" />
+              <MenuItem id="menuClose" mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem id="menuRefresh" mnemonicParsing="false" text="Refresh Database" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <children>
+                <BorderPane>
+                    <top>
+                        <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                            <Label alignment="TOP_LEFT" minHeight="-Infinity" text="Customers">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="customerSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
+                            <BorderPane.margin>
+                                <Insets bottom="10.0" />
+                            </BorderPane.margin>
+                        </HBox>
+                    </top>
+
+                    <center>
+                        <TableView fx:id="customerTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="customerIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
+                                <TableColumn fx:id="nameCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Name" />
+                                <TableColumn fx:id="addressCol" editable="false" prefWidth="100.0" text="Address" />
+                                <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
+                                <TableColumn fx:id="postalCol" editable="false" prefWidth="75.0" text="Postal" />
+                                <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
+                                <TableColumn fx:id="phoneCol" editable="false" text="Phone" />
+                            </columns>
+
+                        </TableView>
+                    </center>
+
+                    <bottom>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <buttons>
+                                <Button fx:id="newCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="New..." />
+                                <Button fx:id="modifyCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="Modify" />
+                                <Button fx:id="deleteCustomerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleCustomerButtonClick" text="Delete" />
+                            </buttons>
+                        </ButtonBar>
+                    </bottom>
+                </BorderPane>
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <children>
+                <BorderPane>
+                    <top>
+                        <HBox spacing="10.0" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets bottom="10.0" />
+                            </BorderPane.margin>
+                            <children>
+                                <Label alignment="TOP_LEFT" minHeight="-Infinity" text="Appointments">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="appSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
+                                <RadioButton fx:id="radioAll" onAction="#setFilteredAppointments" text="All">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="appFilter" />
+                           </toggleGroup></RadioButton>
+                                <RadioButton fx:id="radioMonth" onAction="#setFilteredAppointments" text="Month" toggleGroup="$appFilter" />
+                                <RadioButton fx:id="radioWeek" onAction="#setFilteredAppointments" text="Week" toggleGroup="$appFilter" />
+                                
+                            </children>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="appointmentTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="appIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
+                                <TableColumn fx:id="titleCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Title" />
+                                <TableColumn fx:id="descriptionCol" editable="false" prefWidth="100.0" text="Description" />
+                                <TableColumn fx:id="locationCol" editable="false" prefWidth="75.0" text="Location" />
+                                <TableColumn fx:id="contactCol" editable="false" prefWidth="75.0" text="Contact" />
+                                <TableColumn fx:id="typeCol" editable="false" prefWidth="75.0" text="Type" />
+                                <TableColumn fx:id="startCol" editable="false" text="Start Time" />
+                                <TableColumn fx:id="endCol" editable="false" prefWidth="75.0" text="End Time" />
+                                <TableColumn fx:id="custIDCol" editable="false" text="Customer ID" />
+                            </columns>
+                        </TableView>
+                    </center>
+                    <bottom>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <buttons>
+                                <Button fx:id="newAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="New..." />
+                                <Button fx:id="modifyAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="Modify" />
+                                <Button fx:id="deleteAppointmentButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleAppointmentButtonClick" text="Delete" />
+                            </buttons>
+                        </ButtonBar>
+                    </bottom>
+                </BorderPane>
+            </children>
+        </VBox>
     </children>
     <padding>
         <Insets left="15.0" right="15.0" top="15.0" />

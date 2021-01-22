@@ -11,6 +11,16 @@ public class Customer {
     private String phone;
 
 
+    /**
+     * Constructor for the customer class.
+     * @param customerID
+     * @param name
+     * @param address
+     * @param division
+     * @param postalCode
+     * @param country
+     * @param phone
+     */
     public Customer(int customerID, String name, String address, String division, String postalCode, String country, String phone) {
         this.customerID = customerID;
         this.name = name;
@@ -21,6 +31,10 @@ public class Customer {
         this.phone = phone;
     }
 
+    /**
+     * Copy constructor for the customer class.
+     * @param copy the customer to copy.
+     */
     public Customer(Customer copy) {
         this.customerID = copy.getCustomerID();
         this.name = copy.getName();
@@ -31,6 +45,11 @@ public class Customer {
         this.phone = copy.getPhone();
     }
 
+    /**
+     * Override of the equals() method for easy customer comparison.
+     * @param o the customer to compare.
+     * @return true if the customers are the same and false if not.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,59 +78,114 @@ public class Customer {
         return result;
     }
 
-
+    /**
+     * Get the ID of the customer.
+     * @return customerID.
+     */
     public int getCustomerID() {
         return customerID;
     }
 
+    /**
+     * Set the ID of the customer.
+     * @param customerID the ID to set.
+     */
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
+    /**
+     * Get the name of the customer.
+     * @return name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name of the customer.
+     * @param name the name to set.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the customer's country.
+     * @return country.
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * Set the customer's country.
+     * @param country the name of the country to set.
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * Get the customer's address.
+     * @return
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Set the customer's address.
+     * @param address the address to set.
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Get the customer's postal code.
+     * @return
+     */
     public String getPostalCode() {
         return postalCode;
     }
 
+    /**
+     * Set the customer's postal code.
+     * @param postalCode the postal code to set.
+     */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    /**
+     * Get the customer's division.
+     * @return
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Set the customer's division.
+     * @param division the division name to set.
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Get the customer's phone number.
+     * @return
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Set the customer's phone number.
+     * @param phone the phone number to set.
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }

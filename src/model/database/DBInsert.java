@@ -9,6 +9,13 @@ import java.time.ZonedDateTime;
 
 public class DBInsert {
 
+    /**
+     * Inserts a country into the database.
+     * @param connection the Connection to the MySQL database.
+     * @param country the country to be inserted.
+     * @return true if successfully inserted and false if not.
+     * @throws SQLException
+     */
     public static boolean insertCountry(Connection connection, Country country) throws SQLException {
 
         String insertStatement = "INSERT INTO countries(Country, Created_By, Last_Updated_By) " +
@@ -40,6 +47,13 @@ public class DBInsert {
         return false;
     }
 
+    /**
+     * Inserts a division into the database.
+     * @param connection the Connection to the MySQL database.
+     * @param division the division to be inserted.
+     * @return true if successfully inserted and false if not.
+     * @throws SQLException
+     */
     public static boolean insertDivision(Connection connection, Division division) throws SQLException {
         String insertStatement = "INSERT INTO first_level_divisions(Division, Created_By, Last_Updated_By, COUNTRY_ID) " +
                                  "VALUES (?,?,?,?)";
@@ -72,6 +86,13 @@ public class DBInsert {
         return false;
     }
 
+    /**
+     * Inserts a customer into the database.
+     * @param connection the Connection to the MySQL database.
+     * @param customer the customer to be inserted.
+     * @return true if successfully inserted and false if not.
+     * @throws SQLException
+     */
     public static boolean insertCustomer(Connection connection, Customer customer) throws SQLException {
         String insertStatement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Created_By, Last_Updated_By, Division_ID) " +
                                  "VALUES (?,?,?,?,?,?,?)";
@@ -110,6 +131,13 @@ public class DBInsert {
         return false;
     }
 
+    /**
+     * Inserts an appointment into the database.
+     * @param connection the Connection to the MySQL database.
+     * @param appointment the appointment to be inserted.
+     * @return true if successfully inserted and false if not.
+     * @throws SQLException
+     */
     public static boolean insertAppointment(Connection connection, Appointment appointment) throws SQLException {
         String insertStatement = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
                                  "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
