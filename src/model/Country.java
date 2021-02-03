@@ -12,14 +12,23 @@ import javafx.collections.ObservableList;
  */
 public class Country {
 
-    private int ID;
+    /**
+     * The country's ID.
+     */
+    private final int ID;
+    /**
+     * The country's name.
+     */
     private String name;
+    /**
+     * The list of divisions belonging to the country.
+     */
     private final ObservableList<Division> divisions = FXCollections.observableArrayList();
 
     /**
      * Constructor for the country class.
-     * @param ID
-     * @param name
+     * @param ID the country ID.
+     * @param name the country name.
      */
     public Country(int ID, String name) {
         this.ID = ID;
@@ -28,7 +37,7 @@ public class Country {
 
     /**
      * Get the ID of the country.
-     * @return
+     * @return the country ID.
      */
     public int getID() {
         return ID;
@@ -36,7 +45,7 @@ public class Country {
 
     /**
      * Get the name of the country.
-     * @return
+     * @return the country name.
      */
     public String getName() {
         return name;
@@ -44,7 +53,7 @@ public class Country {
 
     /**
      * Set the name of the country.
-     * @return
+     * @param name the name to set.
      */
     public void setName(String name) {
         this.name = name;

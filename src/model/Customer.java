@@ -9,24 +9,45 @@ package model;
  */
 public class Customer {
 
+    /**
+     * The customer's ID.
+     */
     private int customerID;
+    /**
+     * The customer's name.
+     */
     private String name;
+    /**
+     * The customer's country.
+     */
     private String country;
+    /**
+     * The customer's address.
+     */
     private String address;
+    /**
+     * The customer's postal code.
+     */
     private String postalCode;
+    /**
+     * The customer's region.
+     */
     private String division;
+    /**
+     * The customer's phone number.
+     */
     private String phone;
 
 
     /**
      * Constructor for the customer class.
-     * @param customerID
-     * @param name
-     * @param address
-     * @param division
-     * @param postalCode
-     * @param country
-     * @param phone
+     * @param customerID the customer ID
+     * @param name the customer's name
+     * @param address the customer's mailing address
+     * @param division the customer's region (state/province etc.)
+     * @param postalCode the customer's zip code
+     * @param country the customer's country of residence
+     * @param phone the customer's phone number
      */
     public Customer(int customerID, String name, String address, String division, String postalCode, String country, String phone) {
         this.customerID = customerID;
@@ -103,7 +124,7 @@ public class Customer {
 
     /**
      * Get the name of the customer.
-     * @return name.
+     * @return the customer's name.
      */
     public String getName() {
         return name;
@@ -135,7 +156,7 @@ public class Customer {
 
     /**
      * Get the customer's address.
-     * @return
+     * @return the customer's mailing address
      */
     public String getAddress() {
         return address;
@@ -151,7 +172,7 @@ public class Customer {
 
     /**
      * Get the customer's postal code.
-     * @return
+     * @return the customer's postal code
      */
     public String getPostalCode() {
         return postalCode;
@@ -167,7 +188,7 @@ public class Customer {
 
     /**
      * Get the customer's division.
-     * @return
+     * @return the customer's division
      */
     public String getDivision() {
         return division;
@@ -183,7 +204,7 @@ public class Customer {
 
     /**
      * Get the customer's phone number.
-     * @return
+     * @return the customer's phone number
      */
     public String getPhone() {
         return phone;

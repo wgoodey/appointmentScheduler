@@ -12,29 +12,59 @@ import java.time.format.DateTimeFormatter;
  */
 public class Appointment {
 
+    /**
+     * The appointment ID.
+     */
     private int appointmentID;
+    /**
+     * The appointment's contactID.
+     */
     private int customerID;
+    /**
+     * The contact ID of the appointment's contact.
+     */
     private int contactID;
+    /**
+     * The appointment's user ID.
+     */
     private int userID;
+    /**
+     * The appointment's title.
+     */
     private String title;
+    /**
+     * The appointment's description.
+     */
     private String description;
+    /**
+     * The appointment's location.
+     */
     private String location;
+    /**
+     * The appointment's type.
+     */
     private String type;
+    /**
+     * The appointment's start time.
+     */
     private ZonedDateTime startTime;
+    /**
+     * The appointment's end time.
+     */
     private ZonedDateTime endTime;
 
     /**
      * Constructor for the Appointment class.
-     * @param appointmentID
-     * @param customerID
-     * @param contactID
-     * @param userID
-     * @param title
-     * @param description
-     * @param location
-     * @param type
-     * @param start
-     * @param end
+     * @param appointmentID the ID of the appointment
+     * @param customerID the ID of the customer associated with the appointment
+     * @param contactID the ID of the contact associated with teh appointment
+     * @param userID the ID of the user that created or modified the appointment
+     * @param title the title of the appointment
+     * @param description the description of the appointment
+     * @param location the location of the appointment
+     * @param type the type of appointment
+     * @param start the appointment starting time
+     * @param end the appointmenet ending time
      */
     public Appointment(int appointmentID, int customerID, int contactID, int userID, String title, String description, String location, String type, ZonedDateTime start, ZonedDateTime end) {
 
@@ -84,7 +114,7 @@ public class Appointment {
 
     /**
      * Get the appointment's user ID.
-     * @return
+     * @return the user ID
      */
     public int getUserID() {
         return userID;
@@ -158,7 +188,7 @@ public class Appointment {
 
     /**
      * Get the customer's name.
-     * @return
+     * @return the customer's name
      */
     public String getCustomerName() {
         for(Customer customer : Data.getAllCustomers()) {
@@ -171,7 +201,7 @@ public class Appointment {
 
     /**
      * Get the contact's name.
-     * @return
+     * @return the contact's name
      */
     public String getContactName() {
         for(Contact contact : Data.getAllContacts()) {

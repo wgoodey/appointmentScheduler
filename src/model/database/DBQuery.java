@@ -32,7 +32,7 @@ public class DBQuery {
     /**
      * Sets a SQL statement for MySQL query.
      * @param connection the Connection to the MySQL database.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     //create Statement object
     public static void setStatement(Connection connection) throws SQLException {
@@ -52,7 +52,7 @@ public class DBQuery {
      * Sets a PreparedStatement for MySQL query.
      * @param connection the Connection to the MySQL database.
      * @param sqlStatement the String template for a MySQL query.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     //create prepared Statement object
     public static void setPreparedStatement(Connection connection, String sqlStatement) throws SQLException {

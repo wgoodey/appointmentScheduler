@@ -9,15 +9,24 @@ package model;
  */
 public class Division {
 
+    /**
+     * The division's ID.
+     */
     int ID;
+    /**
+     * The division's country ID.
+     */
     int countryID;
+    /**
+     * The division's name.
+     */
     String name;
 
     /**
      * Constructor for the division class.
-     * @param ID
-     * @param countryID
-     * @param name
+     * @param ID the ID of the division
+     * @param countryID the ID of the country the division is in
+     * @param name the name of the division
      */
     public Division(int ID, int countryID, String name) {
         this.ID = ID;

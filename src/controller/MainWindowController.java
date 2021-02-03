@@ -27,7 +27,6 @@ import java.text.Collator;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
@@ -38,154 +37,371 @@ import java.util.function.Predicate;
  * @since 1.0
  * <p>
  * The MainWindowController class manages the loading of all tables and report generation. Customer and appointment creation, modification, and deletion are initiated here.
+ * <p>
+ * For discussion of lambda expressions see {@link #initialize} and {@link #buildTypeComboBox}.
  */
 public class MainWindowController {
 
     Parent root;
 
+    /**
+     * The searchbar for the customer table.
+     */
     @FXML
     private TextField customerSearchBar;
+
+    /**
+     * The table for customer data.
+     */
     @FXML
     private TableView<Customer> customerTable;
+    /**
+     * The customerID column of the customer table
+     */
     @FXML
     private TableColumn<Customer, Integer> customerIDCol;
+    /**
+     * The customer name column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> nameCol;
+    /**
+     * The country column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> countryCol;
+    /**
+     * The address column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> addressCol;
+    /**
+     * The postal code column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> postalCol;
+    /**
+     * The division column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> divisionCol;
+    /**
+     * The phone number column of the customer table
+     */
     @FXML
     private TableColumn<Customer, String> phoneCol;
+    /**
+     * The searchbar for the appointment table.
+     */
     @FXML
     private TextField appSearchBar;
+    /**
+     * The checkbox that includes/excludes appointments in the appointment table.
+     */
     @FXML
     private CheckBox pastCheckBox;
+    /**
+     * The toggle group for the {@link #radioAll}, {@link #radioMonth}, and {@link #radioWeek} radio buttons.
+     */
     @FXML
     private ToggleGroup appFilter;
+    /**
+     * The radio button that shows all appointments in the appointment table.
+     */
     @FXML
     private RadioButton radioAll;
+    /**
+     * The radio button that shows only this month's appointments in the appointment table.
+     */
     @FXML
     private RadioButton radioMonth;
+    /**
+     * The radio button that shows only this week's appointments in the appointment table.
+     */
     @FXML
     private RadioButton radioWeek;
+    /**
+     * The table for appointment data.
+     */
     @FXML
     private TableView<Appointment> appointmentTable;
+    /**
+     * The appointment ID column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, Integer> appIDCol;
+    /**
+     * The appointment title column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> titleCol;
+    /**
+     * The appointment description column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> descriptionCol;
+    /**
+     * The appointment location column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> locationCol;
+    /**
+     * The appointment contact column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, Integer> contactCol;
+    /**
+     * The appointment type column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> typeCol;
+    /**
+     * The appointment start time column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> startCol;
+    /**
+     * The appointment end time column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, String> endCol;
+    /**
+     * The appointment customer ID column of the appointment table
+     */
     @FXML
     private TableColumn<Appointment, Integer> custIDCol;
+    /**
+     * The button to click if adding a customer.
+     */
     @FXML
     private Button newCustomerButton;
+    /**
+     * The button to click if modifying a customer.
+     */
     @FXML
     private Button modifyCustomerButton;
+    /**
+     * The button to click if deleting a customer.
+     */
     @FXML
     private Button deleteCustomerButton;
+    /**
+     * The button to click if adding an appointment.
+     */
     @FXML
     private Button newAppointmentButton;
+    /**
+     * The button to click if modifying an appointment.
+     */
     @FXML
     private Button modifyAppointmentButton;
+    /**
+     * The button to click if deleting an appointment.
+     */
     @FXML
     private Button deleteAppointmentButton;
 
+    /**
+     * The table for customer report data.
+     */
     @FXML
     private TableView customerReportTable;
+    /**
+     * The customer ID column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> crCustIDCol;
+    /**
+     * The customer name column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, String> crNameCol;
+    /**
+     * The appointment ID column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> crIDCol;
+    /**
+     * The title column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, String> crTitleCol;
+    /**
+     * The type column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, String> crTypeCol;
+    /**
+     * The start time column for the customer report table.
+     */
     @FXML
     private TableColumn<Appointment, String> crStartCol;
 
+
+    /**
+     * The table for contact report data.
+     */
     @FXML
     private TableView contactReportTable;
+    /**
+     * The contact ID column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> corContactID;
+    /**
+     * The contact name column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corNameCol;
+    /**
+     * The appointment ID column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> corIDCol;
+    /**
+     * The title column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corTitleCol;
+    /**
+     * The type column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corTypeCol;
+    /**
+     * The description column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corDescrCol;
+    /**
+     * The start time column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corStartCol;
+    /**
+     * The end time column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, String> corEndCol;
+    /**
+     * The customer ID column for the contact report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> corCustIDCol;
 
 
+    /**
+     * The table for time report data.
+     */
     @FXML
     private TableView timeReportTable;
+    /**
+     * The contact ID column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> timeContactIDCol;
+    /**
+     * The start time column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> timeIDCol;
+    /**
+     * The title column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, String> timeTitleCol;
+    /**
+     * The type column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, String> timeTypeCol;
+    /**
+     * The description column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, String> timeDescrCol;
+    /**
+     * The start time column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, String> timeStartCol;
+    /**
+     * The end time column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, String> timeEndCol;
+    /**
+     * The customer ID column for the time report table.
+     */
     @FXML
     private TableColumn<Appointment, Integer> timeCustIDCol;
 
+
+    /**
+     * The accordion menu for the report pane.
+     */
     @FXML
     private Accordion accordion;
+    /**
+     * The customer pane for the accordion.
+     */
     @FXML
     private TitledPane customerPane;
+    /**
+     * The contact pane for the accordion.
+     */
     @FXML
     private TitledPane contactPane;
+    /**
+     * The time pane for the accordion.
+     */
     @FXML
     private TitledPane timePane;
+
+
+    /**
+     * The comboBox for customers.
+     */
     @FXML
     private ComboBox<String> comboCustomer;
+    /**
+     * The comboBox for appointment types.
+     */
     @FXML
     private ComboBox<String> comboType;
+    /**
+     * The radio for filtering appointments by month on the customer pane.
+     */
     @FXML
     private RadioButton radioMonthCustomer;
+    /**
+     * The comboBox for contacts.
+     */
     @FXML
     private ComboBox<String> comboContact;
+    /**
+     * The radio for filtering appointments by month on the contact pane.
+     */
     @FXML
     private RadioButton radioMonthContact;
+    /**
+     * The checkbox that includes/excludes past appointments in the contact schedules.
+     */
     @FXML
     private CheckBox checkBoxPastReport;
+    /**
+     * The comboBox for customers in the time pane.
+     */
     @FXML
     private ComboBox<String> comboTimeCustomer;
+    /**
+     * The comboBox for contacts in the time pane.
+     */
     @FXML
     private ComboBox<String> comboTimeContact;
+    /**
+     * The radio for filtering appointments by month on the time pane.
+     */
     @FXML
     private RadioButton radioMonthTime;
 
@@ -193,20 +409,61 @@ public class MainWindowController {
     private VBox reportInfoBox;
 
 
+    /**
+     * Formats times for the current month.
+     */
     private final DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("yyyy-M");
+    /**
+     * Formats times for the current week.
+     */
     private final DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("yyyy-w");
 
+
+    /**
+     * Filtered list of appointments for the appointment table.
+     */
     private FilteredList<Appointment> filteredAppointments;
+    /**
+     * Sorted list of appointments for the appointment table.
+     */
     private SortedList<Appointment> sortedAppointments;
+    /**
+     * Collection of appointments for the customer report table.
+     */
     private final ObservableList<Appointment> customerReport = FXCollections.observableArrayList();
+    /**
+     * Collection of appointments for the contact report table.
+     */
     private final ObservableList<Appointment> contactReport = FXCollections.observableArrayList();
+    /**
+     * Collection of appointments for the time report table.
+     */
     private final ObservableList<Appointment> timeReport = FXCollections.observableArrayList();
 
+
+    /**
+     * Predicate that clears filters.
+     */
     private final Predicate<Appointment> clearFilter = appointment -> true;
+    /**
+     * Predicate that filters to future appointments.
+     */
     private final Predicate<Appointment> future = appointment -> appointment.getStartTime().isAfter(ZonedDateTime.now());
+    /**
+     * Predicate that filters to current month's appointments.
+     */
     private final Predicate<Appointment> month = appointment -> appointment.getStartTime().format(monthFormatter).equals(ZonedDateTime.now().format(monthFormatter));
+    /**
+     * Predicate that filters to current week's appointments.
+     */
     private final Predicate<Appointment> week = appointment -> appointment.getStartTime().format(weekFormatter).equals(ZonedDateTime.now().format(weekFormatter));
+    /**
+     * Predicate that holds whether past appointments are included/excluded.
+     */
     private Predicate<Appointment> pastCheck = clearFilter;
+    /**
+     * Predicate that filters appointments based on user needs.
+     */
     private Predicate<Appointment> timeRange = clearFilter;
 
 
@@ -218,6 +475,18 @@ public class MainWindowController {
 
     /**
      * Loads tableViews and comboBoxes into the main window.
+     * <p>
+     * discussion of lambda {customerSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredCustomers.setPredicate(customer ->}<br>
+     * This lambda expression adds a listener to the customer searchBar and sets the predicate on the filteredCustomers list based on the text in the searchBar.
+     * <p>
+     * discussion of lambda {appSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredAppointments.setPredicate(timeRange.and(pastCheck.and(appointment ->}<br>
+     * This lambda expression adds a listener to the searchBar and sets the predicate on the filteredAppointments list based on the text in the appointment searchBar, taking into account the time scope selected by the user.
+     * <p>
+     * discussion of lambda {pastCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) ->}<br>
+     * This lambda expression adds a listener to the pastCheckBox and sets the predicate on the filteredAppointments list based on the time scope selected by the user.
+     * <p>
+     * discussion of lambda {appFilter.selectedToggleProperty().addListener((observableValue, toggle, t1) ->}<br>
+     * This lambda expression adds a listener to the toggleGroup and sets the predicate on the filteredAppointments list based on the time scope selected by the user.
      */
     @FXML
     public void initialize() {
@@ -228,11 +497,6 @@ public class MainWindowController {
         //wrap observable list in a filtered list
         FilteredList<Customer> filteredCustomers = new FilteredList<>(Data.getAllCustomers(), p -> true);
 
-
-        /**
-         * discussion of lambda
-         * This lambda expression adds a listener to the customer searchBar and sets the predicate on the filteredCustomers list based on the text in the searchBar.
-         */
         //configure listener for customer searchbar
         customerSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredCustomers.setPredicate(customer -> {
             if((newValue == null) || (newValue.isEmpty())) {
@@ -265,11 +529,6 @@ public class MainWindowController {
         filteredAppointments = new FilteredList<>(Data.getAllAppointments(), p -> true);
 
 
-
-        /**
-         * discussion of lambda
-         * This lambda expression adds a listener to the searchBar and sets the predicate on the filteredAppointments list based on the text in the appointment searchBar, taking into account the time scope selected by the user.
-         */
         //configure listener for appointment searchbar
         appSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredAppointments.setPredicate(timeRange.and(pastCheck.and(appointment -> {
 
@@ -287,11 +546,6 @@ public class MainWindowController {
         }))));
 
 
-
-        /**
-         * discussion of lambda
-         * This lambda expression adds  a listener to the pastCheckBox and sets the predicate on the filteredAppointments list based on the time scope selected by the user.
-         */
         //configure listener for the Past checkbox
         pastCheckBox.selectedProperty().addListener((observableValue, aBoolean, t1) -> {
             //clear searchBar
@@ -305,10 +559,7 @@ public class MainWindowController {
             filteredAppointments.setPredicate(timeRange.and(pastCheck));
         });
 
-        /**
-         * discussion of lambda
-         * This lambda expression adds  a listener to the toggleGroup and sets the predicate on the filteredAppointments list based on the time scope selected by the user.
-         */
+
         //configure listener for the toggleGroup
         appFilter.selectedToggleProperty().addListener((observableValue, toggle, t1) -> {
             //clear searchBar
@@ -372,6 +623,14 @@ public class MainWindowController {
 
     /**
      * Loads the TableView for the customer table.
+     * @param customerTable the table to load.
+     * @param customerIDCol the customerID column of the table.
+     * @param nameCol the name column of the table.
+     * @param countryCol the country column of the table.
+     * @param addressCol the address column of the table.
+     * @param postalCol the postal code column of the table.
+     * @param divisionCol the division column of the table.
+     * @param phoneCol the phone column of the table.
      */
     public void loadCustomerTable(TableView<Customer> customerTable,
                                   TableColumn<Customer, Integer> customerIDCol,
@@ -395,6 +654,16 @@ public class MainWindowController {
 
     /**
      * Loads the TableView for the appointments table.
+     * @param appointmentTable the table to be loaded.
+     * @param appIDCol the appointment ID column of the table.
+     * @param titleCol the title column of the table.
+     * @param descriptionCol the description column of the table.
+     * @param locationCol the location column of the table.
+     * @param contactCol the contact column of the table.
+     * @param typeCol the the type column of the table.
+     * @param startCol the start column of the table.
+     * @param endCol the end column of the table.
+     * @param custIDCol the customerID column of the table.
      */
     public void loadAppointmentTable(TableView<Appointment> appointmentTable,
                                      TableColumn<Appointment, Integer> appIDCol,
@@ -425,6 +694,13 @@ public class MainWindowController {
 
     /**
      * Loads the TableView for the customer report table.
+     * @param customerReportTable the table to load.
+     * @param crIDCol the appointmentID column of the table.
+     * @param crCustIDCol the customerID column of the table.
+     * @param crNameCol the customer name column of the table.
+     * @param crTitleCol the appointment title column of the table.
+     * @param crTypeCol the appointment type column of the table.
+     * @param crStartCol the appointment start time column of the table.
      */
     public void loadCustomerReportTable(TableView<Appointment> customerReportTable,
                                   TableColumn<Appointment, Integer> crIDCol,
@@ -446,6 +722,16 @@ public class MainWindowController {
 
     /**
      * Loads the TableView for the contact report table.
+     * @param contactReportTable the table to load.
+     * @param corContactID the contactID column of the table.
+     * @param corName the contact name column of the table.
+     * @param corIDCol the appointmentID column of the table.
+     * @param corTitleCol the appointment title column of the table.
+     * @param corTypeCol the appointment type column of the table.
+     * @param corDescrCol the appointment description column of the table.
+     * @param corStartCol the appointment start time column of the table.
+     * @param corEndCol the appointment start time column of the table.
+     * @param corCustIDCol the customer ID column of the table.
      */
     public void loadContactReportTable(TableView<Appointment> contactReportTable,
                                         TableColumn<Appointment, Integer> corContactID,
@@ -473,6 +759,15 @@ public class MainWindowController {
 
     /**
      * Loads the TableView for the temp report table.
+     * @param timeReportTable the table to load.
+     * @param corContactID the contactID column of the table.
+     * @param corIDCol the appointment ID column of the table.
+     * @param corTitleCol the appointment title column of the table.
+     * @param corTypeCol the appointment type column of the table.
+     * @param corDescrCol the appointment description column of the table.
+     * @param corStartCol the appointment start time column of the table.
+     * @param corEndCol the appointment end time column of the table.
+     * @param corCustIDCol the customer ID column of the table.
      */
     public void loadTimeReportTable(TableView<Appointment> timeReportTable,
                                     TableColumn<Appointment, Integer> corContactID,
@@ -499,8 +794,8 @@ public class MainWindowController {
     /**
      * Event handler that handles button clicks on the customer button bar.
      * @param event The button that is clicked in the user interface.
-     * @throws IOException
-     * @throws SQLException
+     * @throws IOException if IO error occurs
+     * @throws SQLException if the database query cannot be executed.
      */
     @FXML
     private void handleCustomerButtonClick(ActionEvent event) throws IOException, SQLException {
@@ -555,8 +850,8 @@ public class MainWindowController {
     /**
      * Event handler that handles button clicks on the appointment button bar.
      * @param event The button that is clicked in the user interface.
-     * @throws IOException
-     * @throws SQLException
+     * @throws IOException if IO error occurs.
+     * @throws SQLException if the database query cannot be executed.
      */
     @FXML
     private void handleAppointmentButtonClick(ActionEvent event) throws IOException, SQLException {
@@ -598,7 +893,7 @@ public class MainWindowController {
 
     /**
      * Loads the customer form where the user can enter data to create a new customer.
-     * @throws IOException
+     * @throws IOException if IO error occurs.
      */
     private void openCustomerForm() throws IOException {
         root = FXMLLoader.load(getClass().getResource("/view/customerForm.fxml"));
@@ -612,7 +907,7 @@ public class MainWindowController {
     /**
      * Loads the customer form and populates it with data from an existing customer in order to make modifications.
      * @param selectedCustomer the customer to be modified.
-     * @throws IOException
+     * @throws IOException if IO error occurs.
      */
     private void openCustomerForm(Customer selectedCustomer) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/customerForm.fxml"));
@@ -628,7 +923,7 @@ public class MainWindowController {
 
     /**
      * Loads the appointment form where the user can enter data to create a new appointment.
-     * @throws IOException
+     * @throws IOException if IO error occurs.
      */
     private void openAppointmentForm() throws IOException {
         root = FXMLLoader.load(getClass().getResource("/view/appointmentForm.fxml"));
@@ -642,7 +937,7 @@ public class MainWindowController {
     /**
      * Loads the appointment form and populates it with data from an existing appointment in order to make modifications.
      * @param selectedAppointment the appointment to be modified.
-     * @throws IOException
+     * @throws IOException if IO error occurs.
      */
     private void openAppointmentForm(Appointment selectedAppointment) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/appointmentForm.fxml"));
@@ -700,7 +995,7 @@ public class MainWindowController {
             customers.add(customer.getName());
         }
 
-        Collections.sort(customers, Collator.getInstance());
+        customers.sort(Collator.getInstance());
         customers.add(0, ALL_CUSTOMERS);
         comboCustomer.setItems(customers);
         comboCustomer.getItems().addAll();
@@ -718,7 +1013,7 @@ public class MainWindowController {
         for (Contact contact : Data.getAllContacts()) {
             contacts.add(contact.getName());
         }
-        Collections.sort(contacts, Collator.getInstance());
+        contacts.sort(Collator.getInstance());
         contacts.add(0, ALL_CONTACTS);
         comboContact.setItems(contacts);
         comboContact.getItems().addAll();
@@ -783,12 +1078,9 @@ public class MainWindowController {
             int count = 0;
 
             for (Appointment a : customerReport) {
-                if (s.equals(ALL_TYPES)) {
-                    continue;
-                } else if (a.getType().equals(s)) {
+                if (a.getType().equals(s)) {
                     count++;
                 }
-
             }
             if (count > 0) {
                 typeInfo += s + ": " + count + " appointment(s)" + "\n";
@@ -925,7 +1217,7 @@ public class MainWindowController {
                 totalDuration = totalDuration.plus(Duration.between(a.getStartTime(), a.getEndTime()));
             }
             durationInfo += "Total duration of all appointments: " + totalDuration.toHoursPart() + " hours, " + totalDuration.toMinutesPart() + " minutes\n\n";
-            ;
+
 
             for (String c : contacts) {
                 Duration contactDuration = Duration.ZERO;
@@ -937,8 +1229,6 @@ public class MainWindowController {
                         break;
                     }
                 }
-
-                int finalID = ID;
 
                 //iterate through appointments list and add duration information for each contact to contactDuration string
                 for (Appointment a : timeReport) {
@@ -987,12 +1277,9 @@ public class MainWindowController {
             int count = 0;
 
             for (Appointment a : timeReport) {
-                if (s.equals(ALL_TYPES)) {
-                    continue;
-                } else if (a.getType().equals(s)) {
+                if (a.getType().equals(s)) {
                     count++;
                 }
-
             }
             if (count > 0) {
                 durationInfo += "\n" + s + ": " + count + " appointment(s)";
@@ -1035,6 +1322,9 @@ public class MainWindowController {
 
     /**
      * Builds the type comboBox on the reports tab.
+     * <p>
+     * discussion of lambda {Unique check = s ->}<br>
+     * This lambda expression compares a string to all strings in an ObservableList and returns true if it is unique or false if found in the list.
      */
     @FXML
     private void buildTypeComboBox() {
@@ -1050,10 +1340,7 @@ public class MainWindowController {
         //set type combobox
         ObservableList<String> type = FXCollections.observableArrayList();
 
-        /**
-         * discussion of lambda
-         * This lambda expression compares a string to all strings in an ObservableList and returns true if it is unique or false if found in the list.
-         */
+
         Unique check = s -> {
             for (String str : type) {
                 if (str.equals(s)) {
@@ -1075,7 +1362,7 @@ public class MainWindowController {
             }
         }
 
-        Collections.sort(type, Collator.getInstance());
+        type.sort(Collator.getInstance());
         type.add(0, ALL_TYPES);
         comboType.setItems(type);
         comboType.getItems().addAll();
@@ -1122,14 +1409,16 @@ public class MainWindowController {
             }
         }
 
-        Collections.sort(customer, Collator.getInstance());
+        customer.sort(Collator.getInstance());
         customer.add(0, ALL_CUSTOMERS);
         comboTimeCustomer.setItems(customer);
         comboTimeCustomer.getItems().addAll();
         comboTimeCustomer.setValue(ALL_CUSTOMERS);
     }
 
-
+    /**
+     * A general interface to check true/false against a String.
+     */
     private interface Unique {
         boolean checkUnique(String s);
     }

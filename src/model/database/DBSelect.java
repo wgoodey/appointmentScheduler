@@ -24,7 +24,7 @@ public class DBSelect {
      * @param connection the Connection for the MySQL database.
      * @param customer the customer that was inserted.
      * @return the customerID;
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static int getNewCustomerID(Connection connection, Customer customer) throws SQLException {
         String selectStatement = "SELECT * " +
@@ -68,7 +68,7 @@ public class DBSelect {
      * @param connection the Connection for the MySQL database.
      * @param appointment the customer that was inserted.
      * @return the appointmentID;
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static int getNewAppointmentID(Connection connection, Appointment appointment) throws SQLException {
         String selectStatement = "SELECT * " +

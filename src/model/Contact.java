@@ -8,15 +8,24 @@ package model;
  * The Contact class defines the Contact object.
  */
 public class Contact {
+    /**
+     * The contact's ID.
+     */
     private final int contactID;
+    /**
+     * The contact's name.
+     */
     private final String name;
+    /**
+     * The contact's email address.
+     */
     private final String email;
 
     /**
      * The constructor for the Contact class
-     * @param contactID
-     * @param name
-     * @param email
+     * @param contactID the ID of the contact
+     * @param name the name of the contact
+     * @param email the email address of the contact
      */
     public Contact(int contactID, String name, String email) {
         this.contactID = contactID;

@@ -21,7 +21,7 @@ public class DBUpdate {
      * @param connection the Connection for the MySQL database.
      * @param country the country to update in the database.
      * @return true if successful and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean updateCountry(Connection connection, Country country) throws SQLException {
         String updateStatement = "UPDATE countries " +
@@ -58,7 +58,7 @@ public class DBUpdate {
      * @param connection the Connection for the MySQL database.
      * @param division the division to update in the database.
      * @return true if successful and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean updateDivision(Connection connection, Division division) throws SQLException {
         String updateStatement = "UPDATE first_level_divisions " +
@@ -97,7 +97,7 @@ public class DBUpdate {
      * @param connection the Connection for the MySQL database.
      * @param customer the customer to update in the database.
      * @return true if successful and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean updateCustomer(Connection connection, Customer customer) throws SQLException {
         String updateStatement = "Update customers " +
@@ -142,7 +142,7 @@ public class DBUpdate {
      * @param connection the Connection for the MySQL database.
      * @param appointment the appointment to update in the database.
      * @return true if successful and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean  updateAppointment(Connection connection, Appointment appointment) throws SQLException {
         String updateStatement = "Update appointments " +

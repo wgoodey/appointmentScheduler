@@ -23,7 +23,7 @@ public class DBDelete {
      * @param connection the Connection to the MySQL database.
      * @param country the country to be deleted.
      * @return true if successfully deleted and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean deleteCountry(Connection connection, Country country) throws SQLException {
         String deleteStatement = "DELETE FROM countries WHERE Country_ID = ?";
@@ -55,7 +55,7 @@ public class DBDelete {
      * @param connection the Connection to the MySQL database.
      * @param division the division to be deleted.
      * @return true if successfully deleted and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean deleteDivision(Connection connection, Division division) throws SQLException {
         String deleteStatement = "DELETE FROM first_level_divisions WHERE Division_ID = ?";
@@ -87,7 +87,7 @@ public class DBDelete {
      * @param connection the Connection to the MySQL database.
      * @param customer the customer to be deleted.
      * @return true if successfully deleted and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean deleteCustomer(Connection connection, Customer customer) throws SQLException {
         String deleteStatement = "DELETE FROM customers WHERE Customer_ID = ?";
@@ -119,7 +119,7 @@ public class DBDelete {
      * @param connection the Connection to the MySQL database.
      * @param appointment the appointment to be deleted.
      * @return true if successfully deleted and false if not.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public static boolean deleteAppointment(Connection connection, Appointment appointment) throws SQLException {
         String deleteStatement = "DELETE FROM appointments WHERE Appointment_ID = ?";

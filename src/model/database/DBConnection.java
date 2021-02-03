@@ -61,7 +61,7 @@ public class DBConnection {
 
     /**
      * gets the connection.
-     * @return
+     * @return the MySQL database connection
      */
     public static Connection getConnection() {
         return connection;

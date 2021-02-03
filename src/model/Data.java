@@ -18,19 +18,53 @@ import java.util.Collections;
  */
 public class Data {
 
+    /**
+     * the current user logged into the program
+     */
     private static User currentUser;
+    /**
+     * the ZoneID of the user's system.
+     */
     private static final ZoneId userZoneID = ZoneId.systemDefault();
+    /**
+     * the ZoneID of business headquarters.
+     */
     private static final ZoneId businessZone = ZoneId.of("America/New_York");
+    /**
+     * UTC ZoneID for saving to the database.
+     */
     private static final ZoneId UTC = ZoneId.of("UTC");
+    /**
+     * the time of business starting hours
+     */
     private static final ZonedDateTime businessStart = ZonedDateTime.of(LocalDate.now(), LocalTime.of(8, 0), Data.getBusinessZone());
+    /**
+     * the time of business ending hours
+     */
     private static final ZonedDateTime businessEnd = ZonedDateTime.of(LocalDate.now(), LocalTime.of(22, 0), Data.getBusinessZone());
+    /**
+     * the collection of customers.
+     */
     private static final ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    /**
+     * the collection of countries.
+     */
     private static final ObservableList<Country> allCountries = FXCollections.observableArrayList();
+    /**
+     * the collection of contacts.
+     */
     private static final ObservableList<Contact> allContacts = FXCollections.observableArrayList();
+    /**
+     * the collection of users.
+     */
     private static final ObservableList<User> allUsers = FXCollections.observableArrayList();
+    /**
+     * the collection of appointments.
+     */
     private static final ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
     /**
+     * Gets the current user of the program.
      * @return the current user of the program.
      */
     public static User getCurrentUser() {
@@ -63,7 +97,7 @@ public class Data {
 
     /**
      * Get the start of business hours in the location of business headquarters.
-     * @return
+     * @return the start of business hours
      */
     public static ZonedDateTime getBusinessStart() {
         return businessStart;
@@ -71,7 +105,7 @@ public class Data {
 
     /**
      * Get the end of business hours in the location of business headquarters.
-     * @return
+     * @return the end of business hours
      */
     public static ZonedDateTime getBusinessEnd() {
         return businessEnd;
@@ -86,6 +120,7 @@ public class Data {
     }
 
     /**
+     * Gets the list of all customers.
      * @return the allCustomers ObservableList
      */
     public static ObservableList<Customer> getAllCustomers() {
@@ -94,23 +129,33 @@ public class Data {
 
 
     /**
+     * Gets the list of all countries.
      * @return the allCountries ObservableList
      */
     public static ObservableList<Country> getAllCountries() {
         return allCountries;
     }
 
+    /**
+     * Gets the list of all contacts.
+     * @return the allContacts ObservableList
+     */
     public static ObservableList<Contact> getAllContacts() {
         return allContacts;
     }
 
     /**
+     * Gets the list of all users.
      * @return the allUsers ObservableList
      */
     public static ObservableList<User> getAllUsers() {
         return allUsers;
     }
 
+    /**
+     * Gets the list of all appointments.
+     * @return the allAppointments ObservableList
+     */
     public static ObservableList<Appointment> getAllAppointments() {
         return allAppointments;
     }
@@ -155,6 +200,7 @@ public class Data {
     }
 
     /**
+     * Gets a list of all country names from the allCountries ObservableList.
      * @return the allCountries ObservableList
      */
     public static ObservableList<String> getAllCountryNames() {

@@ -28,18 +28,39 @@ import java.util.ResourceBundle;
  */
 public class LoginFormController {
 
+    /**
+     * Label for failed login.
+     */
     @FXML
     private Label badLoginLabel;
+    /**
+     * Label for the region of the user's system.
+     */
     @FXML
     private Label regionLabel;
+    /**
+     * Label for username field.
+     */
     @FXML
     private Label usernameLabel;
+    /**
+     * Label for password field.
+     */
     @FXML
     private Label passwordLabel;
+    /**
+     * Text field for username.
+     */
     @FXML
     private TextField usernameField;
+    /**
+     * Text field for password.
+     */
     @FXML
     private PasswordField passwordField;
+    /**
+     * The button the user clicks to login.
+     */
     @FXML
     private Button loginButton;
 
@@ -76,6 +97,7 @@ public class LoginFormController {
     /**
      * Checks login credentials and opens the application's main window if login is successful. If attempted login fails, an error message is printed in the UI.
      * @param event the login button that was clicked.
+     * @throws IOException if IO error occurs.
      */
     public void login(ActionEvent event) throws IOException {
 
@@ -135,7 +157,7 @@ public class LoginFormController {
      * Records login attempts to a text file.
      * @param username the username entered in the form for for a login attempt.
      * @param success true if user has successfully logged in or false if not.
-     * @throws IOException
+     * @throws IOException if IO error occurs.
      */
     private void logActivity(String username, boolean success) throws IOException {
         //file printing variables

@@ -26,21 +26,46 @@ import java.util.Optional;
  */
 public class CustomerFormController {
 
+
+    /**
+     * text field for customer ID.
+     */
     @FXML
     private TextField textCustomerID;
+    /**
+     * text field for customer name.
+     */
     @FXML
     private TextField textName;
+    /**
+     * text comboBox for customer's country.
+     */
     @FXML
     private ComboBox<String> comboCountry;
+    /**
+     * text field for customer address.
+     */
     @FXML
     private TextField textAddress;
+    /**
+     * text field for customer postal code.
+     */
     @FXML
     private TextField textPostalCode;
+    /**
+     * text comboBox for customer's division.
+     */
     @FXML
     private ComboBox<String> comboDivision;
+    /**
+     * text field for customer phone number.
+     */
     @FXML
     private TextField textPhone;
 
+    /**
+     * Temporary customer for change comparison purposes.
+     */
     private Customer tempCustomer;
 
     /**
@@ -56,7 +81,7 @@ public class CustomerFormController {
 
     /**
      * Populates the fields for the selected customer.
-     * @param customer
+     * @param customer the customer from which to load information for modification.
      */
     public void initialize(Customer customer) {
 
@@ -77,7 +102,7 @@ public class CustomerFormController {
     /**
      * Saves the current data entered in the form to the database and adds the customer to the customer list.
      * @param click the button in the UI that was clicked.
-     * @throws SQLException
+     * @throws SQLException if the database query cannot be executed.
      */
     public void save(ActionEvent click) throws SQLException {
 
@@ -104,6 +129,16 @@ public class CustomerFormController {
             alert.setTitle("Missing data");
             alert.setHeaderText("Unable to save customer.");
             alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+            return;
+        }
+
+        //check that phone contains only numeric characters or '-'
+        if (!phone.matches("^[0-9-]+$")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid data");
+            alert.setHeaderText("Unable to save customer.");
+            alert.setContentText("Phone number may only contain numbers or dashes.");
             alert.showAndWait();
             return;
         }

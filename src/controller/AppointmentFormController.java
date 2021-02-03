@@ -33,42 +33,107 @@ import java.util.Optional;
  */
 public class AppointmentFormController {
 
+    /**
+     * Text field for the appointment ID.
+     */
     @FXML
     private TextField textAppointmentID;
+    /**
+     * Text field for the customer ID.
+     */
     @FXML
     private TextField textCustomerID;
+    /**
+     * ComboBox for the customer selection.
+     */
     @FXML
     private ComboBox<String> comboCustomer;
+    /**
+     * ComboBox for the contact selection.
+     */
     @FXML
     private ComboBox<String> comboContact;
+    /**
+     * Text field for the appointment title.
+     */
     @FXML
     private TextField textTitle;
+    /**
+     * Text field for the appointment description.
+     */
     @FXML
     private TextArea textDescription;
+    /**
+     * Text field for the appointment type.
+     */
     @FXML
     private TextField textType;
+    /**
+     * Text field for the appointment location.
+     */
     @FXML
     private TextField textLocation;
+    /**
+     * DatePicker for date selection.
+     */
     @FXML
     private DatePicker datePicker;
+    /**
+     * ComboBox for the start time selection.
+     */
     @FXML
     private ComboBox<String> comboStart;
+    /**
+     * ComboBox for the end time selection.
+     */
     @FXML
     private ComboBox<String> comboEnd;
+    /**
+     * Radio button for selection of PM start time.
+     */
     @FXML
     private RadioButton radioStartPM;
+    /**
+     * Radio button for selection of PM end time.
+     */
     @FXML
     private RadioButton radioEndPM;
+    /**
+     * Label that displays business hours in user's local system time.
+     */
     @FXML
     private Label labelBusinessHours;
 
+
+    /**
+     * Start of business hours in user's local system time.
+     */
     private final ZonedDateTime localStart = Data.getBusinessStart().withZoneSameInstant(Data.getUserZoneID());
+    /**
+     * End of business hours in user's local system time.
+     */
     private final ZonedDateTime localEnd = Data.getBusinessEnd().withZoneSameInstant(Data.getUserZoneID());
 
+
+    /**
+     * Formats time for year:month:date
+     */
     DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /**
+     * Formats time for hour:minute
+     */
     DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm");
+    /**
+     * Formats time for hour
+     */
     DateTimeFormatter hourFormat = DateTimeFormatter.ofPattern("HH");
+    /**
+     * Formats time for hour:minute AM/PM
+     */
     DateTimeFormatter hoursFormat = DateTimeFormatter.ofPattern("h:mm a");
+    /**
+     * Formats time for hour:minute AM/PM ZoneID
+     */
     DateTimeFormatter hoursAndZoneFormat = DateTimeFormatter.ofPattern("h:mm a z");
 
     /**
@@ -121,7 +186,7 @@ public class AppointmentFormController {
 
     /**
      * Populates the fields with the data for the selected appointment.
-     * @param appointment
+     * @param appointment the appointment from which to load information for modification.
      */
     public void initialize(Appointment appointment) {
         String customerName = "";
@@ -381,7 +446,7 @@ public class AppointmentFormController {
      * @param date the date in String format.
      * @param time the time in String format.
      * @param pm true if PM, false if AM.
-     * @return a zonedDateTime in the system's zoneID.
+     * @return a zonedDateTime in the zoneID of the user's system.
      */
     private ZonedDateTime convertToZonedDateTime(String date, String time, boolean pm) {
         //add seconds

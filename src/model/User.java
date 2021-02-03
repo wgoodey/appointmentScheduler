@@ -8,15 +8,25 @@ package model;
  * The User class defines the User object.
  */
 public class User {
+
+    /**
+     * The user's ID.
+     */
     private final int userID;
+    /**
+     * The user's username.
+     */
     private final String username;
+    /**
+     * The user's password.
+     */
     private final String password;
 
     /**
      * Constructor for the user class.
-     * @param userID
-     * @param username
-     * @param password
+     * @param userID the user's ID
+     * @param username the user's username
+     * @param password the user's password
      */
     public User(int userID, String username, String password) {
         this.userID = userID;
