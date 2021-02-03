@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Contact class defines the Contact object.
+ */
 public class Contact {
     private final int contactID;
     private final String name;

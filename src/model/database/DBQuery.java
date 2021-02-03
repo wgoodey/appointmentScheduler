@@ -7,6 +7,13 @@ import java.sql.Statement;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBQuery class manages preparedStatements for making queries to the database.
+ */
 public class DBQuery {
 
     //Statement reference

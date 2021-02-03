@@ -6,6 +6,13 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBLoad class manages the loading of records from the database into the application's internal lists.
+ */
 public class DBLoad {
 
     /**

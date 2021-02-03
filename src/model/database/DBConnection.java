@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBConnection class manages the connection to the database utilized throughout the application.
+ */
 public class DBConnection {
 
     //JDBC URL components

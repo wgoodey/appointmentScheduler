@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Customer class defines the Customer object.
+ */
 public class Customer {
 
     private int customerID;

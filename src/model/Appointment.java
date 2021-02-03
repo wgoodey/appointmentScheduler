@@ -3,6 +3,13 @@ package model;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Appointment class defines the Appointment object.
+ */
 public class Appointment {
 
     private int appointmentID;
@@ -151,13 +158,25 @@ public class Appointment {
 
     /**
      * Get the customer's name.
-     * @param id the id of the customer.
      * @return
      */
-    public String getCustomerName(int id) {
+    public String getCustomerName() {
         for(Customer customer : Data.getAllCustomers()) {
-            if (getCustomerID() == id) {
+            if (customer.getCustomerID() == customerID) {
                 return customer.getName();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get the contact's name.
+     * @return
+     */
+    public String getContactName() {
+        for(Contact contact : Data.getAllContacts()) {
+            if (contact.getContactID() == contactID) {
+                return contact.getName();
             }
         }
         return null;

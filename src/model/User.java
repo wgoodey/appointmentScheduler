@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The User class defines the User object.
+ */
 public class User {
     private final int userID;
     private final String username;

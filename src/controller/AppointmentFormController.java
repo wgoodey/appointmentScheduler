@@ -24,6 +24,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The AppointmentFormController class manages the creation and modification of appointments. It checks that all fields are meet time and type criteria and prompts the user if criteria are not met
+ */
 public class AppointmentFormController {
 
     @FXML
@@ -166,9 +173,11 @@ public class AppointmentFormController {
     @FXML
     private void save(ActionEvent click) {
         //collect data for appointment
-        int appointmentID = -1;
+        final int NO_ID = -1;
+
+        int appointmentID = NO_ID;
         int customerID;
-        int contactID = -1;
+        int contactID = NO_ID;
         int userID;
         String title;
         String description;
@@ -273,6 +282,11 @@ public class AppointmentFormController {
 
             //check that times do not overlap with other appointments for the customer
             for (Appointment a : Data.getAllAppointments()) {
+                //skip current appointment
+                if (a.getAppointmentID() == appointmentID) {
+                    continue;
+                }
+
                 if (a.getCustomerID() == customerID) {
                     //make sure appointment is not scheduled in the past
                     if (startTime.isBefore(ZonedDateTime.now())) {
@@ -305,13 +319,13 @@ public class AppointmentFormController {
             Appointment newAppointment = new Appointment(appointmentID, customerID, contactID, userID, title, description, location, type, startTime, endTime);
 
             //if modifying existing appointment
-            if (appointmentID != -1) {
+            if (appointmentID != NO_ID) {
                 //update in database and allAppointments list
                 if (DBUpdate.updateAppointment(DBConnection.getConnection(), newAppointment)) {
                     Data.updateAppointment(Data.getAppointmentIndex(appointmentID), newAppointment);
                 }
 
-            } else { //if new appointment (appointmentID = -1)
+            } else { //if new appointment (appointmentID = NO_ID)
                 //insert new appointment into database if no matches are found
                 DBInsert.insertAppointment(DBConnection.getConnection(), newAppointment);
 

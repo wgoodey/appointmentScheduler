@@ -19,6 +19,13 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The LoginFormController class manages the user login function.
+ */
 public class LoginFormController {
 
     @FXML
@@ -102,7 +109,8 @@ public class LoginFormController {
             stage.close();
             scene = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
             stage.setScene(new Scene(scene));
-            stage.setTitle("Scheduler");
+            stage.setTitle("Appointment Scheduler" +
+                    "");
             stage.show();
 
         } else {

@@ -5,36 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowController">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints />
-      <RowConstraints />
-    </rowConstraints>
-    <children>
-      <MenuBar GridPane.columnSpan="2">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem id="menuReports" mnemonicParsing="false" text="Generate Reports" />
-              <MenuItem id="menuClose" mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem id="menuRefresh" mnemonicParsing="false" text="Refresh Database" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-            <children>
+<TabPane prefHeight="450.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowController">
+    <tabs>
+        <Tab text="Customers">
+            <content>
                 <BorderPane>
                     <top>
                         <HBox spacing="10.0" BorderPane.alignment="CENTER">
@@ -45,21 +19,21 @@
                             </Label>
                             <TextField fx:id="customerSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
                             <BorderPane.margin>
-                                <Insets bottom="10.0" />
+                                <Insets bottom="10.0" top="5.0" />
                             </BorderPane.margin>
                         </HBox>
                     </top>
 
                     <center>
-                        <TableView fx:id="customerTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="customerTable" BorderPane.alignment="CENTER">
                             <columns>
-                                <TableColumn fx:id="customerIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
-                                <TableColumn fx:id="nameCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Name" />
-                                <TableColumn fx:id="addressCol" editable="false" prefWidth="100.0" text="Address" />
-                                <TableColumn fx:id="divisionCol" editable="false" prefWidth="75.0" text="State/Prov" />
-                                <TableColumn fx:id="postalCol" editable="false" prefWidth="75.0" text="Postal" />
-                                <TableColumn fx:id="countryCol" editable="false" prefWidth="75.0" text="Country" />
-                                <TableColumn fx:id="phoneCol" editable="false" text="Phone" />
+                                <TableColumn fx:id="customerIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="35.0" text="ID" />
+                                <TableColumn fx:id="nameCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" text="Name" />
+                                <TableColumn fx:id="addressCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Address" />
+                                <TableColumn fx:id="divisionCol" editable="false" maxWidth="-Infinity" minWidth="-1.0" prefWidth="-1.0" text="State/Prov" />
+                                <TableColumn fx:id="postalCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="Postal" />
+                                <TableColumn fx:id="countryCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="Country" />
+                                <TableColumn fx:id="phoneCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Phone" />
                             </columns>
 
                         </TableView>
@@ -75,15 +49,15 @@
                         </ButtonBar>
                     </bottom>
                 </BorderPane>
-            </children>
-        </VBox>
-        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
-            <children>
+            </content>
+        </Tab>
+        <Tab text="Appointments">
+            <content>
                 <BorderPane>
                     <top>
                         <HBox spacing="10.0" BorderPane.alignment="CENTER">
                             <BorderPane.margin>
-                                <Insets bottom="10.0" />
+                                <Insets bottom="10.0" top="5.0" />
                             </BorderPane.margin>
                             <children>
                                 <Label alignment="TOP_LEFT" minHeight="-Infinity" text="Appointments">
@@ -91,29 +65,44 @@
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="appSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" promptText="Search by Name or ID" />
-                                <RadioButton fx:id="radioAll" onAction="#setFilteredAppointments" text="All">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="appFilter" />
-                           </toggleGroup></RadioButton>
-                                <RadioButton fx:id="radioMonth" onAction="#setFilteredAppointments" text="Month" toggleGroup="$appFilter" />
-                                <RadioButton fx:id="radioWeek" onAction="#setFilteredAppointments" text="Week" toggleGroup="$appFilter" />
-                                
+                                <TextField fx:id="appSearchBar" alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="175.0" promptText="Search by Title or Description" />
+                                <CheckBox fx:id="pastCheckBox" minWidth="45.0" mnemonicParsing="false" selected="true" text="Past">
+                                    <HBox.margin>
+                                        <Insets top="5.0" />
+                                    </HBox.margin>
+                                </CheckBox>
+                                <RadioButton fx:id="radioAll" selected="true" text="All">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="appFilter" />
+                                    </toggleGroup>
+                                    <HBox.margin>
+                                        <Insets top="5.0" />
+                                    </HBox.margin></RadioButton>
+                                <RadioButton fx:id="radioMonth" text="Month" toggleGroup="$appFilter">
+                                    <HBox.margin>
+                                        <Insets top="5.0" />
+                                    </HBox.margin></RadioButton>
+                                <RadioButton fx:id="radioWeek" text="Week" toggleGroup="$appFilter">
+                                    <HBox.margin>
+                                        <Insets top="5.0" />
+                                    </HBox.margin></RadioButton>
+
+
                             </children>
                         </HBox>
                     </top>
                     <center>
-                        <TableView fx:id="appointmentTable" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="appointmentTable" BorderPane.alignment="CENTER">
                             <columns>
-                                <TableColumn fx:id="appIDCol" editable="false" maxWidth="75.0" prefWidth="35.0" text="ID" />
-                                <TableColumn fx:id="titleCol" editable="false" minWidth="75.0" prefWidth="140.0" text="Title" />
-                                <TableColumn fx:id="descriptionCol" editable="false" prefWidth="100.0" text="Description" />
-                                <TableColumn fx:id="locationCol" editable="false" prefWidth="75.0" text="Location" />
-                                <TableColumn fx:id="contactCol" editable="false" prefWidth="75.0" text="Contact" />
-                                <TableColumn fx:id="typeCol" editable="false" prefWidth="75.0" text="Type" />
-                                <TableColumn fx:id="startCol" editable="false" text="Start Time" />
-                                <TableColumn fx:id="endCol" editable="false" prefWidth="75.0" text="End Time" />
-                                <TableColumn fx:id="custIDCol" editable="false" text="Customer ID" />
+                                <TableColumn fx:id="appIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="35.0" text="ID" />
+                                <TableColumn fx:id="titleCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" text="Title" />
+                                <TableColumn fx:id="descriptionCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Description" />
+                                <TableColumn fx:id="locationCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="Location" />
+                                <TableColumn fx:id="contactCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="Contact" />
+                                <TableColumn fx:id="typeCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="Type" />
+                                <TableColumn fx:id="startCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Start Time" />
+                                <TableColumn fx:id="endCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="End Time" />
+                                <TableColumn fx:id="custIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" text="Cust. ID" />
                             </columns>
                         </TableView>
                     </center>
@@ -127,10 +116,216 @@
                         </ButtonBar>
                     </bottom>
                 </BorderPane>
-            </children>
-        </VBox>
-    </children>
-    <padding>
-        <Insets left="15.0" right="15.0" top="15.0" />
-    </padding>
-</GridPane>
+            </content>
+        </Tab>
+
+        <Tab text="Reports">
+            <content>
+                <GridPane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <Accordion fx:id="accordion" maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2" GridPane.valignment="TOP">
+                        <panes>
+                            <TitledPane fx:id="customerPane" animated="true" text="Customers">
+                                <content>
+                                    <BorderPane>
+                                        <center>
+                                            <GridPane hgap="10.0" vgap="10.0">
+                                                <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <ComboBox fx:id="comboCustomer" onAction="#buildTypeComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                <Label text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="comboType" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                <HBox spacing="10.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <Label minWidth="35.0" text="Scope:" />
+                                                        <RadioButton fx:id="radioAllCustomer" minWidth="35.0" selected="true" text="All">
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="filterCustomers" />
+                                                            </toggleGroup>
+                                                        </RadioButton>
+                                                        <RadioButton fx:id="radioMonthCustomer" minWidth="80.0" text="This month" toggleGroup="$filterCustomers" />
+                                                    </children>
+                                                </HBox>
+
+                                                <columnConstraints>
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </center>
+
+                                        <bottom>
+                                            <ButtonBar>
+                                                <buttons>
+                                                    <Button mnemonicParsing="false" onAction="#generateCustomerReport" text="Generate Report" />
+                                                </buttons>
+                                                <BorderPane.margin>
+                                                    <Insets bottom="10.0" top="10.0" />
+                                                </BorderPane.margin>
+                                            </ButtonBar>
+                                        </bottom>
+                                    </BorderPane>
+                                </content>
+                            </TitledPane>
+
+                            <TitledPane fx:id="contactPane" animated="true" text="Contacts">
+                                <content>
+                                    <BorderPane>
+                                        <center>
+                                            <GridPane hgap="10.0" vgap="10.0">
+                                                <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <ComboBox fx:id="comboContact" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <CheckBox fx:id="checkBoxPastReport" minWidth="100.0" mnemonicParsing="false" text="Include past" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                                <HBox spacing="10.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                                    <children>
+                                                        <Label minWidth="35.0" text="Scope:" />
+                                                        <RadioButton fx:id="radioAllContact" minWidth="35.0" selected="true" text="All">
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="filterContact" />
+                                                            </toggleGroup>
+                                                        </RadioButton>
+                                                        <RadioButton fx:id="radioMonthContact" minWidth="80.0" text="This month" toggleGroup="$filterContact" />
+                                                    </children>
+                                                </HBox>
+
+                                                <columnConstraints>
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </center>
+
+                                        <bottom>
+                                            <ButtonBar>
+                                                <buttons>
+                                                    <Button mnemonicParsing="false" onAction="#generateContactReport" text="Generate Schedule" />
+                                                </buttons>
+                                                <BorderPane.margin>
+                                                    <Insets bottom="10.0" top="10.0" />
+                                                </BorderPane.margin>
+                                            </ButtonBar>
+                                        </bottom>
+                                    </BorderPane>
+                                </content>
+                            </TitledPane>
+
+                            <TitledPane fx:id="timePane" animated="true" text="Time">
+                                <content>
+                                    <BorderPane>
+                                        <center>
+                                            <GridPane hgap="10.0" vgap="10.0">
+                                                <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                                <ComboBox fx:id="comboTimeContact" onAction="#buildCustomerComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                <Label text="Customer:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="comboTimeCustomer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                                <HBox spacing="10.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                                    <children>
+                                                        <Label minWidth="35.0" text="Scope:" />
+                                                        <RadioButton fx:id="radioAllTime" minWidth="35.0" selected="true" text="All">
+                                                            <toggleGroup>
+                                                                <ToggleGroup fx:id="filterTime" />
+                                                            </toggleGroup>
+                                                        </RadioButton>
+                                                        <RadioButton fx:id="radioMonthTime" minWidth="80.0" text="This month" toggleGroup="$filterTime" />
+                                                    </children>
+                                                </HBox>
+
+                                                <columnConstraints>
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                    <ColumnConstraints />
+                                                </columnConstraints>
+                                                <rowConstraints>
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                    <RowConstraints />
+                                                </rowConstraints>
+                                            </GridPane>
+                                        </center>
+
+                                        <bottom>
+                                            <ButtonBar>
+                                                <buttons>
+                                                    <Button mnemonicParsing="false" onAction="#generateTimeReport" text="Generate" />
+                                                </buttons>
+                                                <BorderPane.margin>
+                                                    <Insets bottom="10.0" top="10.0" />
+                                                </BorderPane.margin>
+                                            </ButtonBar>
+                                        </bottom>
+                                    </BorderPane>
+                                </content>
+                            </TitledPane>
+                        </panes>
+                    </Accordion>
+                    <VBox fx:id="reportInfoBox" style="-fx-background-color: white" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <TableView fx:id="customerReportTable" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="crCustIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="Cust. ID" />
+                            <TableColumn fx:id="crNameCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" text="Name" />
+                            <TableColumn fx:id="crTypeCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Type" />
+                            <TableColumn fx:id="crTitleCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Title" />
+                            <TableColumn fx:id="crStartCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Start" />
+                            <TableColumn fx:id="crIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="App. ID" />
+                        </columns>
+                    </TableView>
+
+                    <TableView fx:id="contactReportTable" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="corContactID" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="35.0" text="ID" />
+                            <TableColumn fx:id="corNameCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Name" />
+                            <TableColumn fx:id="corStartCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Start" />
+                            <TableColumn fx:id="corEndCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="End" />
+                            <TableColumn fx:id="corTitleCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Title" />
+                            <TableColumn fx:id="corTypeCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Type" />
+                            <TableColumn fx:id="corDescrCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" text="Description" />
+                            <TableColumn fx:id="corCustIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="Cust. ID" />
+                            <TableColumn fx:id="corIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="App. ID" />
+                        </columns>
+                    </TableView>
+
+                    <TableView fx:id="timeReportTable" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="timeContactIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="Cont. ID" />
+                            <TableColumn fx:id="timeCustIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="Cust. ID" />
+                            <TableColumn fx:id="timeStartCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Start" />
+                            <TableColumn fx:id="timeEndCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="End" />
+                            <TableColumn fx:id="timeTitleCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Title" />
+                            <TableColumn fx:id="timeTypeCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Type" />
+                            <TableColumn fx:id="timeDescrCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="140.0" text="Description" />
+                            <TableColumn fx:id="timeIDCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="50.0" text="App. ID" />
+                        </columns>
+                    </TableView>
+
+
+                    <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                  <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+            </content>
+        </Tab>
+
+    </tabs>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</TabPane>

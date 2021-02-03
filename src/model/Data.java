@@ -9,6 +9,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Data class manages all the application's internal lists that store the data loaded from the database.
+ */
 public class Data {
 
     private static User currentUser;

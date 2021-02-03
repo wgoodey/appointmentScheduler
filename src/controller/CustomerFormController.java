@@ -17,6 +17,13 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Optional;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The CustomerFormController class manages the creation and modification of customers.
+ */
 public class CustomerFormController {
 
     @FXML
@@ -75,6 +82,8 @@ public class CustomerFormController {
     public void save(ActionEvent click) throws SQLException {
 
         //collect data for customer
+        final int NO_ID = -1;
+
         int customerID;
         String name = textName.getText().trim();
         String country = comboCountry.getValue();
@@ -86,7 +95,7 @@ public class CustomerFormController {
         if (!textCustomerID.getText().isEmpty()) {
             customerID = Integer.parseInt(textCustomerID.getText());
         } else {
-            customerID = -1;
+            customerID = NO_ID;
         }
 
         //check that all fields are filled
@@ -103,7 +112,7 @@ public class CustomerFormController {
         Customer newCustomer = new Customer(customerID, name, address, division, postalCode, country, phone);
 
         //if modifying a customer
-        if (customerID != -1) {
+        if (customerID != NO_ID) {
             //check that no changes have been made
             if (tempCustomer.equals(newCustomer)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -118,7 +127,7 @@ public class CustomerFormController {
                 }
             }
 
-        } else { //if new customer (customerID = -1)
+        } else { //if new customer (customerID = NO_ID)
             //iterate through all customers to check for customer with that name
             for (int i = 0; i < Data.getAllCustomers().size(); i++) {
                 Customer existingCustomer = Data.getAllCustomers().get(i);

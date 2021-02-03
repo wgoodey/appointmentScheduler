@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Data;
 import model.database.DBConnection;
 import model.database.DBLoad;
 
@@ -17,17 +16,20 @@ import java.util.ResourceBundle;
 /**
  * @author Whitney Goodey
  * @version 1.0
+ * @since 1.0
  * <p>
- *
+ * The Appointment Scheduler application allows the user to manage a database of customers and their associated appointments. Customer and appointment data in the application are synchronized with the user's database. The application is able to generate various reports related to customers and appointments.
  */
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //FIXME set to load loginForm
-//        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/loginForm.fxml"));
+
+//        //directly load different windows for testing purposes
+//        Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("/view/reportWindow.fxml"));
         primaryStage.setTitle("Login");
 
@@ -56,8 +58,8 @@ public class Main extends Application {
 
         DBLoad.loadAll(DBConnection.getConnection());
 
-        //TODO remove me when switched back to login form
-        Data.setCurrentUser(Data.getAllUsers().get(0));
+
+//        Data.setCurrentUser(Data.getAllUsers().get(0));
 
         launch(args);
 

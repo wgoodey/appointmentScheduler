@@ -3,6 +3,13 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Country class defines the Country object.
+ */
 public class Country {
 
     private int ID;

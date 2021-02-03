@@ -10,6 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBSelect class queries the database for the most recently added record in order to load auto-generated information into the application's internal lists.
+ */
 public class DBSelect {
 
     /**

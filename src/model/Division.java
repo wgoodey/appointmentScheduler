@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The Division class defines the Division object.
+ */
 public class Division {
 
     int ID;

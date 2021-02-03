@@ -5,7 +5,15 @@ import model.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBUpdate class manages making updates to records in the database.
+ */
 public class DBUpdate {
 
     /**
@@ -144,13 +152,17 @@ public class DBUpdate {
         DBQuery.setPreparedStatement(connection, updateStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
+        //convert times to UTC
+        ZonedDateTime starting = appointment.getStartTime().withZoneSameInstant(Data.getUTC());
+        ZonedDateTime ending = appointment.getEndTime().withZoneSameInstant(Data.getUTC());
+
         //record data
         String title = appointment.getTitle();
         String description = appointment.getDescription();
         String location = appointment.getLocation();
         String type = appointment.getType();
-        String start = DBQuery.getSQLFormattedTime(appointment.getStartTime());
-        String end = DBQuery.getSQLFormattedTime(appointment.getEndTime());
+        String start = DBQuery.getSQLFormattedTime(starting);
+        String end = DBQuery.getSQLFormattedTime(ending);
         String contactID = String.valueOf(appointment.getContactID());
         String userID = String.valueOf(appointment.getUserID());
         String lastUpdatedBy = Data.getCurrentUser().getUsername();

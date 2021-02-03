@@ -9,6 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBDelete class manages the deletion of records from the database.
+ */
 public class DBDelete {
 
     /**

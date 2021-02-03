@@ -7,6 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
+/**
+ * @author Whitney Goodey
+ * @version 1.0
+ * @since 1.0
+ * <p>
+ * The DBInsert class manages the insertion of records into the database.
+ */
 public class DBInsert {
 
     /**
